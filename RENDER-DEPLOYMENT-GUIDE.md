@@ -52,10 +52,12 @@ Fill in these settings:
 
 Scroll down to **Environment Variables** section and add:
 
-| Key | Value |
-|-----|-------|
-| `OPENAI_API_KEY` | `your-openai-api-key-here` |
-| `NODE_ENV` | `production` |
+| Key | Value | Notes |
+|-----|-------|-------|
+| `OPENAI_API_KEY` | `your-openai-api-key-here` | Required for AI chat |
+| `NODE_ENV` | `production` | Environment mode |
+| `LOGIN_USERNAME` | `admin` | Optional - defaults to 'admin' |
+| `LOGIN_PASSWORD` | `terminal` | Optional - defaults to 'terminal' |
 
 **Important:** Keep your OpenAI API key secret! Never commit it to GitHub.
 
@@ -118,6 +120,18 @@ You'll just need to add your `OPENAI_API_KEY` in the Render dashboard.
 - **Required**: No (Render sets this automatically)
 - **Description**: Port number for the server
 - **Default**: Set by Render (usually 10000)
+
+#### `LOGIN_USERNAME`
+- **Required**: No
+- **Description**: Username for portal login
+- **Default**: `admin`
+- **Change it**: For better security, set a custom username
+
+#### `LOGIN_PASSWORD`
+- **Required**: No
+- **Description**: Password for portal login
+- **Default**: `terminal`
+- **Change it**: For better security, set a strong password
 
 ---
 

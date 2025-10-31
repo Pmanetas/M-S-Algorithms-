@@ -17,6 +17,37 @@ app.get('/health', (req, res) => {
     res.status(200).json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
 
+// Login endpoint
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
+    
+    // Default credentials (you can change these via environment variables)
+    const VALID_USERNAME = process.env.LOGIN_USERNAME || 'admin';
+    const VALID_PASSWORD = process.env.LOGIN_PASSWORD || 'terminal';
+    
+    console.log('Login attempt:', { username, providedPassword: '***' });
+    
+    if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+        console.log('✅ Login successful for:', username);
+        res.json({ 
+            success: true, 
+            message: 'Login successful',
+            username: username
+        });
+    } else {
+        console.log('❌ Login failed for:', username);
+        res.status(401).json({ 
+            success: false, 
+            message: 'Invalid username or password' 
+        });
+    }
+});
+
+// Logout endpoint
+app.post('/api/logout', (req, res) => {
+    res.json({ success: true, message: 'Logged out successfully' });
+});
+
 // OpenAI Proxy endpoint - keeps API key secure on server
 app.post('/api/chat', async (req, res) => {
     const { message, chatHistory, systemPrompt } = req.body;
