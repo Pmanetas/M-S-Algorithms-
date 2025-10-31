@@ -1,0 +1,28 @@
+services:
+  # Main Web Service
+  - type: web
+    name: ms-portal
+    runtime: node
+    env: node
+    buildCommand: cd MS-Portal-Website && npm install
+    startCommand: cd MS-Portal-Website && node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: OPENAI_API_KEY
+        sync: false  # You'll set this in Render dashboard
+      - key: PORT
+        value: 10000
+    healthCheckPath: /health
+
+  # Optional: TypeScript Frontend (if you want both)
+  # - type: web
+  #   name: ms-portal-typescript
+  #   runtime: node
+  #   env: node
+  #   buildCommand: cd frontend-ts && npm install && npm run build
+  #   staticPublishPath: frontend-ts/dist
+  #   envVars:
+  #     - key: NODE_ENV
+  #       value: production
+

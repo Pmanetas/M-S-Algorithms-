@@ -401,41 +401,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     async function callOpenAI(message) {
-        const OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY_HERE'; // Replace with your OpenAI API key
-        const API_URL = 'https://api.openai.com/v1/chat/completions';
+        // Use server proxy endpoint to keep API key secure
+        const API_URL = '/api/chat';
         
         const chatHistory = JSON.parse(localStorage.getItem('chatHistory') || '[]');
-        const messages = [
-            {
-                role: 'system',
-                content: 'You are a knowledgeable and conversational AI assistant. Structure your responses naturally with:\n\n- Use paragraphs for explanations and context\n- Use bullet points only for lists, key points, or multiple items\n- Write in a conversational, engaging tone\n- Be thorough but clear\n\n**ANSWER:** Always end your response with a clear, direct answer to the user\'s question under this heading.\n\nUse lowercase styling (except proper nouns and sentence beginnings) for a casual feel.'
-            }
-        ];
         
+        // Format chat history for the API
         const recentHistory = chatHistory.slice(-10);
-        recentHistory.forEach(msg => {
-            messages.push({
-                role: msg.sender === 'user' ? 'user' : 'assistant',
-                content: msg.text
-            });
-        });
-        
-        messages.push({
-            role: 'user',
-            content: message
-        });
+        const formattedHistory = recentHistory.map(msg => ({
+            role: msg.sender === 'user' ? 'user' : 'assistant',
+            content: msg.text
+        }));
         
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${OPENAI_API_KEY}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: 'gpt-4o-mini',
-                messages: messages,
-                temperature: 0.7,
-                max_tokens: 1000
+                message: message,
+                chatHistory: formattedHistory,
+                systemPrompt: 'You are a knowledgeable and conversational AI assistant. Structure your responses naturally with:\n\n- Use paragraphs for explanations and context\n- Use bullet points only for lists, key points, or multiple items\n- Write in a conversational, engaging tone\n- Be thorough but clear\n\n**ANSWER:** Always end your response with a clear, direct answer to the user\'s question under this heading.\n\nUse lowercase styling (except proper nouns and sentence beginnings) for a casual feel.'
             })
         });
         
@@ -444,7 +430,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         const data = await response.json();
-        return structureResponse(data.choices[0].message.content);
+        
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        
+        return structureResponse(data.reply);
     }
     
     function structureResponse(response) {
