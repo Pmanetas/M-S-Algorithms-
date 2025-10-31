@@ -1,0 +1,12 @@
+[build]
+target = "frontend/index.html"
+dist = "dist"
+public_url = "/"
+
+[watch]
+watch = ["frontend/src", "frontend/index.html"]
+
+[serve]
+address = "127.0.0.1"
+port = 8000
+open = false 

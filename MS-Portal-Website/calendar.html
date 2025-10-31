@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRAXIS - Calendar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <style>
+        /* Prevent any flicker during page load */
+        body.calendar-page {
+            opacity: 1 !important;
+            transition: none !important;
+            background-color: #0f0f0f !important;
+        }
+        body {
+            background-color: #0f0f0f !important;
+        }
+        
+        /* Hide elements until animations start */
+        .calendar-container:not(.loaded),
+        .calendar-header:not(.loaded),
+        .calendar-grid:not(.loaded),
+        .calendar-title:not(.loaded),
+        .calendar-nav-btn:not(.loaded),
+        #yearSelect:not(.loaded),
+        #monthSelect:not(.loaded) {
+            visibility: hidden;
+        }
+        
+        /* Force immediate M&S positioning - no flicker allowed */
+        .calendar-page .praxis-logo {
+            position: absolute !important;
+            top: 20px !important;
+            left: 20px !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 0.7 !important;
+            font-size: 1.2rem !important;
+            color: #4a5568 !important;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+            font-weight: 400 !important;
+            letter-spacing: 0.1em !important;
+            text-transform: uppercase !important;
+            transform: none !important;
+            animation: none !important;
+            transition: none !important;
+        }
+        
+        /* Calendar Container */
+        .calendar-container {
+            position: fixed;
+            top: 80px;
+            bottom: 0px;
+            left: calc((100vw - 280px - 950px) / 2);
+            width: 950px;
+            max-width: calc(100vw - 320px);
+            border-radius: 6px;
+            padding: 60px 20px 5px 20px;
+            z-index: 100;
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            /* Initial animation state */
+            transform: translateX(100vw);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        /* Calendar container when loaded */
+        .calendar-container.loaded {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        /* Calendar animation for grid */
+        .calendar-grid:not(.loaded) {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        
+        .calendar-grid.loaded {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Calendar title animation */
+        .calendar-title:not(.loaded) {
+            transform: translateX(-50%) translateY(-30px);
+            opacity: 0;
+        }
+        
+        .calendar-title.loaded {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        /* Calendar nav buttons animation */
+        .calendar-nav-btn:not(.loaded) {
+            transform: scale(0) rotate(180deg);
+            opacity: 0;
+        }
+        
+        .calendar-nav-btn.loaded {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+        
+        /* Year/Month selector animations */
+        #yearSelect:not(.loaded),
+        #monthSelect:not(.loaded) {
+            transform: scale(0) rotate(-45deg);
+            opacity: 0;
+        }
+        
+        #yearSelect.loaded,
+        #monthSelect.loaded {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+        
+        /* Calendar Header - Centered navigation layout within calendar */
+        .calendar-header {
+            position: fixed;
+            top: 88px;
+            left: calc((100vw - 280px) / 2);
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1001;
+            /* Initial animation state */
+            opacity: 0;
+            transform: translateX(-50%) translateY(-30px);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .calendar-header.loaded {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .calendar-nav-btn {
+            background: none;
+            border: 1px solid #2d3748;
+            color: #d0d0d0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            padding: 3px 6px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            /* Individual animation states */
+            transform: scale(0) rotate(180deg);
+            opacity: 0;
+        }
+        
+        .calendar-nav-btn.loaded {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+        
+        .calendar-nav-btn:hover {
+            background: rgba(45, 55, 72, 0.3);
+            color: #e0e0e0;
+        }
+        
+        .calendar-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.0rem;
+            color: #d0d0d0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+            margin: 0 10px;
+            /* Individual animation states */
+            transform: translateY(-30px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .calendar-title.loaded {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Year/Month Selectors */
+        .calendar-selectors {
+            display: none; /* Hide the container since selectors are now in header */
+        }
+        
+        #yearSelect,
+        #monthSelect {
+            background: none;
+            border: 1px solid #2d3748;
+            color: #d0d0d0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            padding: 3px 6px;
+            border-radius: 2px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            /* Individual animation states */
+            transform: scale(0) rotate(-45deg);
+            opacity: 0;
+        }
+        
+        #yearSelect.loaded,
+        #monthSelect.loaded {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+        
+        .selector-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        .selector-label {
+            display: none;
+        }
+        
+        .calendar-select {
+            background: rgba(20, 20, 20, 0.9);
+            border: 2px solid #4a5568;
+            color: #d0d0d0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        
+        .calendar-select:hover,
+        .calendar-select:focus,
+        #yearSelect:hover,
+        #yearSelect:focus,
+        #monthSelect:hover,
+        #monthSelect:focus {
+            background: rgba(45, 55, 72, 0.3);
+            color: #e0e0e0;
+        }
+        
+        .calendar-select option,
+        #yearSelect option,
+        #monthSelect option {
+            background: #1a1a1a;
+            color: #d0d0d0;
+        }
+        
+        /* Dark scrollbar for predefined events dropdown */
+        #predefinedDescriptions {
+            scrollbar-width: thin;
+            scrollbar-color: #4a5568 #1a1a1a;
+        }
+        
+        #predefinedDescriptions::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        #predefinedDescriptions::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+        
+        #predefinedDescriptions::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 4px;
+            border: 1px solid #2d3748;
+        }
+        
+        #predefinedDescriptions::-webkit-scrollbar-thumb:hover {
+            background: #5a6578;
+        }
+        
+        /* Dark scrollbar for search container */
+        .predefined-search-container {
+            position: relative;
+        }
+        
+        /* Dark scrollbar for event popup modal */
+        .event-popup,
+        .event-popup-content {
+            scrollbar-width: thin;
+            scrollbar-color: #4a5568 #1a1a1a;
+        }
+        
+        .event-popup::-webkit-scrollbar,
+        .event-popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .event-popup::-webkit-scrollbar-track,
+        .event-popup-content::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+        
+        .event-popup::-webkit-scrollbar-thumb,
+        .event-popup-content::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 4px;
+            border: 1px solid #2d3748;
+        }
+        
+        .event-popup::-webkit-scrollbar-thumb:hover,
+        .event-popup-content::-webkit-scrollbar-thumb:hover {
+            background: #5a6578;
+        }
+        
+        /* Calendar Grid */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+            gap: 1px;
+            background: #2d3748;
+            border: 1px solid #2d3748;
+            border-radius: 4px;
+            overflow: hidden;
+            height: calc(100vh - 230px);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+        }
+        
+        .calendar-day-header {
+            background: rgba(20, 20, 20, 0.9);
+            padding: 8px 4px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            color: #a0a0a0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+        
+        .calendar-day {
+            background: rgba(20, 20, 20, 0.9);
+            padding: 8px;
+            text-align: left;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5rem;
+            color: #d0d0d0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 48px;
+            display: block;
+            position: relative;
+        }
+        
+        .calendar-day:hover {
+            background: rgba(45, 55, 72, 0.3);
+            color: #e0e0e0;
+        }
+        
+        .calendar-day.other-month {
+            color: #2d3748;
+        }
+        
+        .calendar-day.today {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            font-weight: 600;
+        }
+        
+        .calendar-day.selected {
+            /* Removed selected day highlighting */
+        }
+        
+        .calendar-day.has-events {
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        .calendar-day.has-events:hover {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+        
+        /* Ensure consistent grey colors for navigation */
+        .calendar-page .nav-item {
+            color: #808080 !important;
+        }
+        
+        .calendar-page .nav-item:hover {
+            color: #a0a0a0 !important;
+        }
+        
+        /* Style the bottom control buttons */
+        .calendar-page .bottom-controls {
+            position: fixed !important;
+            bottom: 20px !important;
+            left: 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 8px !important;
+            z-index: 1000 !important;
+        }
+        
+        .calendar-page .control-btn {
+            background: none !important;
+            border: none !important;
+            color: #808080 !important;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+            font-size: 0.8rem !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.1em !important;
+            text-transform: uppercase !important;
+            cursor: pointer !important;
+            opacity: 0.7 !important;
+            transition: all 0.2s ease !important;
+            padding: 0 !important;
+            display: block !important;
+            text-align: left !important;
+        }
+        
+        .calendar-page .control-btn:hover {
+            color: #a0a0a0 !important;
+            opacity: 1 !important;
+        }
+        
+        /* Agent panel styling */
+        .calendar-page .chat-input,
+        .calendar-page .chat-send {
+            color: #d0d0d0 !important;
+        }
+        
+        .calendar-page .agent-selector-bottom::before {
+            color: #d0d0d0 !important;
+        }
+        
+        .calendar-page .agent-option[data-agent="claude"],
+        .calendar-page .agent-toggle.claude .agent-name,
+        .calendar-page .agent-option[data-agent="openai"],
+        .calendar-page .agent-toggle.openai .agent-name {
+            color: #718096 !important;
+        }
+        
+        .calendar-page .ai-message .message-text,
+        .calendar-page .ai-message .message-time {
+            color: #718096 !important;
+        }
+        
+        .calendar-page .user-message .message-text,
+        .calendar-page .user-message .message-time {
+            color: #ffffff !important;
+        }
+        
+        /* Event Popup Modal */
+        .event-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .event-popup-content {
+            background: rgba(20, 20, 20, 0.98);
+            border: 1px solid #2d3748;
+            border-radius: 8px;
+            padding: 24px;
+            width: 420px;
+            max-width: 90%;
+            max-height: 85%;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+        }
+        
+        .event-popup-title {
+            color: #d0d0d0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.0rem;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .event-form-group {
+            margin-bottom: 15px;
+        }
+        
+        .event-form-label {
+            display: block;
+            color: #a0a0a0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .event-form-input {
+            width: 100%;
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid #2d3748;
+            border-radius: 4px;
+            color: #d0d0d0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            padding: 8px;
+            outline: none;
+            transition: border-color 0.2s ease;
+            color-scheme: dark;
+        }
+        
+        .event-form-input:focus {
+            border-color: #4a5568;
+        }
+        
+
+        
+        .event-form-input[type="date"]::-webkit-calendar-picker-indicator {
+            background: none;
+            color: #d0d0d0;
+            cursor: pointer;
+            filter: invert(1);
+        }
+        
+        .event-form-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .event-form-row .event-form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        .event-form-select {
+            width: 100%;
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid #2d3748;
+            color: #d0d0d0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            padding: 8px;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.2s ease;
+            cursor: pointer;
+            color-scheme: dark;
+        }
+        
+        .event-form-select:focus {
+            border-color: #4a5568;
+            box-shadow: 0 0 0 2px rgba(74, 85, 104, 0.2);
+        }
+        
+        .event-form-select option {
+            background: #1a1a1a;
+            color: #d0d0d0;
+        }
+        
+        .event-form-select optgroup {
+            background: #2d3748;
+            color: #22c55e;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-bottom: 1px solid #4a5568;
+        }
+        
+        .custom-days-selector {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        
+        .custom-day-option {
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid #2d3748;
+            color: #d0d0d0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            min-width: 35px;
+        }
+        
+        .custom-day-option:hover {
+            background: rgba(45, 55, 72, 0.3);
+            border-color: #4a5568;
+        }
+        
+        .custom-day-option.selected {
+            background: rgba(74, 85, 104, 0.3);
+            border-color: #4a5568;
+            color: #e0e0e0;
+        }
+        
+        .event-type-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .event-type-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #d0d0d0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            padding: 5px 8px;
+            border: 1px solid #2d3748;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .event-type-option:hover {
+            background: rgba(45, 55, 72, 0.3);
+        }
+        
+        .event-type-option.selected {
+            background: rgba(45, 55, 72, 0.5);
+            border-color: #4a5568;
+        }
+        
+        .event-type-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .event-type-dot.news {
+            background: #3b82f6;
+        }
+        
+        .event-type-dot.meeting {
+            background: #ef4444;
+        }
+        
+        .event-popup-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .event-popup-btn {
+            flex: 1;
+            background: none;
+            border: 1px solid #2d3748;
+            color: #d0d0d0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .event-popup-btn:hover {
+            background: rgba(45, 55, 72, 0.3);
+        }
+        
+        .event-popup-btn.save {
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+        
+        .event-popup-btn.save:hover {
+            background: rgba(34, 197, 94, 0.2);
+        }
+        
+        /* Event display on calendar */
+        .calendar-day-events {
+            margin-top: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            max-height: 60px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .calendar-event-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 4px;
+            font-size: 0.5rem;
+            line-height: 1.3;
+            max-height: 26px;
+            overflow: hidden;
+        }
+        
+        .calendar-event-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+        
+        .calendar-event-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .calendar-event-dot.news {
+            background: #3b82f6;
+        }
+        
+        .calendar-event-dot.meeting {
+            background: #ef4444;
+        }
+        
+        /* Country-specific event dots */
+        .calendar-event-dot[style*="background-color"] {
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+        
+        .day-event-dot-large[style*="background-color"] {
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+        
+
+        
+        .calendar-event-text {
+            color: #d0d0d0;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            font-size: 0.5rem;
+            line-height: 1.2;
+        }
+        
+        .calendar-event-time {
+            color: #ffffff;
+            font-size: 0.45rem;
+            font-weight: 500;
+            line-height: 1.1;
+        }
+        
+        /* Event count badge */
+        .calendar-event-count {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: #4a5568;
+            color: #d0d0d0;
+            font-size: 0.4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 3px;
+            min-width: 16px;
+            text-align: center;
+            border: 1px solid #2d3748;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            z-index: 2;
+            /* Initial animation state */
+            transform: scale(0) rotate(45deg);
+            opacity: 0;
+        }
+        
+        .calendar-event-count.animate-in {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .calendar-event-count:hover {
+            background: #22c55e;
+            color: #000000;
+            transform: scale(1.05);
+            border-color: #22c55e;
+        }
+        
+        /* Day events viewer */
+        .day-events-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .day-events-content {
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid #2d3748;
+            border-radius: 6px;
+            padding: 20px;
+            width: 400px;
+            max-width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+        
+        .day-events-title {
+            color: #d0d0d0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.0rem;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .day-events-list {
+            margin-bottom: 20px;
+        }
+        
+        .day-event-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 8px;
+            margin-bottom: 8px;
+            background: rgba(30, 30, 30, 0.6);
+            border-radius: 4px;
+            border-left: 3px solid transparent;
+        }
+        
+        .day-event-item.news {
+            border-left-color: #3b82f6;
+        }
+        
+        .day-event-item.meeting {
+            border-left-color: #ef4444;
+        }
+        
+        .day-event-dot-large {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .day-event-dot-large.news {
+            background: #3b82f6;
+        }
+        
+        .day-event-dot-large.meeting {
+            background: #ef4444;
+        }
+        
+        .day-event-text-large {
+            color: #d0d0d0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        
+        .day-event-time {
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            margin-top: 2px;
+            font-weight: 500;
+        }
+        
+        .day-event-type {
+            color: #a0a0a0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+        
+        .day-events-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .day-events-btn {
+            flex: 1;
+            background: none;
+            border: 1px solid #2d3748;
+            color: #d0d0d0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .day-events-btn:hover {
+            background: rgba(45, 55, 72, 0.3);
+        }
+        
+        .day-events-btn.add {
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+        
+        .day-events-btn.add:hover {
+            background: rgba(34, 197, 94, 0.2);
+        }
+        /* Event popup animations */
+        .event-popup {
+            transform: translateY(-50px) scale(0.9);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .event-popup.show {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        
+        /* Day events popup animations */
+        .day-events-popup {
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .day-events-popup.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        /* Calendar event items animation */
+        .calendar-event-item {
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .calendar-event-item.animate-in {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        /* Calendar days hover animation enhancement */
+        .calendar-day {
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+    </style>
+</head>
+<body class="calendar-page">
+    <div class="black-screen">
+        <div class="praxis-logo" style="position: absolute !important; top: 20px !important; left: 20px !important; font-size: 1.2rem !important; opacity: 0.7 !important; font-weight: 400 !important; letter-spacing: 0.1em !important; text-transform: uppercase !important; color: #4a5568 !important; transition: none !important; transform: none !important; animation: none !important; display: block !important; visibility: visible !important; font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">m&s</div>
+        
+        <!-- Bottom Left Control Buttons -->
+        <div class="bottom-controls">
+            <button class="control-btn home-btn" id="homeBtn">HOME</button>
+        </div>
+        
+        <!-- Selected navigation item - positioned independently -->
+        <div class="nav-item selected-nav" id="selectedNav">CALENDAR</div>
+        
+        <!-- Calendar Header with Navigation -->
+        <div class="calendar-header" id="calendarHeader">
+            <button class="calendar-nav-btn" id="prevBtn">← PREV</button>
+            
+            <select class="calendar-select" id="yearSelect">
+                <!-- Years will be populated by JavaScript -->
+            </select>
+            
+            <div class="calendar-title" id="calendarTitle">JANUARY 2025</div>
+            
+            <select class="calendar-select" id="monthSelect">
+                <option value="0">JANUARY</option>
+                <option value="1">FEBRUARY</option>
+                <option value="2">MARCH</option>
+                <option value="3">APRIL</option>
+                <option value="4">MAY</option>
+                <option value="5">JUNE</option>
+                <option value="6">JULY</option>
+                <option value="7">AUGUST</option>
+                <option value="8">SEPTEMBER</option>
+                <option value="9">OCTOBER</option>
+                <option value="10">NOVEMBER</option>
+                <option value="11">DECEMBER</option>
+            </select>
+            
+            <button class="calendar-nav-btn" id="nextBtn">NEXT →</button>
+        </div>
+        
+        <!-- Calendar Container -->
+        <div class="calendar-container">
+            
+            <!-- Year/Month Selectors (hidden, now in header) -->
+            <div class="calendar-selectors">
+                <div class="selector-group">
+                    <div class="selector-label">YEAR</div>
+                    <select class="calendar-select" id="yearSelectHidden">
+                        <!-- Duplicate for fallback -->
+                    </select>
+                </div>
+                <div class="selector-group">
+                    <div class="selector-label">MONTH</div>
+                    <select class="calendar-select" id="monthSelectHidden">
+                        <!-- Duplicate for fallback -->
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Calendar Grid -->
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Calendar will be populated by JavaScript -->
+            </div>
+            
+
+        </div>
+        
+        <!-- Event Popup Modal -->
+        <div class="event-popup" id="eventPopup">
+            <div class="event-popup-content">
+                <div class="event-popup-title" id="eventPopupTitle">Add Event</div>
+                
+                <div class="event-form-group">
+                    <label class="event-form-label">Event Description</label>
+                    <input type="text" class="event-form-input" id="eventDescription" placeholder="Enter event description...">
+                </div>
+                
+                <div class="event-form-group">
+                    <label class="event-form-label">Quick Select Economic Events</label>
+                    <div class="predefined-search-container">
+                        <input type="text" class="event-form-input" id="predefinedSearch" placeholder="Search events..." style="margin-bottom: 8px;">
+                        <select class="event-form-select" id="predefinedDescriptions" size="6" style="height: auto;">
+                            <option value="">-- Select a predefined event --</option>
+                        <optgroup label="🟥 UNITED STATES">
+                            <option value="FED interest rate decision">FED interest rate decision</option>
+                            <option value="FED minutes">FED minutes</option>
+                            <option value="FED chair speech">FED chair speech</option>
+                            <option value="Inflation rate">Inflation rate</option>
+                            <option value="Core PCE">Core PCE</option>
+                            <option value="Unemployment rate">Unemployment rate</option>
+                            <option value="GDP y/y">GDP y/y</option>
+                            <option value="GDP q/q">GDP q/q</option>
+                            <option value="Manufacturing PMI (ISM)">Manufacturing PMI (ISM)</option>
+                            <option value="Services PMI (ISM)">Services PMI (ISM)</option>
+                            <option value="Durable goods orders">Durable goods orders</option>
+                            <option value="Retail sales">Retail sales</option>
+                            <option value="Consumer confidence index">Consumer confidence index</option>
+                            <option value="Initial jobless claims">Initial jobless claims</option>
+                            <option value="EIA crude oil inventories">EIA crude oil inventories</option>
+                            <option value="10Y & 30Y Treasury auctions">10Y & 30Y Treasury auctions</option>
+                        </optgroup>
+                        <optgroup label="🟦 UNITED KINGDOM">
+                            <option value="BOE interest rate decision">BOE interest rate decision</option>
+                            <option value="Inflation rate (UK)">Inflation rate</option>
+                            <option value="Unemployment rate (UK)">Unemployment rate</option>
+                            <option value="GDP y/y (UK)">GDP y/y</option>
+                            <option value="GDP q/q (UK)">GDP q/q</option>
+                            <option value="Manufacturing PMI (UK)">Manufacturing PMI</option>
+                            <option value="Services PMI (UK)">Services PMI</option>
+                            <option value="Retail sales (UK)">Retail sales</option>
+                            <option value="GfK consumer confidence">GfK consumer confidence</option>
+                            <option value="Halifax house price index">Halifax house price index</option>
+                        </optgroup>
+                        <optgroup label="🟩 AUSTRALIA">
+                            <option value="RBA interest rate decision">RBA interest rate decision</option>
+                            <option value="RBA minutes">RBA minutes</option>
+                            <option value="Inflation rate (AU)">Inflation rate</option>
+                            <option value="Unemployment rate (AU)">Unemployment rate</option>
+                            <option value="GDP y/y (AU)">GDP y/y</option>
+                            <option value="GDP q/q (AU)">GDP q/q</option>
+                            <option value="NAB business confidence">NAB business confidence</option>
+                            <option value="Westpac consumer confidence">Westpac consumer confidence</option>
+                            <option value="Building approvals">Building approvals</option>
+                            <option value="CoreLogic home prices">CoreLogic home prices</option>
+                        </optgroup>
+                        <optgroup label="🟨 CHINA">
+                            <option value="PBOC interest rate decision">PBOC interest rate decision</option>
+                            <option value="Inflation rate (CPI & PPI)">Inflation rate (CPI & PPI)</option>
+                            <option value="Unemployment rate (CN)">Unemployment rate</option>
+                            <option value="GDP y/y (CN)">GDP y/y</option>
+                            <option value="GDP q/q (CN)">GDP q/q</option>
+                            <option value="NBS manufacturing PMI">NBS manufacturing PMI</option>
+                            <option value="Caixin manufacturing PMI">Caixin manufacturing PMI</option>
+                            <option value="Caixin services PMI">Caixin services PMI</option>
+                            <option value="Trade balance (CN)">Trade balance</option>
+                            <option value="FX reserves (CN)">FX reserves</option>
+                        </optgroup>
+                        <optgroup label="🟧 INDIA">
+                            <option value="RBI interest rate decision">RBI interest rate decision</option>
+                            <option value="Inflation rate (IN)">Inflation rate</option>
+                            <option value="Unemployment rate (IN)">Unemployment rate</option>
+                            <option value="GDP y/y (IN)">GDP y/y</option>
+                            <option value="GDP q/q (IN)">GDP q/q</option>
+                            <option value="Manufacturing PMI (IN)">Manufacturing PMI</option>
+                            <option value="Services PMI (IN)">Services PMI</option>
+                            <option value="Trade balance (IN)">Trade balance</option>
+                            <option value="FX reserves (IN)">FX reserves</option>
+                        </optgroup>
+                        <optgroup label="🟫 CANADA">
+                            <option value="BOC interest rate decision">BOC interest rate decision</option>
+                            <option value="Inflation rate (CA)">Inflation rate</option>
+                            <option value="Unemployment rate (CA)">Unemployment rate</option>
+                            <option value="GDP y/y (CA)">GDP y/y</option>
+                            <option value="GDP q/q (CA)">GDP q/q</option>
+                            <option value="Manufacturing PMI (CA)">Manufacturing PMI</option>
+                            <option value="Retail sales (CA)">Retail sales</option>
+                            <option value="Housing starts">Housing starts</option>
+                        </optgroup>
+                        <optgroup label="🟪 EUROPE (EU)">
+                            <option value="ECB interest rate decision">ECB interest rate decision</option>
+                            <option value="Monetary policy statement">Monetary policy statement</option>
+                            <option value="Inflation rate (EU)">Inflation rate</option>
+                            <option value="Unemployment rate (EU)">Unemployment rate</option>
+                            <option value="GDP y/y (EU)">GDP y/y</option>
+                            <option value="GDP q/q (EU)">GDP q/q</option>
+                            <option value="ZEW economic sentiment">ZEW economic sentiment</option>
+                            <option value="Manufacturing PMI (EU)">Manufacturing PMI</option>
+                            <option value="Services PMI (EU)">Services PMI</option>
+                            <option value="Retail sales (EU)">Retail sales</option>
+                        </optgroup>
+                        <optgroup label="🟫 GERMANY">
+                            <option value="Inflation rate (DE)">Inflation rate</option>
+                            <option value="GDP y/y (DE)">GDP y/y</option>
+                            <option value="Industrial production">Industrial production</option>
+                            <option value="Ifo business climate">Ifo business climate</option>
+                            <option value="ZEW sentiment">ZEW sentiment</option>
+                        </optgroup>
+                        <optgroup label="🟨 TURKEY">
+                            <option value="CBRT interest rate decision">CBRT interest rate decision</option>
+                            <option value="Inflation rate (TR)">Inflation rate</option>
+                            <option value="Unemployment rate (TR)">Unemployment rate</option>
+                            <option value="GDP y/y (TR)">GDP y/y</option>
+                            <option value="GDP q/q (TR)">GDP q/q</option>
+                            <option value="Trade balance (TR)">Trade balance</option>
+                            <option value="FX reserves (TR)">FX reserves</option>
+                            <option value="Manufacturing PMI (TR)">Manufacturing PMI</option>
+                        </optgroup>
+                        <optgroup label="🟧 BRAZIL">
+                            <option value="BCB interest rate decision">BCB interest rate decision</option>
+                            <option value="Copom minutes">Copom minutes</option>
+                            <option value="Inflation rate (BR)">Inflation rate</option>
+                            <option value="Unemployment rate (BR)">Unemployment rate</option>
+                            <option value="GDP y/y (BR)">GDP y/y</option>
+                            <option value="GDP q/q (BR)">GDP q/q</option>
+                            <option value="Retail sales (BR)">Retail sales</option>
+                            <option value="Industrial production (BR)">Industrial production</option>
+                        </optgroup>
+                        <optgroup label="🟩 MEXICO">
+                            <option value="Banxico interest rate decision">Banxico interest rate decision</option>
+                            <option value="Inflation rate (MX)">Inflation rate</option>
+                            <option value="Unemployment rate (MX)">Unemployment rate</option>
+                            <option value="GDP y/y (MX)">GDP y/y</option>
+                            <option value="GDP q/q (MX)">GDP q/q</option>
+                            <option value="Trade balance (MX)">Trade balance</option>
+                            <option value="Industrial production (MX)">Industrial production</option>
+                        </optgroup>
+                        <optgroup label="🟥 ARGENTINA">
+                            <option value="BCRA interest rate decision">BCRA interest rate decision</option>
+                            <option value="Inflation rate (AR)">Inflation rate</option>
+                            <option value="Unemployment rate (AR)">Unemployment rate</option>
+                            <option value="GDP y/y (AR)">GDP y/y</option>
+                            <option value="Trade balance (AR)">Trade balance</option>
+                            <option value="FX reserves (AR)">FX reserves</option>
+                        </optgroup>
+                        <optgroup label="🟦 JAPAN">
+                            <option value="BOJ interest rate decision">BOJ interest rate decision</option>
+                            <option value="Inflation rate (JP)">Inflation rate</option>
+                            <option value="Unemployment rate (JP)">Unemployment rate</option>
+                            <option value="GDP y/y (JP)">GDP y/y</option>
+                            <option value="GDP q/q (JP)">GDP q/q</option>
+                            <option value="Tankan survey">Tankan survey</option>
+                            <option value="Machinery orders">Machinery orders</option>
+                            <option value="Manufacturing PMI (JP)">Manufacturing PMI</option>
+                            <option value="Services PMI (JP)">Services PMI</option>
+                        </optgroup>
+                        <optgroup label="🟨 INDONESIA">
+                            <option value="BI interest rate decision">BI interest rate decision</option>
+                            <option value="Inflation rate (ID)">Inflation rate</option>
+                            <option value="Unemployment rate (ID)">Unemployment rate</option>
+                            <option value="GDP y/y (ID)">GDP y/y</option>
+                            <option value="Trade balance (ID)">Trade balance</option>
+                            <option value="Manufacturing PMI (ID)">Manufacturing PMI</option>
+                        </optgroup>
+                        <optgroup label="🟩 SINGAPORE">
+                            <option value="MAS monetary policy statement">MAS monetary policy statement</option>
+                            <option value="Inflation rate (SG)">Inflation rate</option>
+                            <option value="Unemployment rate (SG)">Unemployment rate</option>
+                            <option value="GDP y/y (SG)">GDP y/y</option>
+                            <option value="GDP q/q (SG)">GDP q/q</option>
+                            <option value="Manufacturing PMI (SG)">Manufacturing PMI</option>
+                            <option value="Non-oil exports">Non-oil exports</option>
+                        </optgroup>
+                        <optgroup label="🟫 SAUDI ARABIA">
+                            <option value="SAMA policy rate">SAMA policy rate</option>
+                            <option value="Inflation rate (SA)">Inflation rate</option>
+                            <option value="GDP y/y (SA)">GDP y/y</option>
+                            <option value="Crude oil production">Crude oil production</option>
+                            <option value="Fiscal balance">Fiscal balance</option>
+                            <option value="Budget announcements">Budget announcements</option>
+                        </optgroup>
+                        <optgroup label="🟪 UNITED ARAB EMIRATES">
+                            <option value="CBUAE policy rate">CBUAE policy rate</option>
+                            <option value="Inflation rate (AE)">Inflation rate</option>
+                            <option value="GDP y/y (AE)">GDP y/y</option>
+                            <option value="Crude oil production (AE)">Crude oil production</option>
+                            <option value="Sovereign fund activity">Sovereign fund activity</option>
+                        </optgroup>
+                        <optgroup label="🟥 RUSSIA">
+                            <option value="CBR interest rate decision">CBR interest rate decision</option>
+                            <option value="Inflation rate (RU)">Inflation rate</option>
+                            <option value="Unemployment rate (RU)">Unemployment rate</option>
+                            <option value="GDP y/y (RU)">GDP y/y</option>
+                            <option value="Trade balance (RU)">Trade balance</option>
+                            <option value="FX reserves (RU)">FX reserves</option>
+                            <option value="Crude oil/natural gas output">Crude oil/natural gas output</option>
+                        </optgroup>
+                        <optgroup label="🥝 NEW ZEALAND">
+                            <option value="RBNZ interest rate decision">RBNZ interest rate decision</option>
+                            <option value="RBNZ monetary policy statement">RBNZ monetary policy statement</option>
+                            <option value="Inflation rate (NZ)">Inflation rate</option>
+                            <option value="Unemployment rate (NZ)">Unemployment rate</option>
+                            <option value="GDP y/y (NZ)">GDP y/y</option>
+                            <option value="GDP q/q (NZ)">GDP q/q</option>
+                            <option value="ANZ business confidence">ANZ business confidence</option>
+                            <option value="Consumer confidence (NZ)">Consumer confidence</option>
+                            <option value="Trade balance (NZ)">Trade balance</option>
+                            <option value="Dairy auction results">Dairy auction results</option>
+                            <option value="Manufacturing PMI (NZ)">Manufacturing PMI</option>
+                            <option value="Services PMI (NZ)">Services PMI</option>
+                        </optgroup>
+                    </select>
+                    </div>
+                </div>
+                
+                <div class="event-form-group">
+                    <label class="event-form-label">Event Type</label>
+                    <div class="event-type-selector">
+                        <div class="event-type-option" data-type="news">
+                            <div class="event-type-dot news"></div>
+                            <span>News</span>
+                        </div>
+                        <div class="event-type-option selected" data-type="meeting">
+                            <div class="event-type-dot meeting"></div>
+                            <span>Meeting</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="event-form-row">
+                    <div class="event-form-group">
+                        <label class="event-form-label">Start Time</label>
+                        <select class="event-form-select" id="eventStartTime">
+                            <option value="00:00">12:00 AM</option>
+                            <option value="00:15">12:15 AM</option>
+                            <option value="00:30">12:30 AM</option>
+                            <option value="00:45">12:45 AM</option>
+                            <option value="01:00">1:00 AM</option>
+                            <option value="01:15">1:15 AM</option>
+                            <option value="01:30">1:30 AM</option>
+                            <option value="01:45">1:45 AM</option>
+                            <option value="02:00">2:00 AM</option>
+                            <option value="02:15">2:15 AM</option>
+                            <option value="02:30">2:30 AM</option>
+                            <option value="02:45">2:45 AM</option>
+                            <option value="03:00">3:00 AM</option>
+                            <option value="03:15">3:15 AM</option>
+                            <option value="03:30">3:30 AM</option>
+                            <option value="03:45">3:45 AM</option>
+                            <option value="04:00">4:00 AM</option>
+                            <option value="04:15">4:15 AM</option>
+                            <option value="04:30">4:30 AM</option>
+                            <option value="04:45">4:45 AM</option>
+                            <option value="05:00">5:00 AM</option>
+                            <option value="05:15">5:15 AM</option>
+                            <option value="05:30">5:30 AM</option>
+                            <option value="05:45">5:45 AM</option>
+                            <option value="06:00">6:00 AM</option>
+                            <option value="06:15">6:15 AM</option>
+                            <option value="06:30">6:30 AM</option>
+                            <option value="06:45">6:45 AM</option>
+                            <option value="07:00">7:00 AM</option>
+                            <option value="07:15">7:15 AM</option>
+                            <option value="07:30">7:30 AM</option>
+                            <option value="07:45">7:45 AM</option>
+                            <option value="08:00">8:00 AM</option>
+                            <option value="08:15">8:15 AM</option>
+                            <option value="08:30">8:30 AM</option>
+                            <option value="08:45">8:45 AM</option>
+                            <option value="09:00" selected>9:00 AM</option>
+                            <option value="09:15">9:15 AM</option>
+                            <option value="09:30">9:30 AM</option>
+                            <option value="09:45">9:45 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="10:15">10:15 AM</option>
+                            <option value="10:30">10:30 AM</option>
+                            <option value="10:45">10:45 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="11:15">11:15 AM</option>
+                            <option value="11:30">11:30 AM</option>
+                            <option value="11:45">11:45 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="12:15">12:15 PM</option>
+                            <option value="12:30">12:30 PM</option>
+                            <option value="12:45">12:45 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="13:15">1:15 PM</option>
+                            <option value="13:30">1:30 PM</option>
+                            <option value="13:45">1:45 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="14:15">2:15 PM</option>
+                            <option value="14:30">2:30 PM</option>
+                            <option value="14:45">2:45 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="15:15">3:15 PM</option>
+                            <option value="15:30">3:30 PM</option>
+                            <option value="15:45">3:45 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="16:15">4:15 PM</option>
+                            <option value="16:30">4:30 PM</option>
+                            <option value="16:45">4:45 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                            <option value="17:15">5:15 PM</option>
+                            <option value="17:30">5:30 PM</option>
+                            <option value="17:45">5:45 PM</option>
+                            <option value="18:00">6:00 PM</option>
+                            <option value="18:15">6:15 PM</option>
+                            <option value="18:30">6:30 PM</option>
+                            <option value="18:45">6:45 PM</option>
+                            <option value="19:00">7:00 PM</option>
+                            <option value="19:15">7:15 PM</option>
+                            <option value="19:30">7:30 PM</option>
+                            <option value="19:45">7:45 PM</option>
+                            <option value="20:00">8:00 PM</option>
+                            <option value="20:15">8:15 PM</option>
+                            <option value="20:30">8:30 PM</option>
+                            <option value="20:45">8:45 PM</option>
+                            <option value="21:00">9:00 PM</option>
+                            <option value="21:15">9:15 PM</option>
+                            <option value="21:30">9:30 PM</option>
+                            <option value="21:45">9:45 PM</option>
+                            <option value="22:00">10:00 PM</option>
+                            <option value="22:15">10:15 PM</option>
+                            <option value="22:30">10:30 PM</option>
+                            <option value="22:45">10:45 PM</option>
+                            <option value="23:00">11:00 PM</option>
+                            <option value="23:15">11:15 PM</option>
+                            <option value="23:30">11:30 PM</option>
+                            <option value="23:45">11:45 PM</option>
+                        </select>
+                    </div>
+                    <div class="event-form-group">
+                        <label class="event-form-label">End Time</label>
+                        <select class="event-form-select" id="eventEndTime">
+                            <option value="00:00">12:00 AM</option>
+                            <option value="00:15">12:15 AM</option>
+                            <option value="00:30">12:30 AM</option>
+                            <option value="00:45">12:45 AM</option>
+                            <option value="01:00">1:00 AM</option>
+                            <option value="01:15">1:15 AM</option>
+                            <option value="01:30">1:30 AM</option>
+                            <option value="01:45">1:45 AM</option>
+                            <option value="02:00">2:00 AM</option>
+                            <option value="02:15">2:15 AM</option>
+                            <option value="02:30">2:30 AM</option>
+                            <option value="02:45">2:45 AM</option>
+                            <option value="03:00">3:00 AM</option>
+                            <option value="03:15">3:15 AM</option>
+                            <option value="03:30">3:30 AM</option>
+                            <option value="03:45">3:45 AM</option>
+                            <option value="04:00">4:00 AM</option>
+                            <option value="04:15">4:15 AM</option>
+                            <option value="04:30">4:30 AM</option>
+                            <option value="04:45">4:45 AM</option>
+                            <option value="05:00">5:00 AM</option>
+                            <option value="05:15">5:15 AM</option>
+                            <option value="05:30">5:30 AM</option>
+                            <option value="05:45">5:45 AM</option>
+                            <option value="06:00">6:00 AM</option>
+                            <option value="06:15">6:15 AM</option>
+                            <option value="06:30">6:30 AM</option>
+                            <option value="06:45">6:45 AM</option>
+                            <option value="07:00">7:00 AM</option>
+                            <option value="07:15">7:15 AM</option>
+                            <option value="07:30">7:30 AM</option>
+                            <option value="07:45">7:45 AM</option>
+                            <option value="08:00">8:00 AM</option>
+                            <option value="08:15">8:15 AM</option>
+                            <option value="08:30">8:30 AM</option>
+                            <option value="08:45">8:45 AM</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="09:15">9:15 AM</option>
+                            <option value="09:30">9:30 AM</option>
+                            <option value="09:45">9:45 AM</option>
+                            <option value="10:00" selected>10:00 AM</option>
+                            <option value="10:15">10:15 AM</option>
+                            <option value="10:30">10:30 AM</option>
+                            <option value="10:45">10:45 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="11:15">11:15 AM</option>
+                            <option value="11:30">11:30 AM</option>
+                            <option value="11:45">11:45 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="12:15">12:15 PM</option>
+                            <option value="12:30">12:30 PM</option>
+                            <option value="12:45">12:45 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="13:15">1:15 PM</option>
+                            <option value="13:30">1:30 PM</option>
+                            <option value="13:45">1:45 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="14:15">2:15 PM</option>
+                            <option value="14:30">2:30 PM</option>
+                            <option value="14:45">2:45 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="15:15">3:15 PM</option>
+                            <option value="15:30">3:30 PM</option>
+                            <option value="15:45">3:45 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="16:15">4:15 PM</option>
+                            <option value="16:30">4:30 PM</option>
+                            <option value="16:45">4:45 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                            <option value="17:15">5:15 PM</option>
+                            <option value="17:30">5:30 PM</option>
+                            <option value="17:45">5:45 PM</option>
+                            <option value="18:00">6:00 PM</option>
+                            <option value="18:15">6:15 PM</option>
+                            <option value="18:30">6:30 PM</option>
+                            <option value="18:45">6:45 PM</option>
+                            <option value="19:00">7:00 PM</option>
+                            <option value="19:15">7:15 PM</option>
+                            <option value="19:30">7:30 PM</option>
+                            <option value="19:45">7:45 PM</option>
+                            <option value="20:00">8:00 PM</option>
+                            <option value="20:15">8:15 PM</option>
+                            <option value="20:30">8:30 PM</option>
+                            <option value="20:45">8:45 PM</option>
+                            <option value="21:00">9:00 PM</option>
+                            <option value="21:15">9:15 PM</option>
+                            <option value="21:30">9:30 PM</option>
+                            <option value="21:45">9:45 PM</option>
+                            <option value="22:00">10:00 PM</option>
+                            <option value="22:15">10:15 PM</option>
+                            <option value="22:30">10:30 PM</option>
+                            <option value="22:45">10:45 PM</option>
+                            <option value="23:00">11:00 PM</option>
+                            <option value="23:15">11:15 PM</option>
+                            <option value="23:30">11:30 PM</option>
+                            <option value="23:45">11:45 PM</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="event-form-group">
+                    <label class="event-form-label">Alert Time</label>
+                    <select class="event-form-select" id="eventAlertTime">
+                        <option value="0">No Alert</option>
+                        <option value="5">5 minutes before</option>
+                        <option value="15" selected>15 minutes before</option>
+                        <option value="30">30 minutes before</option>
+                        <option value="60">1 hour before</option>
+                        <option value="120">2 hours before</option>
+                        <option value="1440">1 day before</option>
+                    </select>
+                </div>
+                
+                <div class="event-form-group">
+                    <label class="event-form-label">Repeat</label>
+                    <select class="event-form-select" id="eventRepeat">
+                        <option value="none">No Repeat</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="custom">Custom Days</option>
+                    </select>
+                </div>
+                
+                <div class="event-form-group" id="customDaysGroup" style="display: none;">
+                    <label class="event-form-label">Select Days</label>
+                    <div class="custom-days-selector">
+                        <div class="custom-day-option" data-day="0">Sun</div>
+                        <div class="custom-day-option" data-day="1">Mon</div>
+                        <div class="custom-day-option" data-day="2">Tue</div>
+                        <div class="custom-day-option" data-day="3">Wed</div>
+                        <div class="custom-day-option" data-day="4">Thu</div>
+                        <div class="custom-day-option" data-day="5">Fri</div>
+                        <div class="custom-day-option" data-day="6">Sat</div>
+                    </div>
+                </div>
+                
+                <div class="event-form-group" id="repeatEndGroup" style="display: none;">
+                    <label class="event-form-label">Repeat Until</label>
+                    <input type="date" class="event-form-input" id="eventRepeatEnd">
+                </div>
+                
+                <div class="event-popup-buttons">
+                    <button class="event-popup-btn" id="eventCancel">Cancel</button>
+                    <button class="event-popup-btn save" id="eventSave">Save</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Day Events Viewer -->
+        <div class="day-events-popup" id="dayEventsPopup">
+            <div class="day-events-content">
+                <div class="day-events-title" id="dayEventsTitle">Events</div>
+                
+                <div class="day-events-list" id="dayEventsList">
+                    <!-- Events will be populated by JavaScript -->
+                </div>
+                
+                <div class="day-events-buttons">
+                    <button class="day-events-btn" id="dayEventsClose">Close</button>
+                    <button class="day-events-btn add" id="dayEventsAdd">Add Event</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Agent Side Panel - always visible like Cursor -->
+        <div class="chat-container" id="chatContainer">
+            <!-- Chat Header with NEW CHAT button -->
+            <div class="chat-header-bar">
+                <div class="chat-title-left">AGENT</div>
+                <button class="new-chat-btn" id="newChatBtn">NEW CHAT</button>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+            </div>
+            <div class="chat-input-container">
+                <textarea class="chat-input" id="chatInput" placeholder="" rows="1"></textarea>
+                <button class="chat-send" id="chatSend">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22,2 15,22 11,13 2,9"></polygon>
+                    </svg>
+                </button>
+            </div>
+            <div class="agent-selector-bottom">
+                <div class="agent-toggle" id="agentToggle">
+                    <span class="agent-arrow" id="agentArrow">^</span>
+                    <span class="agent-name" id="agentName">ChatGPT</span>
+                </div>
+                <div class="agent-dropdown-menu" id="agentDropdown" style="display: none;">
+                    <div class="agent-option" data-agent="openai">ChatGPT</div>
+                    <div class="agent-option" data-agent="claude">Claude</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="calendar.js"></script>
+</body>
+</html> 

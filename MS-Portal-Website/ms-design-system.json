@@ -1,0 +1,361 @@
+{
+  "name": "M&S Design System",
+  "version": "1.0.0",
+  "description": "Complete design system for Manetas & Stevens applications",
+  
+  "colors": {
+    "primary": {
+      "background": "#0f0f0f",
+      "backgroundAlt": "#1a1a1a",
+      "backgroundCard": "rgba(15, 15, 15, 0.95)"
+    },
+    "accent": {
+      "green": "#16a34a",
+      "greenLight": "#22c55e",
+      "greenDark": "#14532d",
+      "greenGlow": "rgba(22, 163, 74, 0.3)"
+    },
+    "text": {
+      "primary": "#ffffff",
+      "secondary": "#a0a0a0",
+      "tertiary": "#808080",
+      "muted": "#4a5568",
+      "light": "#d0d0d0"
+    },
+    "status": {
+      "success": "#22c55e",
+      "successBg": "rgba(22, 163, 74, 0.2)",
+      "successBorder": "rgba(22, 163, 74, 0.4)",
+      "warning": "#fbbf24",
+      "warningBg": "rgba(245, 158, 11, 0.2)",
+      "warningBorder": "rgba(245, 158, 11, 0.4)",
+      "danger": "#ef4444",
+      "dangerBg": "rgba(220, 38, 38, 0.2)",
+      "dangerBorder": "rgba(220, 38, 38, 0.4)",
+      "info": "#38bdf8",
+      "infoBg": "rgba(14, 165, 233, 0.2)",
+      "infoBorder": "rgba(14, 165, 233, 0.4)"
+    },
+    "borders": {
+      "default": "rgba(255, 255, 255, 0.1)",
+      "focus": "#16a34a",
+      "hover": "rgba(22, 163, 74, 0.3)",
+      "input": "#2d3748"
+    }
+  },
+
+  "typography": {
+    "fonts": {
+      "primary": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
+      "mono": "'JetBrains Mono', monospace",
+      "fallback": "system-ui, -apple-system, sans-serif"
+    },
+    "fontWeights": {
+      "light": 300,
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700,
+      "extrabold": 800
+    },
+    "fontSizes": {
+      "xs": "0.6rem",
+      "sm": "0.7rem",
+      "base": "0.85rem",
+      "md": "0.9rem",
+      "lg": "1.2rem",
+      "xl": "1.5rem",
+      "2xl": "2rem",
+      "3xl": "3rem"
+    },
+    "lineHeights": {
+      "tight": 1.2,
+      "normal": 1.4,
+      "relaxed": 1.6
+    },
+    "letterSpacing": {
+      "tight": "-0.02em",
+      "normal": "0.01em",
+      "wide": "0.05em",
+      "wider": "0.1em",
+      "widest": "0.15em"
+    }
+  },
+
+  "spacing": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "12px",
+    "base": "16px",
+    "lg": "20px",
+    "xl": "24px",
+    "2xl": "32px",
+    "3xl": "40px",
+    "4xl": "48px"
+  },
+
+  "borderRadius": {
+    "none": "0",
+    "sm": "3px",
+    "base": "4px",
+    "md": "6px",
+    "lg": "8px",
+    "xl": "12px",
+    "full": "9999px"
+  },
+
+  "shadows": {
+    "sm": "0 0 5px rgba(0, 0, 0, 0.2)",
+    "base": "0 0 10px rgba(0, 0, 0, 0.3)",
+    "md": "0 0 15px rgba(22, 163, 74, 0.2)",
+    "lg": "0 0 20px rgba(22, 163, 74, 0.3)",
+    "xl": "0 0 30px rgba(22, 163, 74, 0.4)",
+    "glow": "0 0 15px rgba(22, 163, 74, 0.6)"
+  },
+
+  "transitions": {
+    "fast": "0.15s ease",
+    "base": "0.3s ease",
+    "slow": "0.5s ease",
+    "timing": {
+      "easeIn": "cubic-bezier(0.4, 0, 1, 1)",
+      "easeOut": "cubic-bezier(0, 0, 0.2, 1)",
+      "easeInOut": "cubic-bezier(0.4, 0, 0.2, 1)"
+    }
+  },
+
+  "components": {
+    "button": {
+      "primary": {
+        "background": "#16a34a",
+        "color": "#ffffff",
+        "hoverBackground": "#22c55e",
+        "hoverShadow": "0 0 15px rgba(22, 163, 74, 0.4)",
+        "hoverTransform": "translateY(-2px)",
+        "padding": "10px 20px",
+        "fontSize": "0.85rem",
+        "fontWeight": 500,
+        "letterSpacing": "0.05em",
+        "textTransform": "uppercase",
+        "borderRadius": "4px",
+        "border": "none"
+      },
+      "secondary": {
+        "background": "transparent",
+        "color": "#808080",
+        "border": "1px solid #2d3748",
+        "hoverColor": "#16a34a",
+        "hoverBorder": "1px solid #16a34a",
+        "hoverShadow": "0 0 10px rgba(22, 163, 74, 0.2)",
+        "padding": "10px 20px",
+        "fontSize": "0.85rem",
+        "fontWeight": 500,
+        "letterSpacing": "0.05em",
+        "textTransform": "uppercase",
+        "borderRadius": "4px"
+      },
+      "danger": {
+        "background": "#dc2626",
+        "color": "#ffffff",
+        "hoverBackground": "#ef4444",
+        "hoverShadow": "0 0 15px rgba(220, 38, 38, 0.4)",
+        "padding": "10px 20px",
+        "fontSize": "0.85rem",
+        "fontWeight": 500,
+        "letterSpacing": "0.05em",
+        "textTransform": "uppercase",
+        "borderRadius": "4px",
+        "border": "none"
+      }
+    },
+    "input": {
+      "background": "rgba(15, 15, 15, 0.5)",
+      "border": "1px solid #2d3748",
+      "color": "#ffffff",
+      "padding": "10px 12px",
+      "fontSize": "0.9rem",
+      "borderRadius": "4px",
+      "fontFamily": "'JetBrains Mono', monospace",
+      "focusBorder": "#16a34a",
+      "focusBackground": "rgba(22, 163, 74, 0.05)",
+      "focusShadow": "0 0 0 3px rgba(22, 163, 74, 0.1)"
+    },
+    "card": {
+      "background": "rgba(15, 15, 15, 0.95)",
+      "border": "1px solid rgba(255, 255, 255, 0.1)",
+      "borderRadius": "8px",
+      "padding": "24px",
+      "hoverBorder": "rgba(22, 163, 74, 0.3)",
+      "hoverShadow": "0 0 20px rgba(22, 163, 74, 0.1)",
+      "headerColor": "#16a34a",
+      "headerFontSize": "1.2rem",
+      "headerFontWeight": 600,
+      "headerLetterSpacing": "0.05em",
+      "headerTextTransform": "uppercase",
+      "headerFontFamily": "'JetBrains Mono', monospace"
+    },
+    "table": {
+      "fontFamily": "'JetBrains Mono', monospace",
+      "fontSize": "0.85rem",
+      "headerColor": "#16a34a",
+      "headerFontWeight": 600,
+      "headerTextTransform": "uppercase",
+      "headerLetterSpacing": "0.05em",
+      "headerFontSize": "0.75rem",
+      "headerBorder": "1px solid rgba(22, 163, 74, 0.3)",
+      "cellColor": "#a0a0a0",
+      "cellPadding": "12px",
+      "rowBorder": "1px solid rgba(255, 255, 255, 0.05)",
+      "rowHoverBackground": "rgba(22, 163, 74, 0.05)"
+    },
+    "badge": {
+      "success": {
+        "background": "rgba(22, 163, 74, 0.2)",
+        "color": "#22c55e",
+        "border": "1px solid rgba(22, 163, 74, 0.4)"
+      },
+      "warning": {
+        "background": "rgba(245, 158, 11, 0.2)",
+        "color": "#fbbf24",
+        "border": "1px solid rgba(245, 158, 11, 0.4)"
+      },
+      "danger": {
+        "background": "rgba(220, 38, 38, 0.2)",
+        "color": "#ef4444",
+        "border": "1px solid rgba(220, 38, 38, 0.4)"
+      },
+      "info": {
+        "background": "rgba(14, 165, 233, 0.2)",
+        "color": "#38bdf8",
+        "border": "1px solid rgba(14, 165, 233, 0.4)"
+      },
+      "padding": "4px 12px",
+      "borderRadius": "12px",
+      "fontSize": "0.7rem",
+      "fontWeight": 500,
+      "letterSpacing": "0.05em",
+      "textTransform": "uppercase",
+      "fontFamily": "'JetBrains Mono', monospace"
+    },
+    "navigation": {
+      "fontSize": "0.8rem",
+      "fontWeight": 500,
+      "letterSpacing": "0.1em",
+      "textTransform": "uppercase",
+      "color": "#808080",
+      "hoverColor": "#a0a0a0",
+      "hoverTransform": "translateX(3px)",
+      "activeColor": "#16a34a",
+      "activeFontWeight": 600,
+      "activeDotSize": "4px",
+      "activeDotColor": "#16a34a",
+      "gap": "16px",
+      "padding": "8px 0"
+    },
+    "logo": {
+      "fontSize": "1.2rem",
+      "opacity": 0.7,
+      "fontWeight": 400,
+      "letterSpacing": "0.1em",
+      "textTransform": "uppercase",
+      "color": "#4a5568",
+      "position": "fixed",
+      "top": "20px",
+      "left": "20px"
+    }
+  },
+
+  "layout": {
+    "maxWidth": "1200px",
+    "contentPadding": "80px 20px",
+    "sidebarWidth": "300px",
+    "headerHeight": "60px"
+  },
+
+  "animations": {
+    "fadeIn": {
+      "from": {
+        "opacity": 0,
+        "transform": "translateY(10px)"
+      },
+      "to": {
+        "opacity": 1,
+        "transform": "translateY(0)"
+      },
+      "duration": "0.5s",
+      "timing": "ease-out"
+    },
+    "slideIn": {
+      "from": {
+        "opacity": 0,
+        "transform": "translateX(-20px)"
+      },
+      "to": {
+        "opacity": 1,
+        "transform": "translateX(0)"
+      },
+      "duration": "0.5s",
+      "timing": "ease-out"
+    },
+    "glow": {
+      "from": {
+        "boxShadow": "0 0 5px rgba(22, 163, 74, 0.2)"
+      },
+      "to": {
+        "boxShadow": "0 0 20px rgba(22, 163, 74, 0.6)"
+      },
+      "duration": "1s",
+      "timing": "ease-in-out",
+      "direction": "alternate",
+      "iteration": "infinite"
+    }
+  },
+
+  "breakpoints": {
+    "mobile": "480px",
+    "tablet": "768px",
+    "desktop": "1024px",
+    "wide": "1280px",
+    "ultrawide": "1920px"
+  },
+
+  "scrollbar": {
+    "width": "8px",
+    "height": "8px",
+    "trackBackground": "#0f0f0f",
+    "thumbBackground": "#2d3748",
+    "thumbHoverBackground": "#4a5568",
+    "thumbBorderRadius": "4px"
+  },
+
+  "usage": {
+    "description": "How to use this design system in your application",
+    "examples": {
+      "button": "Use primary buttons for main actions, secondary for alternative actions, danger for destructive actions",
+      "colors": "Use green (#16a34a) for success states, primary actions, and active elements. Use dark grey (#0f0f0f) for backgrounds",
+      "typography": "Use Inter font for UI text, JetBrains Mono for code, data, and technical content",
+      "spacing": "Follow the 4px/8px grid system. Use multiples of 4px for spacing and sizing",
+      "animations": "Keep animations subtle and fast (0.3s). Use fade-in for content, slide-in for side panels"
+    }
+  },
+
+  "guidelines": {
+    "accessibility": {
+      "contrast": "Ensure minimum 4.5:1 contrast ratio for text",
+      "focusVisible": "Always show focus states with green border/glow",
+      "interactiveSize": "Minimum 44x44px touch targets"
+    },
+    "performance": {
+      "animations": "Use transform and opacity for animations (GPU accelerated)",
+      "images": "Optimize and lazy-load images",
+      "fonts": "Use font-display: swap for web fonts"
+    },
+    "consistency": {
+      "uppercase": "Use uppercase for navigation, buttons, labels, and headers",
+      "letterSpacing": "Increase letter-spacing for uppercase text (0.05em - 0.1em)",
+      "borders": "Use subtle borders (rgba) to maintain dark aesthetic",
+      "hover": "Always provide visual feedback on hover with color/shadow/transform"
+    }
+  }
+}
+

@@ -1,0 +1,238 @@
+{
+  "fundNumber": 9,
+  "fundName": "ALL WEATHER FUND 9",
+  "startingBalance": 10000,
+  "portfolio": {
+    "holdings": [
+      {
+        "ticker": "VTI",
+        "name": "Vanguard Total Stock Market ETF",
+        "allocation": 10,
+        "color": "#4285f4"
+      },
+      {
+        "ticker": "TLT",
+        "name": "iShares 20+ Year Treasury Bond ETF",
+        "allocation": 10,
+        "color": "#34a853"
+      },
+      {
+        "ticker": "IEF",
+        "name": "iShares 7-10 Year Treasury Bond ETF",
+        "allocation": 10,
+        "color": "#ea4335"
+      },
+      {
+        "ticker": "GSG",
+        "name": "iShares S&P GSCI Commodity-Indexed Trust",
+        "allocation": 10,
+        "color": "#fbbc04"
+      },
+      {
+        "ticker": "GLD",
+        "name": "SPDR Gold Shares",
+        "allocation": 10,
+        "color": "#ff6d01"
+      },
+      {
+        "ticker": "VIG",
+        "name": "Vanguard Dividend Appreciation ETF",
+        "allocation": 5,
+        "color": "#9c27b0"
+      },
+      {
+        "ticker": "GII",
+        "name": "SPDR S&P Global Infrastructure ETF",
+        "allocation": 5,
+        "color": "#00bcd4"
+      },
+      {
+        "ticker": "IAK",
+        "name": "iShares US Insurance ETF",
+        "allocation": 5,
+        "color": "#4caf50"
+      },
+      {
+        "ticker": "SPIP",
+        "name": "SPDR Portfolio TIPS ETF",
+        "allocation": 5,
+        "color": "#ff5722"
+      },
+      {
+        "ticker": "UUP",
+        "name": "Invesco DB US Dollar Bullish",
+        "allocation": 5,
+        "color": "#795548"
+      },
+      {
+        "ticker": "FXI",
+        "name": "iShares China Large-Cap ETF",
+        "allocation": 5,
+        "color": "#607d8b"
+      },
+      {
+        "ticker": "BIL",
+        "name": "SPDR Blmbrg 1-3 Mth T-Bill ETF",
+        "allocation": 5,
+        "color": "#e91e63"
+      },
+      {
+        "ticker": "VWO",
+        "name": "Vanguard FTSE Emerging Markets ETF",
+        "allocation": 5,
+        "color": "#3f51b5"
+      },
+      {
+        "ticker": "USO",
+        "name": "United States Oil",
+        "allocation": 5,
+        "color": "#009688"
+      },
+      {
+        "ticker": "LQD",
+        "name": "iShares iBoxx $ Invmt Grade Corp Bd ETF",
+        "allocation": 5,
+        "color": "#8bc34a"
+      }
+    ]
+  },
+  "performance": [
+    {
+      "metric": "Start Balance",
+      "fund": "$100,000",
+      "benchmark": "$100,000"
+    },
+    {
+      "metric": "End Balance",
+      "fund": "$195,207",
+      "benchmark": "$553,717"
+    },
+    {
+      "metric": "End Balance (inflation adjusted)",
+      "fund": "$129,911",
+      "benchmark": "$368,501"
+    },
+    {
+      "metric": "Annualized Return (CAGR)",
+      "fund": "4.01%",
+      "benchmark": "10.59%"
+    },
+    {
+      "metric": "Annualized Return (CAGR, inflation adjusted)",
+      "fund": "1.55%",
+      "benchmark": "7.97%"
+    },
+    {
+      "metric": "Standard Deviation",
+      "fund": "8.66%",
+      "benchmark": "15.92%"
+    },
+    {
+      "metric": "Best Year",
+      "fund": "17.75%",
+      "benchmark": "32.31%"
+    },
+    {
+      "metric": "Worst Year",
+      "fund": "-15.43%",
+      "benchmark": "-36.81%"
+    },
+    {
+      "metric": "Maximum Drawdown",
+      "fund": "-26.95%",
+      "benchmark": "-48.23%"
+    },
+    {
+      "metric": "Sharpe Ratio",
+      "fund": "0.36",
+      "benchmark": "0.64"
+    },
+    {
+      "metric": "Sortino Ratio",
+      "fund": "0.50",
+      "benchmark": "0.95"
+    },
+    {
+      "metric": "Benchmark Correlation",
+      "fund": "0.80",
+      "benchmark": "1.00"
+    }
+  ],
+  "riskMetrics": [
+    {
+      "metric": "Arithmetic Mean (monthly)",
+      "fund": "0.65%",
+      "benchmark": "0.95%"
+    },
+    {
+      "metric": "Volatility",
+      "fund": "8.66%",
+      "benchmark": "17.75%"
+    },
+    {
+      "metric": "Sharpe Ratio",
+      "fund": "0.80",
+      "benchmark": "0.80"
+    }
+  ],
+  "monthlyReturns": [
+    { "year": "2008", "jan": "-1.10%", "feb": "1.73%", "mar": "-1.05%", "apr": "2.64%", "may": "1.41%", "jun": "-0.13%", "jul": "-3.12%", "aug": "-2.14%", "sep": "-5.50%", "oct": "-13.01%", "nov": "0.82%", "dec": "3.99%", "total": "-15.43%", "inflation": "0.09%", "balance": "$84,566" },
+    { "year": "2009", "jan": "-6.31%", "feb": "4.46%", "mar": "4.29%", "apr": "2.16%", "may": "7.37%", "jun": "-0.11%", "jul": "3.59%", "aug": "1.08%", "sep": "2.60%", "oct": "0.17%", "nov": "4.05%", "dec": "1.00%", "total": "13.39%", "inflation": "2.72%", "balance": "$95,893" },
+    { "year": "2010", "jan": "-2.23%", "feb": "2.14%", "mar": "2.17%", "apr": "1.94%", "may": "-3.42%", "jun": "0.26%", "jul": "2.30%", "aug": "-0.02%", "sep": "3.94%", "oct": "1.44%", "nov": "-0.41%", "dec": "2.46%", "total": "10.83%", "inflation": "1.50%", "balance": "$106,278" },
+    { "year": "2011", "jan": "-0.50%", "feb": "1.99%", "mar": "1.32%", "apr": "3.21%", "may": "-1.39%", "jun": "-2.15%", "jul": "1.36%", "aug": "0.16%", "sep": "-4.28%", "oct": "5.28%", "nov": "0.82%", "dec": "-0.75%", "total": "4.82%", "inflation": "2.96%", "balance": "$111,398" },
+    { "year": "2012", "jan": "3.47%", "feb": "1.79%", "mar": "-1.39%", "apr": "0.73%", "may": "-4.01%", "jun": "1.22%", "jul": "1.77%", "aug": "1.85%", "sep": "0.81%", "oct": "0.73%", "nov": "0.51%", "dec": "0.61%", "total": "6.62%", "inflation": "1.74%", "balance": "$118,768" },
+    { "year": "2013", "jan": "1.55%", "feb": "-1.08%", "mar": "1.26%", "apr": "0.18%", "may": "-2.24%", "jun": "-2.47%", "jul": "3.12%", "aug": "-0.54%", "sep": "1.08%", "oct": "1.33%", "nov": "0.09%", "dec": "0.02%", "total": "2.19%", "inflation": "1.50%", "balance": "$121,367" },
+    { "year": "2014", "jan": "-0.64%", "feb": "2.82%", "mar": "0.24%", "apr": "0.65%", "may": "1.35%", "jun": "1.89%", "jul": "-1.37%", "aug": "1.94%", "sep": "-2.99%", "oct": "0.31%", "nov": "-0.41%", "dec": "-1.17%", "total": "2.49%", "inflation": "0.76%", "balance": "$124,395" },
+    { "year": "2015", "jan": "0.50%", "feb": "0.58%", "mar": "-1.04%", "apr": "2.61%", "may": "-0.77%", "jun": "-1.95%", "jul": "-2.80%", "aug": "-2.39%", "sep": "-1.50%", "oct": "2.65%", "nov": "-2.15%", "dec": "-2.39%", "total": "-8.50%", "inflation": "0.73%", "balance": "$113,819" },
+    { "year": "2016", "jan": "-1.51%", "feb": "1.03%", "mar": "3.58%", "apr": "2.40%", "may": "0.07%", "jun": "2.72%", "jul": "-0.10%", "aug": "0.18%", "sep": "0.88%", "oct": "-1.87%", "nov": "-1.21%", "dec": "0.89%", "total": "7.11%", "inflation": "2.07%", "balance": "$121,914" },
+    { "year": "2017", "jan": "1.15%", "feb": "2.04%", "mar": "-0.52%", "apr": "0.38%", "may": "0.75%", "jun": "-0.35%", "jul": "2.12%", "aug": "0.95%", "sep": "-0.19%", "oct": "1.48%", "nov": "1.14%", "dec": "1.50%", "total": "11.34%", "inflation": "2.11%", "balance": "$135,733" },
+    { "year": "2018", "jan": "2.37%", "feb": "-3.27%", "mar": "0.81%", "apr": "0.33%", "may": "0.41%", "jun": "0.00%", "jul": "0.14%", "aug": "0.49%", "sep": "0.34%", "oct": "-3.98%", "nov": "-0.99%", "dec": "-2.16%", "total": "-5.55%", "inflation": "1.91%", "balance": "$128,198" },
+    { "year": "2019", "jan": "5.35%", "feb": "1.42%", "mar": "1.81%", "apr": "1.62%", "may": "-2.52%", "jun": "4.22%", "jul": "0.11%", "aug": "1.06%", "sep": "0.04%", "oct": "0.59%", "nov": "0.48%", "dec": "2.50%", "total": "17.75%", "inflation": "2.29%", "balance": "$150,949" },
+    { "year": "2020", "jan": "-0.60%", "feb": "-2.43%", "mar": "-8.90%", "apr": "2.73%", "may": "2.84%", "jun": "1.69%", "jul": "4.12%", "aug": "1.10%", "sep": "-1.80%", "oct": "-1.11%", "nov": "4.48%", "dec": "2.51%", "total": "3.91%", "inflation": "1.36%", "balance": "$156,855" },
+    { "year": "2021", "jan": "0.00%", "feb": "1.32%", "mar": "-0.23%", "apr": "3.28%", "may": "1.73%", "jun": "1.16%", "jul": "0.67%", "aug": "0.20%", "sep": "-0.78%", "oct": "3.61%", "nov": "-3.40%", "dec": "3.30%", "total": "11.20%", "inflation": "7.04%", "balance": "$174,418" },
+    { "year": "2022", "jan": "0.33%", "feb": "0.94%", "mar": "1.26%", "apr": "-2.72%", "may": "1.58%", "jun": "-3.63%", "jul": "1.02%", "aug": "-2.61%", "sep": "-6.60%", "oct": "2.03%", "nov": "4.57%", "dec": "-1.49%", "total": "-5.69%", "inflation": "6.45%", "balance": "$164,491" },
+    { "year": "2023", "jan": "4.27%", "feb": "-3.64%", "mar": "2.25%", "apr": "0.48%", "may": "-2.89%", "jun": "2.27%", "jul": "3.20%", "aug": "-1.66%", "sep": "-2.10%", "oct": "-1.53%", "nov": "3.58%", "dec": "2.22%", "total": "6.20%", "inflation": "3.35%", "balance": "$174,684" },
+    { "year": "2024", "jan": "0.27%", "feb": "1.29%", "mar": "3.24%", "apr": "-1.25%", "may": "1.88%", "jun": "0.91%", "jul": "1.87%", "aug": "1.35%", "sep": "2.61%", "oct": "-0.55%", "nov": "1.31%", "dec": "-1.65%", "total": "11.75%", "inflation": "2.89%", "balance": "$195,207" }
+  ],
+  "drawdowns": [
+    { "rank": 1, "start": "Jun 2008", "end": "Feb 2009", "length": "9 months", "recoveryBy": "Oct 2010", "recoveryTime": "1 year 8 months", "underwaterPeriod": "2 years 5 months", "drawdown": "-26.95%" },
+    { "rank": 2, "start": "Sep 2014", "end": "Jan 2016", "length": "1 year 5 months", "recoveryBy": "Aug 2017", "recoveryTime": "1 year 7 months", "underwaterPeriod": "3 years", "drawdown": "-13.69%" },
+    { "rank": 3, "start": "Apr 2022", "end": "Sep 2022", "length": "6 months", "recoveryBy": "Mar 2024", "recoveryTime": "1 year 6 months", "underwaterPeriod": "2 years", "drawdown": "-12.50%" },
+    { "rank": 4, "start": "Jan 2020", "end": "Mar 2020", "length": "3 months", "recoveryBy": "Nov 2020", "recoveryTime": "8 months", "underwaterPeriod": "11 months", "drawdown": "-11.65%" },
+    { "rank": 5, "start": "Feb 2018", "end": "Dec 2018", "length": "11 months", "recoveryBy": "Mar 2019", "recoveryTime": "3 months", "underwaterPeriod": "1 year 2 months", "drawdown": "-7.73%" },
+    { "rank": 6, "start": "May 2011", "end": "Sep 2011", "length": "5 months", "recoveryBy": "Jan 2012", "recoveryTime": "4 months", "underwaterPeriod": "9 months", "drawdown": "-6.24%" },
+    { "rank": 7, "start": "Mar 2012", "end": "May 2012", "length": "3 months", "recoveryBy": "Aug 2012", "recoveryTime": "3 months", "underwaterPeriod": "6 months", "drawdown": "-4.66%" },
+    { "rank": 8, "start": "May 2013", "end": "Jun 2013", "length": "2 months", "recoveryBy": "Oct 2013", "recoveryTime": "4 months", "underwaterPeriod": "6 months", "drawdown": "-4.65%" },
+    { "rank": 9, "start": "Nov 2021", "end": "Nov 2021", "length": "1 month", "recoveryBy": "Jan 2022", "recoveryTime": "2 months", "underwaterPeriod": "3 months", "drawdown": "-3.40%" },
+    { "rank": 10, "start": "May 2019", "end": "May 2019", "length": "1 month", "recoveryBy": "Jun 2019", "recoveryTime": "1 month", "underwaterPeriod": "2 months", "drawdown": "-2.52%" }
+  ],
+  "strategy": {
+    "assetsList": [
+      "VTI (US Stocks)",
+      "TLT & IEF (US Treasuries)",
+      "GSG, GLD (Commodities + Gold)",
+      "VIG (Dividend Stocks)",
+      "GII (Infrastructure), IAK (Insurance)",
+      "SPIP (TIPS), UUP (USD Long)",
+      "FXI (China ETF), VWO (Emerging Markets), USO (Oil), LQD (Corporate Bonds), BIL (Short-term T-Bills)"
+    ],
+    "overview": "AW9 is the most globally diversified and complex portfolio in the series. It adds emerging markets, China, corporate bonds, oil, and cash-like T-bills, expanding its geographic and sectoral breadth.",
+    "whyWorks": [
+      "Geographic diversification (FXI, VWO) exposes investors to global growth opportunities",
+      "Oil (USO) provides commodity upside and crisis hedging",
+      "Corporate bonds (LQD) offer income",
+      "Short-term T-bills (BIL) stabilise volatility and support liquidity",
+      "Maintains inflation hedges, equities, and fixed income for a complete global macro approach"
+    ],
+    "bestSuited": [
+      "Advanced investors or those with global macro knowledge",
+      "Investors wanting broad diversification and exposure to emerging markets",
+      "Those seeking a mix of real assets, equities, and strategic hedges"
+    ],
+    "effectiveDuring": [
+      "Periods of commodity and emerging market strength",
+      "Dollar volatility or commodity super-cycles",
+      "Times of global rotation when US equity dominance fades"
+    ]
+  }
+}

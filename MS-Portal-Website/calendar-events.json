@@ -1,0 +1,181 @@
+{
+  "2025-07-17": [
+    {
+      "description": "Retail sales",
+      "type": "news",
+      "startTime": "22:30",
+      "endTime": "23:00",
+      "alertTime": 60,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "US",
+      "id": 1752722685212.1084
+    },
+    {
+      "description": "Inflation rate (EU)",
+      "type": "news",
+      "startTime": "19:00",
+      "endTime": "19:30",
+      "alertTime": 30,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "EU",
+      "id": 1752722965629.4207
+    }
+  ],
+  "2025-07-22": [
+    {
+      "description": "FED chair speech",
+      "type": "meeting",
+      "startTime": "22:30",
+      "endTime": "23:00",
+      "alertTime": 120,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "US",
+      "id": 1752722812153.3174
+    },
+    {
+      "description": "RBA minutes",
+      "type": "news",
+      "startTime": "11:30",
+      "endTime": "12:00",
+      "alertTime": 30,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "AU",
+      "id": 1752722853973.3591
+    }
+  ],
+  "2025-07-21": [
+    {
+      "description": "Inflation rate (NZ)",
+      "type": "news",
+      "startTime": "08:30",
+      "endTime": "09:00",
+      "alertTime": 15,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "NZ",
+      "id": 1752723363374.9268
+    }
+  ],
+  "2025-07-25": [
+    {
+      "description": "Durable goods orders",
+      "type": "news",
+      "startTime": "22:30",
+      "endTime": "23:00",
+      "alertTime": 30,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "US",
+      "id": 1753079912432.5486
+    }
+  ],
+  "2025-07-30": [
+    {
+      "description": "GDP y/y (DE)",
+      "type": "news",
+      "startTime": "16:00",
+      "endTime": "17:00",
+      "alertTime": 30,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "DE",
+      "id": 1753080040164.3677
+    },
+    {
+      "description": "GDP q/q (EU)",
+      "type": "news",
+      "startTime": "19:00",
+      "endTime": "19:30",
+      "alertTime": 30,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "EU",
+      "id": 1753080073896.7498
+    },
+    {
+      "description": "BOC interest rate decision",
+      "type": "news",
+      "startTime": "23:45",
+      "endTime": "00:15",
+      "alertTime": 30,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "CA",
+      "id": 1753080128802.6777
+    }
+  ],
+  "2025-07-31": [
+    {
+      "description": "FED interest rate decision",
+      "type": "news",
+      "startTime": "04:00",
+      "endTime": "04:15",
+      "alertTime": 30,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "US",
+      "id": 1753080178494.3447
+    },
+    {
+      "description": "BCB interest rate decision",
+      "type": "news",
+      "startTime": "07:00",
+      "endTime": "07:30",
+      "alertTime": 30,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "BR",
+      "id": 1753080223880.8254
+    },
+    {
+      "description": "BOJ interest rate decision",
+      "type": "news",
+      "startTime": "12:30",
+      "endTime": "13:30",
+      "alertTime": 30,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "JP",
+      "id": 1753080280755.8594
+    },
+    {
+      "description": "Unemployment rate (EU)",
+      "type": "news",
+      "startTime": "19:00",
+      "endTime": "19:30",
+      "alertTime": 30,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "EU",
+      "id": 1753080320245.7722
+    }
+  ],
+  "2025-08-01": [
+    {
+      "description": "Inflation rate (EU)",
+      "type": "news",
+      "startTime": "19:00",
+      "endTime": "19:30",
+      "alertTime": 30,
+      "repeatType": "none",
+      "customDays": [],
+      "country": "EU",
+      "id": 1753080393456.2112
+    },
+    {
+      "description": "Unemployment rate",
+      "type": "news",
+      "startTime": "22:30",
+      "endTime": "23:00",
+      "alertTime": 30,
+      "repeatType": "none",
+      "customDays": [],
+      "country": null,
+      "id": 1753080430102.3506
+    }
+  ]
+}

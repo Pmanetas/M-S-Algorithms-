@@ -1,0 +1,480 @@
+/**
+ * M&S DESIGN SYSTEM - CSS VARIABLES
+ * Import this file into your project to use the M&S design system
+ * Usage: @import 'ms-variables.css';
+ */
+
+:root {
+  /* ========================================
+     COLORS - PRIMARY
+     ======================================== */
+  --ms-bg-primary: #0f0f0f;
+  --ms-bg-secondary: #1a1a1a;
+  --ms-bg-card: rgba(15, 15, 15, 0.95);
+  --ms-bg-overlay: rgba(15, 15, 15, 0.5);
+
+  /* ========================================
+     COLORS - ACCENT (GREEN THEME)
+     ======================================== */
+  --ms-accent-primary: #16a34a;
+  --ms-accent-light: #22c55e;
+  --ms-accent-dark: #14532d;
+  --ms-accent-glow: rgba(22, 163, 74, 0.3);
+  --ms-accent-subtle: rgba(22, 163, 74, 0.05);
+  --ms-accent-border: rgba(22, 163, 74, 0.2);
+
+  /* ========================================
+     COLORS - TEXT
+     ======================================== */
+  --ms-text-primary: #ffffff;
+  --ms-text-secondary: #a0a0a0;
+  --ms-text-tertiary: #808080;
+  --ms-text-muted: #4a5568;
+  --ms-text-light: #d0d0d0;
+  --ms-text-accent: #16a34a;
+
+  /* ========================================
+     COLORS - STATUS
+     ======================================== */
+  --ms-success: #22c55e;
+  --ms-success-bg: rgba(22, 163, 74, 0.2);
+  --ms-success-border: rgba(22, 163, 74, 0.4);
+  
+  --ms-warning: #fbbf24;
+  --ms-warning-bg: rgba(245, 158, 11, 0.2);
+  --ms-warning-border: rgba(245, 158, 11, 0.4);
+  
+  --ms-danger: #ef4444;
+  --ms-danger-bg: rgba(220, 38, 38, 0.2);
+  --ms-danger-border: rgba(220, 38, 38, 0.4);
+  
+  --ms-info: #38bdf8;
+  --ms-info-bg: rgba(14, 165, 233, 0.2);
+  --ms-info-border: rgba(14, 165, 233, 0.4);
+
+  /* ========================================
+     COLORS - BORDERS
+     ======================================== */
+  --ms-border-default: rgba(255, 255, 255, 0.1);
+  --ms-border-hover: rgba(22, 163, 74, 0.3);
+  --ms-border-focus: #16a34a;
+  --ms-border-input: #2d3748;
+
+  /* ========================================
+     TYPOGRAPHY - FONTS
+     ======================================== */
+  --ms-font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --ms-font-mono: 'JetBrains Mono', monospace;
+
+  /* ========================================
+     TYPOGRAPHY - SIZES
+     ======================================== */
+  --ms-text-xs: 0.6rem;
+  --ms-text-sm: 0.7rem;
+  --ms-text-base: 0.85rem;
+  --ms-text-md: 0.9rem;
+  --ms-text-lg: 1.2rem;
+  --ms-text-xl: 1.5rem;
+  --ms-text-2xl: 2rem;
+  --ms-text-3xl: 3rem;
+
+  /* ========================================
+     TYPOGRAPHY - WEIGHTS
+     ======================================== */
+  --ms-font-light: 300;
+  --ms-font-regular: 400;
+  --ms-font-medium: 500;
+  --ms-font-semibold: 600;
+  --ms-font-bold: 700;
+  --ms-font-extrabold: 800;
+
+  /* ========================================
+     TYPOGRAPHY - LINE HEIGHTS
+     ======================================== */
+  --ms-leading-tight: 1.2;
+  --ms-leading-normal: 1.4;
+  --ms-leading-relaxed: 1.6;
+
+  /* ========================================
+     TYPOGRAPHY - LETTER SPACING
+     ======================================== */
+  --ms-tracking-tight: -0.02em;
+  --ms-tracking-normal: 0.01em;
+  --ms-tracking-wide: 0.05em;
+  --ms-tracking-wider: 0.1em;
+  --ms-tracking-widest: 0.15em;
+
+  /* ========================================
+     SPACING
+     ======================================== */
+  --ms-space-xs: 4px;
+  --ms-space-sm: 8px;
+  --ms-space-md: 12px;
+  --ms-space-base: 16px;
+  --ms-space-lg: 20px;
+  --ms-space-xl: 24px;
+  --ms-space-2xl: 32px;
+  --ms-space-3xl: 40px;
+  --ms-space-4xl: 48px;
+
+  /* ========================================
+     BORDER RADIUS
+     ======================================== */
+  --ms-radius-none: 0;
+  --ms-radius-sm: 3px;
+  --ms-radius-base: 4px;
+  --ms-radius-md: 6px;
+  --ms-radius-lg: 8px;
+  --ms-radius-xl: 12px;
+  --ms-radius-full: 9999px;
+
+  /* ========================================
+     SHADOWS
+     ======================================== */
+  --ms-shadow-sm: 0 0 5px rgba(0, 0, 0, 0.2);
+  --ms-shadow-base: 0 0 10px rgba(0, 0, 0, 0.3);
+  --ms-shadow-md: 0 0 15px rgba(22, 163, 74, 0.2);
+  --ms-shadow-lg: 0 0 20px rgba(22, 163, 74, 0.3);
+  --ms-shadow-xl: 0 0 30px rgba(22, 163, 74, 0.4);
+  --ms-shadow-glow: 0 0 15px rgba(22, 163, 74, 0.6);
+
+  /* ========================================
+     TRANSITIONS
+     ======================================== */
+  --ms-transition-fast: 0.15s ease;
+  --ms-transition-base: 0.3s ease;
+  --ms-transition-slow: 0.5s ease;
+  
+  /* ========================================
+     Z-INDEX LAYERS
+     ======================================== */
+  --ms-z-base: 1;
+  --ms-z-dropdown: 100;
+  --ms-z-sticky: 200;
+  --ms-z-fixed: 300;
+  --ms-z-modal: 400;
+  --ms-z-popover: 500;
+  --ms-z-tooltip: 600;
+
+  /* ========================================
+     BREAKPOINTS (for use with @media)
+     ======================================== */
+  --ms-breakpoint-mobile: 480px;
+  --ms-breakpoint-tablet: 768px;
+  --ms-breakpoint-desktop: 1024px;
+  --ms-breakpoint-wide: 1280px;
+  --ms-breakpoint-ultrawide: 1920px;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Text Colors */
+.ms-text-primary { color: var(--ms-text-primary); }
+.ms-text-secondary { color: var(--ms-text-secondary); }
+.ms-text-tertiary { color: var(--ms-text-tertiary); }
+.ms-text-muted { color: var(--ms-text-muted); }
+.ms-text-accent { color: var(--ms-accent-primary); }
+.ms-text-success { color: var(--ms-success); }
+.ms-text-warning { color: var(--ms-warning); }
+.ms-text-danger { color: var(--ms-danger); }
+.ms-text-info { color: var(--ms-info); }
+
+/* Background Colors */
+.ms-bg-primary { background-color: var(--ms-bg-primary); }
+.ms-bg-secondary { background-color: var(--ms-bg-secondary); }
+.ms-bg-card { background-color: var(--ms-bg-card); }
+.ms-bg-accent { background-color: var(--ms-accent-primary); }
+
+/* Fonts */
+.ms-font-primary { font-family: var(--ms-font-primary); }
+.ms-font-mono { font-family: var(--ms-font-mono); }
+
+/* Font Weights */
+.ms-font-light { font-weight: var(--ms-font-light); }
+.ms-font-regular { font-weight: var(--ms-font-regular); }
+.ms-font-medium { font-weight: var(--ms-font-medium); }
+.ms-font-semibold { font-weight: var(--ms-font-semibold); }
+.ms-font-bold { font-weight: var(--ms-font-bold); }
+
+/* Text Sizes */
+.ms-text-xs { font-size: var(--ms-text-xs); }
+.ms-text-sm { font-size: var(--ms-text-sm); }
+.ms-text-base { font-size: var(--ms-text-base); }
+.ms-text-md { font-size: var(--ms-text-md); }
+.ms-text-lg { font-size: var(--ms-text-lg); }
+.ms-text-xl { font-size: var(--ms-text-xl); }
+.ms-text-2xl { font-size: var(--ms-text-2xl); }
+.ms-text-3xl { font-size: var(--ms-text-3xl); }
+
+/* Text Transform */
+.ms-uppercase { text-transform: uppercase; }
+.ms-lowercase { text-transform: lowercase; }
+.ms-capitalize { text-transform: capitalize; }
+
+/* Letter Spacing */
+.ms-tracking-tight { letter-spacing: var(--ms-tracking-tight); }
+.ms-tracking-normal { letter-spacing: var(--ms-tracking-normal); }
+.ms-tracking-wide { letter-spacing: var(--ms-tracking-wide); }
+.ms-tracking-wider { letter-spacing: var(--ms-tracking-wider); }
+.ms-tracking-widest { letter-spacing: var(--ms-tracking-widest); }
+
+/* Spacing - Margin */
+.ms-m-0 { margin: 0; }
+.ms-m-xs { margin: var(--ms-space-xs); }
+.ms-m-sm { margin: var(--ms-space-sm); }
+.ms-m-md { margin: var(--ms-space-md); }
+.ms-m-base { margin: var(--ms-space-base); }
+.ms-m-lg { margin: var(--ms-space-lg); }
+.ms-m-xl { margin: var(--ms-space-xl); }
+
+.ms-mt-xs { margin-top: var(--ms-space-xs); }
+.ms-mt-sm { margin-top: var(--ms-space-sm); }
+.ms-mt-md { margin-top: var(--ms-space-md); }
+.ms-mt-base { margin-top: var(--ms-space-base); }
+.ms-mt-lg { margin-top: var(--ms-space-lg); }
+.ms-mt-xl { margin-top: var(--ms-space-xl); }
+
+.ms-mb-xs { margin-bottom: var(--ms-space-xs); }
+.ms-mb-sm { margin-bottom: var(--ms-space-sm); }
+.ms-mb-md { margin-bottom: var(--ms-space-md); }
+.ms-mb-base { margin-bottom: var(--ms-space-base); }
+.ms-mb-lg { margin-bottom: var(--ms-space-lg); }
+.ms-mb-xl { margin-bottom: var(--ms-space-xl); }
+
+/* Spacing - Padding */
+.ms-p-0 { padding: 0; }
+.ms-p-xs { padding: var(--ms-space-xs); }
+.ms-p-sm { padding: var(--ms-space-sm); }
+.ms-p-md { padding: var(--ms-space-md); }
+.ms-p-base { padding: var(--ms-space-base); }
+.ms-p-lg { padding: var(--ms-space-lg); }
+.ms-p-xl { padding: var(--ms-space-xl); }
+
+/* Border Radius */
+.ms-rounded-none { border-radius: var(--ms-radius-none); }
+.ms-rounded-sm { border-radius: var(--ms-radius-sm); }
+.ms-rounded-base { border-radius: var(--ms-radius-base); }
+.ms-rounded-md { border-radius: var(--ms-radius-md); }
+.ms-rounded-lg { border-radius: var(--ms-radius-lg); }
+.ms-rounded-xl { border-radius: var(--ms-radius-xl); }
+.ms-rounded-full { border-radius: var(--ms-radius-full); }
+
+/* Shadows */
+.ms-shadow-sm { box-shadow: var(--ms-shadow-sm); }
+.ms-shadow-base { box-shadow: var(--ms-shadow-base); }
+.ms-shadow-md { box-shadow: var(--ms-shadow-md); }
+.ms-shadow-lg { box-shadow: var(--ms-shadow-lg); }
+.ms-shadow-xl { box-shadow: var(--ms-shadow-xl); }
+.ms-shadow-glow { box-shadow: var(--ms-shadow-glow); }
+
+/* Transitions */
+.ms-transition-fast { transition: all var(--ms-transition-fast); }
+.ms-transition-base { transition: all var(--ms-transition-base); }
+.ms-transition-slow { transition: all var(--ms-transition-slow); }
+
+/* ========================================
+   COMPONENT CLASSES
+   ======================================== */
+
+/* Button Base */
+.ms-btn {
+  padding: 10px 20px;
+  border-radius: var(--ms-radius-base);
+  font-size: var(--ms-text-base);
+  font-weight: var(--ms-font-medium);
+  letter-spacing: var(--ms-tracking-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--ms-transition-base);
+  font-family: var(--ms-font-primary);
+  border: none;
+}
+
+/* Button Primary */
+.ms-btn-primary {
+  background: var(--ms-accent-primary);
+  color: var(--ms-text-primary);
+}
+
+.ms-btn-primary:hover {
+  background: var(--ms-accent-light);
+  box-shadow: var(--ms-shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Button Secondary */
+.ms-btn-secondary {
+  background: transparent;
+  border: 1px solid var(--ms-border-input);
+  color: var(--ms-text-tertiary);
+}
+
+.ms-btn-secondary:hover {
+  border-color: var(--ms-accent-primary);
+  color: var(--ms-accent-primary);
+  box-shadow: var(--ms-shadow-md);
+}
+
+/* Button Danger */
+.ms-btn-danger {
+  background: var(--ms-danger);
+  color: var(--ms-text-primary);
+}
+
+.ms-btn-danger:hover {
+  background: #ef4444;
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.4);
+}
+
+/* Card */
+.ms-card {
+  background: var(--ms-bg-card);
+  border: 1px solid var(--ms-border-default);
+  border-radius: var(--ms-radius-lg);
+  padding: var(--ms-space-xl);
+  transition: all var(--ms-transition-base);
+}
+
+.ms-card:hover {
+  border-color: var(--ms-border-hover);
+  box-shadow: var(--ms-shadow-lg);
+}
+
+/* Card Header */
+.ms-card-header {
+  font-size: var(--ms-text-lg);
+  color: var(--ms-accent-primary);
+  font-weight: var(--ms-font-semibold);
+  letter-spacing: var(--ms-tracking-wide);
+  text-transform: uppercase;
+  font-family: var(--ms-font-mono);
+  margin-bottom: var(--ms-space-base);
+}
+
+/* Input */
+.ms-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--ms-border-input);
+  border-radius: var(--ms-radius-base);
+  font-size: var(--ms-text-md);
+  transition: all var(--ms-transition-base);
+  background: var(--ms-bg-overlay);
+  color: var(--ms-text-primary);
+  font-family: var(--ms-font-mono);
+}
+
+.ms-input:focus {
+  outline: none;
+  border-color: var(--ms-border-focus);
+  background: var(--ms-accent-subtle);
+  box-shadow: 0 0 0 3px var(--ms-accent-subtle);
+}
+
+/* Badge */
+.ms-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: var(--ms-radius-full);
+  font-size: var(--ms-text-xs);
+  font-weight: var(--ms-font-medium);
+  letter-spacing: var(--ms-tracking-wide);
+  text-transform: uppercase;
+  font-family: var(--ms-font-mono);
+}
+
+.ms-badge-success {
+  background: var(--ms-success-bg);
+  color: var(--ms-success);
+  border: 1px solid var(--ms-success-border);
+}
+
+.ms-badge-warning {
+  background: var(--ms-warning-bg);
+  color: var(--ms-warning);
+  border: 1px solid var(--ms-warning-border);
+}
+
+.ms-badge-danger {
+  background: var(--ms-danger-bg);
+  color: var(--ms-danger);
+  border: 1px solid var(--ms-danger-border);
+}
+
+.ms-badge-info {
+  background: var(--ms-info-bg);
+  color: var(--ms-info);
+  border: 1px solid var(--ms-info-border);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes ms-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ms-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ms-glow {
+  from {
+    box-shadow: 0 0 5px var(--ms-accent-glow);
+  }
+  to {
+    box-shadow: 0 0 20px var(--ms-shadow-glow);
+  }
+}
+
+.ms-animate-fade-in {
+  animation: ms-fade-in 0.5s ease-out forwards;
+}
+
+.ms-animate-slide-in {
+  animation: ms-slide-in 0.5s ease-out forwards;
+}
+
+.ms-animate-glow {
+  animation: ms-glow 1s ease-in-out alternate infinite;
+}
+
+/* ========================================
+   SCROLLBAR STYLING
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ms-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ms-border-input);
+  border-radius: var(--ms-radius-base);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ms-text-muted);
+}
+

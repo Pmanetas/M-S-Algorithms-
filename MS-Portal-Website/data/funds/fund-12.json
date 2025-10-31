@@ -1,0 +1,57 @@
+{
+  "fundNumber": 12,
+  "fundName": "ALL WEATHER FUND 12",
+  "startingBalance": 10000,
+  "portfolio": {
+    "holdings": [
+      {
+        "ticker": "VTI",
+        "name": "Vanguard Total Stock Market ETF",
+        "allocation": 12,
+        "color": "#888888"
+      }
+    ]
+  },
+  "performance": [
+    {
+      "metric": "Start Balance",
+      "fund": "$100,000",
+      "benchmark": "$100,000"
+    }
+  ],
+  "riskMetrics": [
+    {
+      "metric": "Arithmetic Mean (monthly)",
+      "fund": "0.38%",
+      "benchmark": "0.95%"
+    }
+  ],
+  "monthlyReturns": [
+    {
+      "year": "2008",
+      "jan": "1.31%",
+      "feb": "1.44%",
+      "mar": "-0.92%",
+      "apr": "0.10%",
+      "may": "1.03%",
+      "jun": "1.17%",
+      "jul": "-2.25%",
+      "aug": "-0.91%",
+      "sep": "-2.84%",
+      "oct": "-9.13%",
+      "nov": "2.85%",
+      "dec": "4.02%",
+      "total": "-4.66%",
+      "inflation": "0.09%",
+      "balance": "$95,336"
+    }
+  ],
+  "drawdowns": [],
+  "strategy": {
+    "assetsList": [],
+    "overview": "",
+    "whyWorks": [],
+    "bestSuited": [],
+    "effectiveDuring": []
+  }
+}

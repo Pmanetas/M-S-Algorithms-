@@ -1,0 +1,21 @@
+[package]
+name = "ms-portal-frontend"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+yew = { version = "0.21", features = ["csr"] }
+yew-router = "0.18"
+web-sys = "0.3"
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+serde = { workspace = true }
+serde-wasm-bindgen = "0.6"
+reqwest = { version = "0.12", features = ["json"] }
+gloo-net = "0.5"
+gloo-storage = "0.3"
+gloo-timers = "0.3"
+stylist = "0.13" 

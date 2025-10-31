@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M&S Animations Demo</title>
+    
+    <!-- Import the M&S Animations & Styles Library -->
+    <link rel="stylesheet" href="ms-animations-styles.css">
+    
+    <style>
+        /* Basic page setup */
+        body {
+            font-family: var(--ms-font-primary);
+            background: var(--ms-bg-primary);
+            color: var(--ms-text-primary);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            color: var(--ms-accent-primary);
+            font-family: var(--ms-font-mono);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .demo-box {
+            background: var(--ms-bg-card);
+            border: 1px solid var(--ms-border-default);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .demo-element {
+            background: var(--ms-accent-primary);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        
+        .code-snippet {
+            background: #1a1a1a;
+            border: 1px solid var(--ms-border-input);
+            border-radius: 4px;
+            padding: 12px;
+            margin-top: 10px;
+            font-family: var(--ms-font-mono);
+            font-size: 0.75rem;
+            color: #a0a0a0;
+            text-align: left;
+            overflow-x: auto;
+        }
+        
+        .btn-demo {
+            padding: 12px 24px;
+            background: var(--ms-accent-primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 5px;
+        }
+        
+        .reset-btn {
+            background: var(--ms-bg-secondary);
+            border: 1px solid var(--ms-border-input);
+            color: var(--ms-text-secondary);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 15px;
+        }
+        
+        .reset-btn:hover {
+            border-color: var(--ms-accent-primary);
+            color: var(--ms-accent-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header style="text-align: center; margin-bottom: 60px;">
+            <h1 style="font-size: 3rem; color: var(--ms-accent-primary); margin-bottom: 10px;" class="fade-in">
+                M&S Animations Demo
+            </h1>
+            <p style="color: var(--ms-text-secondary); font-size: 1.1rem;" class="fade-in" style="animation-delay: 0.2s;">
+                Click on any element to see the animation in action
+            </p>
+        </header>
+
+        <!-- Fade & Slide Animations -->
+        <section class="section">
+            <h2 class="section-title">Basic Animations</h2>
+            
+            <div class="demo-grid">
+                <div class="demo-box ms-card-hover">
+                    <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Fade In</h3>
+                    <div id="fadeDemo" class="demo-element">
+                        Click to Fade In
+                    </div>
+                    <button class="reset-btn" onclick="resetAnimation('fadeDemo', 'fade-in')">Reset</button>
+                    <div class="code-snippet">
+                        class="fade-in"
+                    </div>
+                </div>
+                
+                <div class="demo-box ms-card-hover">
+                    <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Slide In</h3>
+                    <div id="slideDemo" class="demo-element">
+                        Click to Slide In
+                    </div>
+                    <button class="reset-btn" onclick="resetAnimation('slideDemo', 'slide-in')">Reset</button>
+                    <div class="code-snippet">
+                        class="slide-in"
+                    </div>
+                </div>
+                
+                <div class="demo-box ms-card-hover">
+                    <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Slide From Left</h3>
+                    <div id="slideLeftDemo" class="demo-element">
+                        Click to Slide
+                    </div>
+                    <button class="reset-btn" onclick="resetAnimation('slideLeftDemo', 'nav-item-animate-in')">Reset</button>
+                    <div class="code-snippet">
+                        class="nav-item-animate-in"
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hover Effects -->
+        <section class="section">
+            <h2 class="section-title">Hover Effects</h2>
+            
+            <div class="demo-grid">
+                <div class="demo-box">
+                    <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Lift on Hover</h3>
+                    <div class="demo-element ms-hover-lift">
+                        Hover over me
+                    </div>
+                    <div class="code-snippet">
+                        class="ms-hover-lift"
+                    </div>
+                </div>
+                
+                <div class="demo-box">
+                    <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Glow on Hover</h3>
+                    <div class="demo-element ms-hover-glow">
+                        Hover over me
+                    </div>
+                    <div class="code-snippet">
+                        class="ms-hover-glow"
+                    </div>
+                </div>
+                
+                <div class="demo-box ms-card-hover">
+                    <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Card Hover</h3>
+                    <div class="demo-element">
+                        Hover over the card
+                    </div>
+                    <div class="code-snippet">
+                        class="ms-card-hover"
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pulsing & Glowing -->
+        <section class="section">
+            <h2 class="section-title">Continuous Animations</h2>
+            
+            <div class="demo-grid">
+                <div class="demo-box">
+                    <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Pulse</h3>
+                    <div id="pulseDemo" class="demo-element">
+                        Always Pulsing
+                    </div>
+                    <button class="reset-btn" onclick="toggleAnimation('pulseDemo', 'ms-animate-pulse')">Toggle</button>
+                    <div class="code-snippet">
+                        class="ms-animate-pulse"
+                    </div>
+                </div>
+                
+                <div class="demo-box">
+                    <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Glow</h3>
+                    <div id="glowDemo" class="demo-element">
+                        Always Glowing
+                    </div>
+                    <button class="reset-btn" onclick="toggleAnimation('glowDemo', 'ms-animate-glow')">Toggle</button>
+                    <div class="code-snippet">
+                        class="ms-animate-glow"
+                    </div>
+                </div>
+                
+                <div class="demo-box">
+                    <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Sparkle</h3>
+                    <div id="sparkleDemo" class="demo-element">
+                        Always Sparkling
+                    </div>
+                    <button class="reset-btn" onclick="toggleAnimation('sparkleDemo', 'ms-animate-sparkle')">Toggle</button>
+                    <div class="code-snippet">
+                        class="ms-animate-sparkle"
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading States -->
+        <section class="section">
+            <h2 class="section-title">Loading Indicators</h2>
+            
+            <div class="demo-box" style="max-width: 500px; margin: 0 auto;">
+                <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Loading Dots</h3>
+                <div style="display: flex; align-items: center; justify-content: center; padding: 20px;">
+                    <span style="color: var(--ms-text-secondary); margin-right: 10px;">Loading</span>
+                    <div class="ms-loading-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="code-snippet">
+&lt;div class="ms-loading-dots"&gt;
+    &lt;span&gt;&lt;/span&gt;
+    &lt;span&gt;&lt;/span&gt;
+    &lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Button Hover Effects -->
+        <section class="section">
+            <h2 class="section-title">Button Effects</h2>
+            
+            <div style="text-align: center; padding: 40px;">
+                <button class="btn-demo ms-btn-hover-primary">
+                    Hover Me - Primary
+                </button>
+                <button class="btn-demo ms-btn-hover-secondary" style="background: transparent; border: 1px solid var(--ms-border-input); color: var(--ms-text-tertiary);">
+                    Hover Me - Secondary
+                </button>
+                <div class="code-snippet" style="max-width: 600px; margin: 20px auto;">
+                    class="ms-btn-hover-primary"<br>
+                    class="ms-btn-hover-secondary"
+                </div>
+            </div>
+        </section>
+
+        <!-- Dramatic Animations -->
+        <section class="section">
+            <h2 class="section-title">Dramatic Effects</h2>
+            
+            <div class="demo-grid">
+                <div class="demo-box">
+                    <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Explode Up</h3>
+                    <div id="explodeDemo" class="demo-element">
+                        Click to Explode
+                    </div>
+                    <button class="reset-btn" onclick="resetAnimation('explodeDemo', 'logout-explode-up')">Reset</button>
+                    <div class="code-snippet">
+                        class="logout-explode-up"
+                    </div>
+                </div>
+                
+                <div class="demo-box">
+                    <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Vanish</h3>
+                    <div id="vanishDemo" class="demo-element">
+                        Click to Vanish
+                    </div>
+                    <button class="reset-btn" onclick="resetAnimation('vanishDemo', 'logout-selected-vanish')">Reset</button>
+                    <div class="code-snippet">
+                        class="logout-selected-vanish"
+                    </div>
+                </div>
+                
+                <div class="demo-box">
+                    <h3 style="color: var(--ms-text-light); margin-bottom: 15px;">Dramatic Entrance</h3>
+                    <div id="dramaticDemo" class="demo-element">
+                        Click for Entrance
+                    </div>
+                    <button class="reset-btn" onclick="resetAnimation('dramaticDemo', 'nav-item-dramatic-entrance')">Reset</button>
+                    <div class="code-snippet">
+                        class="nav-item-dramatic-entrance"
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage Guide -->
+        <section class="section" style="margin-top: 80px;">
+            <h2 class="section-title">How to Use</h2>
+            <div class="demo-box" style="text-align: left;">
+                <h3 style="color: var(--ms-accent-primary); margin-bottom: 20px;">Quick Start</h3>
+                
+                <p style="color: var(--ms-text-secondary); margin-bottom: 20px; line-height: 1.6;">
+                    Add the CSS file to your HTML:
+                </p>
+                <div class="code-snippet" style="margin-bottom: 30px;">
+&lt;link rel="stylesheet" href="ms-animations-styles.css"&gt;
+                </div>
+                
+                <p style="color: var(--ms-text-secondary); margin-bottom: 20px; line-height: 1.6;">
+                    Then apply classes to your elements:
+                </p>
+                <div class="code-snippet" style="margin-bottom: 30px;">
+&lt;div class="fade-in"&gt;This will fade in&lt;/div&gt;
+&lt;button class="ms-btn-hover-primary"&gt;Hover me&lt;/button&gt;
+&lt;div class="ms-card-hover"&gt;Card with hover effect&lt;/div&gt;
+                </div>
+                
+                <p style="color: var(--ms-text-secondary); margin-bottom: 20px; line-height: 1.6;">
+                    Use CSS variables for consistent theming:
+                </p>
+                <div class="code-snippet">
+background: var(--ms-bg-primary);
+color: var(--ms-accent-primary);
+transition: all var(--ms-transition-base);
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 40px 0; color: var(--ms-text-muted); margin-top: 60px;">
+            <p style="font-family: var(--ms-font-mono); font-size: 0.85rem; letter-spacing: 0.1em;">
+                M&S DESIGN SYSTEM · ANIMATIONS LIBRARY
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize continuous animations
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('pulseDemo').classList.add('ms-animate-pulse');
+            document.getElementById('glowDemo').classList.add('ms-animate-glow');
+            document.getElementById('sparkleDemo').classList.add('ms-animate-sparkle');
+        });
+
+        // Reset animation function
+        function resetAnimation(elementId, className) {
+            const element = document.getElementById(elementId);
+            element.classList.remove(className);
+            
+            // Force reflow to restart animation
+            void element.offsetWidth;
+            
+            element.classList.add(className);
+        }
+
+        // Toggle animation function
+        function toggleAnimation(elementId, className) {
+            const element = document.getElementById(elementId);
+            element.classList.toggle(className);
+        }
+
+        // Click handlers for demo elements
+        document.getElementById('fadeDemo')?.addEventListener('click', function() {
+            resetAnimation('fadeDemo', 'fade-in');
+        });
+
+        document.getElementById('slideDemo')?.addEventListener('click', function() {
+            resetAnimation('slideDemo', 'slide-in');
+        });
+
+        document.getElementById('slideLeftDemo')?.addEventListener('click', function() {
+            resetAnimation('slideLeftDemo', 'nav-item-animate-in');
+        });
+
+        document.getElementById('explodeDemo')?.addEventListener('click', function() {
+            resetAnimation('explodeDemo', 'logout-explode-up');
+        });
+
+        document.getElementById('vanishDemo')?.addEventListener('click', function() {
+            resetAnimation('vanishDemo', 'logout-selected-vanish');
+        });
+
+        document.getElementById('dramaticDemo')?.addEventListener('click', function() {
+            resetAnimation('dramaticDemo', 'nav-item-dramatic-entrance');
+        });
+
+        console.log('✅ M&S Animations Demo Loaded');
+    </script>
+</body>
+</html>
+

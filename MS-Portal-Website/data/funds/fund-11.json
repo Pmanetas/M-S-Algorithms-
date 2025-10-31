@@ -1,0 +1,55 @@
+{
+  "name": "ALL WEATHER FUND 11",
+    "holdings": [
+      {
+        "ticker": "VTI",
+        "name": "Vanguard Total Stock Market ETF",
+      "allocation": "14.50%"
+    },
+    {
+      "ticker": "TLT",
+      "name": "iShares 20+ Year Treasury Bond ETF",
+      "allocation": "9.50%"
+    },
+    {
+      "ticker": "IEF",
+      "name": "iShares 7-10 Year Treasury Bond ETF",
+      "allocation": "9.50%"
+    },
+    {
+      "ticker": "GSG",
+      "name": "iShares S&P GSCI Commodity-Indexed Trust",
+      "allocation": "9.50%"
+    },
+    {
+      "ticker": "GLD",
+      "name": "SPDR Gold Shares",
+      "allocation": "9.50%"
+    },
+    {
+      "ticker": "VIG",
+      "name": "Vanguard Dividend Appreciation ETF",
+      "allocation": "9.50%"
+    },
+    {
+      "ticker": "GII",
+      "name": "SPDR S&P Global Infrastructure ETF",
+      "allocation": "9.50%"
+    },
+    {
+      "ticker": "IAK",
+      "name": "iShares US Insurance ETF",
+      "allocation": "9.50%"
+    },
+    {
+      "ticker": "SPIP",
+      "name": "SPDR Portfolio TIPS ETF",
+      "allocation": "9.50%"
+    },
+    {
+      "ticker": "UUP",
+      "name": "Invesco DB US Dollar Bullish",
+      "allocation": "9.50%"
+  }
+  ]
+}

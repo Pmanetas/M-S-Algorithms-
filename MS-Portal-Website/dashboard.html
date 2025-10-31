@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRAXIS - Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <!-- Dynamic width loading REMOVED to prevent flickering -->
+    <style>
+        /* Prevent any flicker during page load */
+        body {
+            opacity: 1 !important;
+            transition: none !important;
+            background-color: #0f0f0f !important;
+        }
+                /* Force immediate M&S positioning - no flicker allowed */
+        .praxis-logo {
+            position: absolute !important;
+            top: 20px !important;
+            left: 20px !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 0.7 !important;
+            font-size: 1.2rem !important;
+            color: #4a5568 !important;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+            font-weight: 400 !important;
+            letter-spacing: 0.1em !important;
+            text-transform: uppercase !important;
+            transform: none !important;
+            animation: none !important;
+            transition: none !important;
+        }
+        /* Completely hide logout button on initial load */
+        #logoutBtn {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            position: fixed !important;
+            bottom: -100px !important;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="black-screen">
+        <div class="praxis-logo" style="position: absolute !important; top: 20px !important; left: 20px !important; font-size: 1.2rem !important; opacity: 0.7 !important; font-weight: 400 !important; letter-spacing: 0.1em !important; text-transform: uppercase !important; color: #4a5568 !important; transition: none !important; transform: none !important; animation: none !important; display: block !important; visibility: visible !important; font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;">m&s</div>
+        <button id="logoutBtn" class="logout-btn">Logout</button>
+        
+        <!-- Bottom Left Control Buttons -->
+        <div class="bottom-controls">
+            <button class="control-btn home-btn" id="homeBtn" style="display: none;">HOME</button>
+            <button class="control-btn logout-bottom-btn" id="logoutBottomBtn">LOGOUT</button>
+        </div>
+        
+        <nav class="animated-nav">
+            <div class="nav-item" data-page="funds">FUNDS</div>
+            <div class="nav-item" data-page="assets">ASSETS</div>
+            <div class="nav-item" data-page="markets">MARKETS</div>
+            <div class="nav-item" data-page="forex">FOREX</div>
+            <div class="nav-item" data-page="headlines">HEADLINES TODAY</div>
+            <div class="nav-item" data-page="ai">LATEST ON A.I</div>
+            <div class="nav-item" data-page="calendar">CALENDAR</div>
+            <div class="nav-item" data-page="shortterm">SHORT TERM DEBT CYCLE</div>
+            <div class="nav-item" data-page="longterm">LONG TERM DEBT CYCLE</div>
+            <div class="nav-item" data-page="bigcycle">BIG CYCLE</div>
+            <div class="nav-item" data-page="settings">SETTINGS</div>
+            <div class="nav-item" data-page="company-goals">COMPANY GOALS</div>
+            <div class="nav-item" data-page="agent-tab">AGENT TAB</div>
+            <div class="nav-item trading-nav" data-page="trading">TRADING TERMINAL</div>
+            <div class="nav-item accounting-nav" data-page="accounting">ACCOUNTING</div>
+            <div class="nav-item email-nav" data-page="email">EMAIL</div>
+            <div class="nav-item praxis-nav" data-page="praxis">PRAXIS 1.0</div>
+        </nav>
+        
+        <!-- Agent Side Panel - always visible like Cursor -->
+        <div class="chat-container" id="chatContainer">
+            <!-- Chat Header with NEW CHAT button -->
+            <div class="chat-header-bar">
+                <div class="chat-title-left">AGENT</div>
+                <button class="new-chat-btn" id="newChatBtn">NEW CHAT</button>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+            </div>
+            <div class="chat-input-container">
+                <textarea class="chat-input" id="chatInput" placeholder="" rows="1"></textarea>
+                <button class="chat-send" id="chatSend">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22,2 15,22 11,13 2,9"></polygon>
+                    </svg>
+                </button>
+            </div>
+            <div class="agent-selector-bottom">
+                <div class="agent-toggle" id="agentToggle">
+                    <span class="agent-arrow" id="agentArrow">^</span>
+                    <span class="agent-name" id="agentName">ChatGPT</span>
+                </div>
+                <div class="agent-dropdown-menu" id="agentDropdown" style="display: none;">
+                    <div class="agent-option" data-agent="openai">ChatGPT</div>
+                    <div class="agent-option" data-agent="claude">Claude</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="dashboard.js"></script>
+</body>
+</html> 

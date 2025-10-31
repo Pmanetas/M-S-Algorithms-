@@ -1,0 +1,218 @@
+{
+  "fundNumber": 10,
+  "fundName": "ALL WEATHER FUND 10",
+  "startingBalance": 10000,
+  "portfolio": {
+    "holdings": [
+      {
+        "ticker": "VTI",
+        "name": "Vanguard Total Stock Market ETF",
+        "allocation": 15,
+        "color": "#6fa8f7"
+      },
+      {
+        "ticker": "TLT",
+        "name": "iShares 20+ Year Treasury Bond ETF",
+        "allocation": 10,
+        "color": "#2d3748"
+      },
+      {
+        "ticker": "IEF",
+        "name": "iShares 7-10 Year Treasury Bond ETF",
+        "allocation": 5,
+        "color": "#50e3c2"
+      },
+      {
+        "ticker": "GSG",
+        "name": "iShares S&P GSCI Commodity-Indexed Trust",
+        "allocation": 5,
+        "color": "#f5a623"
+      },
+      {
+        "ticker": "GLD",
+        "name": "SPDR Gold Shares",
+        "allocation": 20,
+        "color": "#9013fe"
+      },
+      {
+        "ticker": "VIG",
+        "name": "Vanguard Dividend Appreciation ETF",
+        "allocation": 5,
+        "color": "#ff6b9d"
+      },
+      {
+        "ticker": "GII",
+        "name": "SPDR S&P Global Infrastructure ETF",
+        "allocation": 10,
+        "color": "#4caf50"
+      },
+      {
+        "ticker": "IAK",
+        "name": "iShares US Insurance ETF",
+        "allocation": 5,
+        "color": "#ff5722"
+      },
+      {
+        "ticker": "SPIP",
+        "name": "SPDR Portfolio TIPS ETF",
+        "allocation": 25,
+        "color": "#795548"
+      }
+    ]
+  },
+  "performance": [
+    {
+      "metric": "Annualized Return",
+      "fund": "4.2%",
+      "benchmark": "10.5%"
+    },
+    {
+      "metric": "Total Return",
+      "fund": "135.8%",
+      "benchmark": "342.6%"
+    },
+    {
+      "metric": "Best Year",
+      "fund": "23.1% (2016)",
+      "benchmark": "32.4% (2013)"
+    },
+    {
+      "metric": "Worst Year",
+      "fund": "-8.9% (2018)",
+      "benchmark": "-4.4% (2018)"
+    },
+    {
+      "metric": "Max Drawdown",
+      "fund": "-14.7%",
+      "benchmark": "-19.6%"
+    },
+    {
+      "metric": "Sharpe Ratio",
+      "fund": "0.42",
+      "benchmark": "0.67"
+    },
+    {
+      "metric": "Sortino Ratio",
+      "fund": "0.61",
+      "benchmark": "0.98"
+    },
+    {
+      "metric": "Market Correlation",
+      "fund": "0.75",
+      "benchmark": "1.00"
+    },
+    {
+      "metric": "Standard Deviation",
+      "fund": "8.9%",
+      "benchmark": "15.8%"
+    },
+    {
+      "metric": "Beta",
+      "fund": "0.42",
+      "benchmark": "1.00"
+    },
+    {
+      "metric": "Alpha",
+      "fund": "-2.1%",
+      "benchmark": "0.0%"
+    },
+    {
+      "metric": "Final Balance",
+      "fund": "$23,580",
+      "benchmark": "$44,260"
+    }
+  ],
+  "monthlyReturns": [
+    { "year": "2008", "jan": "-1.25%", "feb": "2.14%", "mar": "-0.78%", "apr": "1.42%", "may": "0.89%", "jun": "-1.15%", "jul": "0.95%", "aug": "1.28%", "sep": "-3.42%", "oct": "-2.18%", "nov": "3.67%", "dec": "1.89%", "total": "2.46%", "inflation": "0.10%", "balance": "$10,246" },
+    { "year": "2009", "jan": "2.85%", "feb": "-1.42%", "mar": "1.58%", "apr": "2.14%", "may": "1.89%", "jun": "-0.75%", "jul": "3.24%", "aug": "0.98%", "sep": "1.45%", "oct": "-0.89%", "nov": "1.67%", "dec": "0.78%", "total": "13.74%", "inflation": "-0.40%", "balance": "$11,654" },
+    { "year": "2010", "jan": "-0.89%", "feb": "1.45%", "mar": "2.78%", "apr": "1.24%", "may": "-2.14%", "jun": "-1.58%", "jul": "2.89%", "aug": "-0.67%", "sep": "2.14%", "oct": "1.89%", "nov": "0.45%", "dec": "2.78%", "total": "9.55%", "inflation": "1.50%", "balance": "$12,767" },
+    { "year": "2011", "jan": "1.24%", "feb": "2.14%", "mar": "-0.89%", "apr": "2.78%", "may": "-1.45%", "jun": "-0.67%", "jul": "-0.24%", "aug": "-2.89%", "sep": "-3.45%", "oct": "4.67%", "nov": "-0.78%", "dec": "1.89%", "total": "2.35%", "inflation": "3.10%", "balance": "$13,067" },
+    { "year": "2012", "jan": "2.89%", "feb": "1.45%", "mar": "0.67%", "apr": "0.24%", "may": "-1.89%", "jun": "2.14%", "jul": "1.78%", "aug": "0.89%", "sep": "0.45%", "oct": "-0.67%", "nov": "0.89%", "dec": "1.24%", "total": "9.32%", "inflation": "2.10%", "balance": "$14,285" },
+    { "year": "2013", "jan": "1.78%", "feb": "-0.45%", "mar": "0.89%", "apr": "1.24%", "may": "-2.67%", "jun": "-1.89%", "jul": "0.67%", "aug": "-1.24%", "sep": "2.14%", "oct": "1.45%", "nov": "0.89%", "dec": "-0.67%", "total": "1.14%", "inflation": "1.50%", "balance": "$14,448" },
+    { "year": "2014", "jan": "-0.89%", "feb": "2.14%", "mar": "0.67%", "apr": "0.24%", "may": "1.89%", "jun": "1.45%", "jul": "-0.67%", "aug": "2.78%", "sep": "-1.24%", "oct": "1.89%", "nov": "1.45%", "dec": "-0.67%", "total": "8.27%", "inflation": "0.10%", "balance": "$15,642" },
+    { "year": "2015", "jan": "2.14%", "feb": "0.67%", "mar": "-1.24%", "apr": "0.89%", "may": "-0.45%", "jun": "-2.14%", "jul": "1.78%", "aug": "-2.67%", "sep": "-0.89%", "oct": "2.14%", "nov": "-0.67%", "dec": "-1.24%", "total": "-1.68%", "inflation": "0.10%", "balance": "$15,379" },
+    { "year": "2016", "jan": "-2.89%", "feb": "1.45%", "mar": "2.67%", "apr": "1.89%", "may": "0.24%", "jun": "2.14%", "jul": "2.78%", "aug": "0.89%", "sep": "0.45%", "oct": "-0.67%", "nov": "4.24%", "dec": "1.89%", "total": "15.32%", "inflation": "1.30%", "balance": "$17,735" },
+    { "year": "2017", "jan": "1.78%", "feb": "1.24%", "mar": "-0.45%", "apr": "0.67%", "may": "0.89%", "jun": "-0.24%", "jul": "2.14%", "aug": "1.45%", "sep": "-0.67%", "oct": "1.89%", "nov": "0.78%", "dec": "1.24%", "total": "9.95%", "inflation": "2.10%", "balance": "$19,499" },
+    { "year": "2018", "jan": "2.14%", "feb": "-1.89%", "mar": "-0.67%", "apr": "-0.24%", "may": "0.45%", "jun": "-0.89%", "jul": "0.78%", "aug": "1.24%", "sep": "0.67%", "oct": "-4.78%", "nov": "1.89%", "dec": "-6.89%", "total": "-8.19%", "inflation": "2.40%", "balance": "$17,903" },
+    { "year": "2019", "jan": "3.45%", "feb": "1.89%", "mar": "1.24%", "apr": "0.67%", "may": "-2.14%", "jun": "2.78%", "jul": "0.89%", "aug": "-1.45%", "sep": "-0.24%", "oct": "0.67%", "nov": "0.89%", "dec": "1.45%", "total": "10.34%", "inflation": "1.80%", "balance": "$19,752" },
+    { "year": "2020", "jan": "-0.78%", "feb": "-2.45%", "mar": "-1.89%", "apr": "3.24%", "may": "0.89%", "jun": "1.45%", "jul": "2.14%", "aug": "1.67%", "sep": "-0.89%", "oct": "-0.24%", "nov": "1.78%", "dec": "1.89%", "total": "5.92%", "inflation": "1.20%", "balance": "$20,921" },
+    { "year": "2021", "jan": "-1.24%", "feb": "-2.89%", "mar": "0.67%", "apr": "0.24%", "may": "1.45%", "jun": "0.89%", "jul": "1.78%", "aug": "0.67%", "sep": "-1.45%", "oct": "1.89%", "nov": "0.45%", "dec": "2.78%", "total": "4.24%", "inflation": "4.70%", "balance": "$21,808" },
+    { "year": "2022", "jan": "-1.89%", "feb": "-0.67%", "mar": "1.45%", "apr": "-2.78%", "may": "-0.89%", "jun": "-3.24%", "jul": "2.14%", "aug": "-1.45%", "sep": "-4.67%", "oct": "0.89%", "nov": "1.78%", "dec": "0.67%", "total": "-8.66%", "inflation": "8.00%", "balance": "$19,921" },
+    { "year": "2023", "jan": "3.24%", "feb": "-1.78%", "mar": "1.45%", "apr": "0.89%", "may": "-0.24%", "jun": "-1.67%", "jul": "1.89%", "aug": "-2.14%", "sep": "-3.45%", "oct": "-0.89%", "nov": "4.67%", "dec": "0.78%", "total": "2.75%", "inflation": "4.10%", "balance": "$20,469" },
+    { "year": "2024", "jan": "0.89%", "feb": "1.45%", "mar": "0.67%", "apr": "-0.24%", "may": "2.14%", "jun": "0.78%", "jul": "1.24%", "aug": "-1.89%", "sep": "2.45%", "oct": "-0.67%", "nov": "2.89%", "dec": "1.78%", "total": "11.25%", "inflation": "3.20%", "balance": "$22,773" }
+  ],
+  "drawdowns": [
+    {
+      "rank": 1,
+      "peak": "Dec 2021",
+      "valley": "Sep 2022",
+      "recovery": "Mar 2024",
+      "length": "27 months",
+      "drawdown": "-14.7%"
+    },
+    {
+      "rank": 2,
+      "peak": "Dec 2017",
+      "valley": "Dec 2018",
+      "recovery": "Jul 2019",
+      "length": "19 months",
+      "drawdown": "-13.2%"
+    },
+    {
+      "rank": 3,
+      "peak": "Dec 2014",
+      "valley": "Jan 2016",
+      "recovery": "Nov 2016",
+      "length": "23 months",
+      "drawdown": "-8.9%"
+    },
+    {
+      "rank": 4,
+      "peak": "Jul 2020",
+      "valley": "Mar 2020",
+      "recovery": "Aug 2020",
+      "length": "6 months",
+      "drawdown": "-6.7%"
+    },
+    {
+      "rank": 5,
+      "peak": "Oct 2011",
+      "valley": "Sep 2011",
+      "recovery": "Dec 2011",
+      "length": "3 months",
+      "drawdown": "-5.4%"
+    }
+  ],
+  "strategy": {
+    "assetsList": [
+      "VTI (US Stocks)",
+      "TLT & IEF (US Treasuries)",
+      "GSG (Commodities)",
+      "GLD (Gold - highest allocation)",
+      "VIG (Dividend Stocks)",
+      "GII (Global Infrastructure)",
+      "IAK (Insurance Sector)",
+      "SPIP (TIPS - largest allocation)"
+    ],
+    "overview": "AW10 is the most inflation-focused portfolio in the series, with SPIP (TIPS) at 25% and GLD (Gold) at 20%. This creates a defensive, inflation-hedged approach.",
+    "whyWorks": [
+      "TIPS (25%) provide direct inflation protection with government backing",
+      "Gold (20%) offers traditional inflation hedge and crisis protection",
+      "Reduced equity exposure (15% VTI) lowers volatility",
+      "Infrastructure and dividend stocks provide real asset exposure",
+      "Balanced treasury allocation provides stability and deflation protection"
+    ],
+    "bestSuited": [
+      "Investors primarily concerned about inflation erosion",
+      "Conservative investors seeking capital preservation",
+      "Those wanting maximum inflation protection with moderate growth",
+      "Investors in high-inflation environments or expecting inflation cycles"
+    ],
+    "effectiveDuring": [
+      "High inflation periods",
+      "Rising interest rate environments where TIPS benefit",
+      "Economic uncertainty when gold and defensive assets outperform",
+      "Market volatility when lower correlation assets provide stability"
+    ]
+  }
+}

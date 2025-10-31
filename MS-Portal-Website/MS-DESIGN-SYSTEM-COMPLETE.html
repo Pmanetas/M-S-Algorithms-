@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M&S Design System - Complete Package</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           M&S DESIGN SYSTEM - COMPLETE CSS
+           ======================================== */
+        
+        /* CSS VARIABLES */
+        :root {
+            /* Colors - Primary */
+            --ms-bg-primary: #0f0f0f;
+            --ms-bg-secondary: #1a1a1a;
+            --ms-bg-card: rgba(15, 15, 15, 0.95);
+            
+            /* Colors - Accent (Green) */
+            --ms-accent-primary: #16a34a;
+            --ms-accent-light: #22c55e;
+            --ms-accent-dark: #14532d;
+            --ms-accent-glow: rgba(22, 163, 74, 0.3);
+            
+            /* Colors - Text */
+            --ms-text-primary: #ffffff;
+            --ms-text-secondary: #a0a0a0;
+            --ms-text-tertiary: #808080;
+            --ms-text-muted: #4a5568;
+            
+            /* Colors - Status */
+            --ms-success: #22c55e;
+            --ms-success-bg: rgba(22, 163, 74, 0.2);
+            --ms-success-border: rgba(22, 163, 74, 0.4);
+            --ms-warning: #fbbf24;
+            --ms-warning-bg: rgba(245, 158, 11, 0.2);
+            --ms-warning-border: rgba(245, 158, 11, 0.4);
+            --ms-danger: #ef4444;
+            --ms-danger-bg: rgba(220, 38, 38, 0.2);
+            --ms-danger-border: rgba(220, 38, 38, 0.4);
+            --ms-info: #38bdf8;
+            --ms-info-bg: rgba(14, 165, 233, 0.2);
+            --ms-info-border: rgba(14, 165, 233, 0.4);
+            
+            /* Borders */
+            --ms-border-default: rgba(255, 255, 255, 0.1);
+            --ms-border-hover: rgba(22, 163, 74, 0.3);
+            --ms-border-focus: #16a34a;
+            --ms-border-input: #2d3748;
+            
+            /* Typography */
+            --ms-font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --ms-font-mono: 'JetBrains Mono', monospace;
+            
+            /* Spacing */
+            --ms-space-xs: 4px;
+            --ms-space-sm: 8px;
+            --ms-space-md: 12px;
+            --ms-space-base: 16px;
+            --ms-space-lg: 20px;
+            --ms-space-xl: 24px;
+            --ms-space-2xl: 32px;
+            
+            /* Border Radius */
+            --ms-radius-sm: 3px;
+            --ms-radius-base: 4px;
+            --ms-radius-md: 6px;
+            --ms-radius-lg: 8px;
+            --ms-radius-xl: 12px;
+            --ms-radius-full: 9999px;
+            
+            /* Shadows */
+            --ms-shadow-md: 0 0 15px rgba(22, 163, 74, 0.2);
+            --ms-shadow-lg: 0 0 20px rgba(22, 163, 74, 0.3);
+            --ms-shadow-glow: 0 0 15px rgba(22, 163, 74, 0.6);
+            
+            /* Transitions */
+            --ms-transition-fast: 0.15s ease;
+            --ms-transition-base: 0.3s ease;
+            --ms-transition-slow: 0.5s ease;
+        }
+
+        /* ========================================
+           BASE STYLES
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--ms-font-primary);
+            background: var(--ms-bg-primary);
+            color: var(--ms-text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        /* ========================================
+           LAYOUT COMPONENTS
+           ======================================== */
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ms-text-muted);
+            z-index: 1000;
+            transition: opacity var(--ms-transition-base);
+        }
+
+        .logo:hover {
+            opacity: 1;
+        }
+
+        .nav-container {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ms-text-tertiary);
+            cursor: pointer;
+            transition: all var(--ms-transition-base);
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            color: var(--ms-text-secondary);
+            transform: translateX(3px);
+        }
+
+        .nav-item.active {
+            color: var(--ms-accent-primary);
+            font-weight: 600;
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            background: var(--ms-accent-primary);
+            border-radius: 50%;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            min-height: 100vh;
+        }
+
+        /* ========================================
+           CARD COMPONENTS
+           ======================================== */
+        .card {
+            background: var(--ms-bg-card);
+            border: 1px solid var(--ms-border-default);
+            border-radius: var(--ms-radius-lg);
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all var(--ms-transition-base);
+        }
+
+        .card:hover {
+            border-color: var(--ms-border-hover);
+            box-shadow: var(--ms-shadow-lg);
+        }
+
+        .card-header {
+            font-size: 1.2rem;
+            color: var(--ms-accent-primary);
+            margin-bottom: 16px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-family: var(--ms-font-mono);
+        }
+
+        .card-content {
+            color: var(--ms-text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           FORM COMPONENTS
+           ======================================== */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--ms-text-tertiary);
+            font-weight: 400;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--ms-border-input);
+            border-radius: var(--ms-radius-base);
+            font-size: 0.9rem;
+            transition: all var(--ms-transition-base);
+            background: rgba(15, 15, 15, 0.5);
+            color: var(--ms-text-primary);
+            font-family: var(--ms-font-mono);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--ms-border-focus);
+            background: rgba(22, 163, 74, 0.05);
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* ========================================
+           BUTTON COMPONENTS
+           ======================================== */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--ms-radius-base);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--ms-transition-base);
+            font-family: var(--ms-font-primary);
+        }
+
+        .btn-primary {
+            background: var(--ms-accent-primary);
+            color: var(--ms-text-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--ms-accent-light);
+            box-shadow: var(--ms-shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--ms-border-input);
+            color: var(--ms-text-tertiary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--ms-accent-primary);
+            color: var(--ms-accent-primary);
+            box-shadow: var(--ms-shadow-md);
+        }
+
+        .btn-danger {
+            background: var(--ms-danger);
+            color: var(--ms-text-primary);
+        }
+
+        .btn-danger:hover {
+            background: #ef4444;
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.4);
+        }
+
+        /* ========================================
+           TABLE COMPONENTS
+           ======================================== */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--ms-font-mono);
+            font-size: 0.85rem;
+        }
+
+        thead {
+            border-bottom: 1px solid var(--ms-border-hover);
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            color: var(--ms-accent-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+        }
+
+        td {
+            padding: 12px;
+            color: var(--ms-text-secondary);
+            border-bottom: 1px solid var(--ms-border-default);
+        }
+
+        tr:hover {
+            background: rgba(22, 163, 74, 0.05);
+        }
+
+        /* ========================================
+           BADGE COMPONENTS
+           ======================================== */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: var(--ms-radius-full);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-family: var(--ms-font-mono);
+        }
+
+        .badge-success {
+            background: var(--ms-success-bg);
+            color: var(--ms-success);
+            border: 1px solid var(--ms-success-border);
+        }
+
+        .badge-warning {
+            background: var(--ms-warning-bg);
+            color: var(--ms-warning);
+            border: 1px solid var(--ms-warning-border);
+        }
+
+        .badge-danger {
+            background: var(--ms-danger-bg);
+            color: var(--ms-danger);
+            border: 1px solid var(--ms-danger-border);
+        }
+
+        .badge-info {
+            background: var(--ms-info-bg);
+            color: var(--ms-info);
+            border: 1px solid var(--ms-info-border);
+        }
+
+        /* ========================================
+           GRID LAYOUT
+           ======================================== */
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========================================
+           STAT CARDS
+           ======================================== */
+        .stat-card {
+            background: rgba(22, 163, 74, 0.05);
+            border: 1px solid rgba(22, 163, 74, 0.2);
+            border-radius: var(--ms-radius-lg);
+            padding: 20px;
+            text-align: center;
+            transition: all var(--ms-transition-base);
+        }
+
+        .stat-card:hover {
+            border-color: rgba(22, 163, 74, 0.5);
+            box-shadow: var(--ms-shadow-lg);
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--ms-accent-primary);
+            font-family: var(--ms-font-mono);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--ms-text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ========================================
+           ANIMATIONS
+           ======================================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+
+        /* ========================================
+           UTILITY CLASSES
+           ======================================== */
+        .text-center { text-align: center; }
+        .text-green { color: var(--ms-accent-primary); }
+        .text-secondary { color: var(--ms-text-secondary); }
+        .mb-1 { margin-bottom: 8px; }
+        .mb-2 { margin-bottom: 16px; }
+        .mb-3 { margin-bottom: 24px; }
+        .mb-4 { margin-bottom: 32px; }
+        .mt-2 { margin-top: 16px; }
+        .uppercase { text-transform: uppercase; }
+
+        /* ========================================
+           SCROLLBAR
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--ms-bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ms-border-input);
+            border-radius: var(--ms-radius-base);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ms-text-muted);
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-container {
+                position: static;
+                transform: none;
+                flex-direction: row;
+                justify-content: center;
+                padding: 20px;
+                gap: 12px;
+            }
+
+            .main-content {
+                padding: 120px 20px 60px;
+            }
+
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           FOOTER / INFO SECTION
+           ======================================== */
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.7rem;
+            color: var(--ms-text-muted);
+            opacity: 0.7;
+            font-family: var(--ms-font-mono);
+        }
+
+        .design-tokens {
+            background: rgba(22, 163, 74, 0.03);
+            border: 1px solid var(--ms-border-hover);
+            border-radius: var(--ms-radius-lg);
+            padding: 20px;
+            margin: 40px 0;
+            font-family: var(--ms-font-mono);
+            font-size: 0.75rem;
+        }
+
+        .token-group {
+            margin-bottom: 20px;
+        }
+
+        .token-group h4 {
+            color: var(--ms-accent-primary);
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+        }
+
+        .token-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            color: var(--ms-text-secondary);
+        }
+
+        .token-name {
+            color: var(--ms-text-primary);
+        }
+
+        .color-swatch {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 1px solid var(--ms-border-default);
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo">m&s</div>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-item active" data-section="examples">Examples</div>
+        <div class="nav-item" data-section="tokens">Design Tokens</div>
+        <div class="nav-item" data-section="usage">Usage Guide</div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- SECTION 1: EXAMPLES -->
+        <section id="examples" class="content-section">
+            <h1 style="font-size: 3rem; color: var(--ms-accent-primary); margin-bottom: 16px;" class="fade-in">
+                M&S Design System
+            </h1>
+            <p style="font-size: 1.2rem; color: var(--ms-text-tertiary); max-width: 600px; margin-bottom: 40px;" class="fade-in">
+                Complete design system for building professional dark-themed applications with green accents.
+            </p>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-4 mb-4">
+                <div class="stat-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Responsive</div>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="stat-value">50+</div>
+                    <div class="stat-label">Components</div>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="stat-value">Dark</div>
+                    <div class="stat-label">Theme</div>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.4s;">
+                    <div class="stat-value">Green</div>
+                    <div class="stat-label">Accent</div>
+                </div>
+            </div>
+
+            <!-- Component Examples -->
+            <div class="grid grid-2 mb-4">
+                <div class="card slide-in">
+                    <div class="card-header">Card Component</div>
+                    <div class="card-content">
+                        <p class="mb-2">This is a card component with hover effects and green accents. Perfect for displaying grouped content.</p>
+                        <div class="mt-2">
+                            <span class="badge badge-success">Active</span>
+                            <span class="badge badge-info">Verified</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card slide-in" style="animation-delay: 0.1s;">
+                    <div class="card-header">Interactive Elements</div>
+                    <div class="card-content">
+                        <p class="mb-2">All components include hover states and smooth transitions for better UX.</p>
+                        <div class="mt-2">
+                            <span class="badge badge-warning">Pending</span>
+                            <span class="badge badge-danger">Error</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Examples -->
+            <div class="card mb-4">
+                <div class="card-header">Button Styles</div>
+                <div class="card-content">
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <button class="btn btn-primary">Primary Button</button>
+                        <button class="btn btn-secondary">Secondary Button</button>
+                        <button class="btn btn-danger">Danger Button</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Example -->
+            <div class="card mb-4">
+                <div class="card-header">Form Components</div>
+                <div class="card-content">
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Input Field</label>
+                            <input type="text" class="form-input" placeholder="Enter text...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Select Dropdown</label>
+                            <select class="form-select">
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Textarea</label>
+                        <textarea class="form-textarea" placeholder="Enter message..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table Example -->
+            <div class="card mb-4">
+                <div class="card-header">Table Component</div>
+                <div class="card-content">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Price</th>
+                                    <th>Change</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>AAPL</td>
+                                    <td>$175.50</td>
+                                    <td style="color: var(--ms-success);">+2.5%</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td>MSFT</td>
+                                    <td>$380.25</td>
+                                    <td style="color: var(--ms-success);">+1.8%</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td>GOOGL</td>
+                                    <td>$142.30</td>
+                                    <td style="color: var(--ms-danger);">-0.5%</td>
+                                    <td><span class="badge badge-warning">Watch</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: DESIGN TOKENS -->
+        <section id="tokens" class="content-section" style="display: none;">
+            <h1 style="font-size: 2.5rem; color: var(--ms-accent-primary); margin-bottom: 40px;">
+                Design Tokens
+            </h1>
+
+            <div class="design-tokens">
+                <div class="token-group">
+                    <h4>Colors - Primary</h4>
+                    <div class="token-item">
+                        <span class="token-name">Background Primary</span>
+                        <span><span class="color-swatch" style="background: #0f0f0f;"></span>#0f0f0f</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Background Secondary</span>
+                        <span><span class="color-swatch" style="background: #1a1a1a;"></span>#1a1a1a</span>
+                    </div>
+                </div>
+
+                <div class="token-group">
+                    <h4>Colors - Accent (Green)</h4>
+                    <div class="token-item">
+                        <span class="token-name">Accent Primary</span>
+                        <span><span class="color-swatch" style="background: #16a34a;"></span>#16a34a</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Accent Light</span>
+                        <span><span class="color-swatch" style="background: #22c55e;"></span>#22c55e</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Accent Dark</span>
+                        <span><span class="color-swatch" style="background: #14532d;"></span>#14532d</span>
+                    </div>
+                </div>
+
+                <div class="token-group">
+                    <h4>Colors - Text</h4>
+                    <div class="token-item">
+                        <span class="token-name">Text Primary</span>
+                        <span><span class="color-swatch" style="background: #ffffff;"></span>#ffffff</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Text Secondary</span>
+                        <span><span class="color-swatch" style="background: #a0a0a0;"></span>#a0a0a0</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Text Tertiary</span>
+                        <span><span class="color-swatch" style="background: #808080;"></span>#808080</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Text Muted</span>
+                        <span><span class="color-swatch" style="background: #4a5568;"></span>#4a5568</span>
+                    </div>
+                </div>
+
+                <div class="token-group">
+                    <h4>Colors - Status</h4>
+                    <div class="token-item">
+                        <span class="token-name">Success</span>
+                        <span><span class="color-swatch" style="background: #22c55e;"></span>#22c55e</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Warning</span>
+                        <span><span class="color-swatch" style="background: #fbbf24;"></span>#fbbf24</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Danger</span>
+                        <span><span class="color-swatch" style="background: #ef4444;"></span>#ef4444</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Info</span>
+                        <span><span class="color-swatch" style="background: #38bdf8;"></span>#38bdf8</span>
+                    </div>
+                </div>
+
+                <div class="token-group">
+                    <h4>Typography</h4>
+                    <div class="token-item">
+                        <span class="token-name">Font Primary</span>
+                        <span>Inter</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Font Mono</span>
+                        <span>JetBrains Mono</span>
+                    </div>
+                </div>
+
+                <div class="token-group">
+                    <h4>Spacing (4px/8px Grid)</h4>
+                    <div class="token-item">
+                        <span class="token-name">Space XS</span>
+                        <span>4px</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Space SM</span>
+                        <span>8px</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Space Base</span>
+                        <span>16px</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Space LG</span>
+                        <span>20px</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-name">Space XL</span>
+                        <span>24px</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">CSS Variables</div>
+                <div class="card-content">
+                    <p class="mb-2">All design tokens are available as CSS variables:</p>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 6px; overflow-x: auto; color: var(--ms-accent-light); font-family: var(--ms-font-mono); font-size: 0.75rem;">
+/* Colors */
+var(--ms-bg-primary)
+var(--ms-accent-primary)
+var(--ms-text-primary)
+
+/* Spacing */
+var(--ms-space-base)
+var(--ms-space-lg)
+
+/* Typography */
+var(--ms-font-primary)
+var(--ms-font-mono)
+
+/* Borders */
+var(--ms-border-default)
+var(--ms-border-hover)
+
+/* Shadows */
+var(--ms-shadow-md)
+var(--ms-shadow-lg)</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: USAGE GUIDE -->
+        <section id="usage" class="content-section" style="display: none;">
+            <h1 style="font-size: 2.5rem; color: var(--ms-accent-primary); margin-bottom: 40px;">
+                Usage Guide
+            </h1>
+
+            <div class="card mb-4">
+                <div class="card-header">Quick Start</div>
+                <div class="card-content">
+                    <p class="mb-2">This is a self-contained file. To use the design system:</p>
+                    <ol style="margin-left: 20px; color: var(--ms-text-secondary);">
+                        <li>Save this HTML file</li>
+                        <li>Extract the CSS from the &lt;style&gt; tag</li>
+                        <li>Use the CSS variables and classes in your project</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">Component Examples</div>
+                <div class="card-content">
+                    <h3 style="color: var(--ms-accent-primary); margin-bottom: 12px;">Buttons</h3>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 6px; overflow-x: auto; color: var(--ms-text-primary); font-family: var(--ms-font-mono); font-size: 0.75rem; margin-bottom: 20px;">&lt;button class="btn btn-primary"&gt;Primary&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="btn btn-danger"&gt;Danger&lt;/button&gt;</pre>
+
+                    <h3 style="color: var(--ms-accent-primary); margin-bottom: 12px;">Cards</h3>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 6px; overflow-x: auto; color: var(--ms-text-primary); font-family: var(--ms-font-mono); font-size: 0.75rem; margin-bottom: 20px;">&lt;div class="card"&gt;
+  &lt;div class="card-header"&gt;Title&lt;/div&gt;
+  &lt;div class="card-content"&gt;
+    &lt;p&gt;Content here...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+                    <h3 style="color: var(--ms-accent-primary); margin-bottom: 12px;">Forms</h3>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 6px; overflow-x: auto; color: var(--ms-text-primary); font-family: var(--ms-font-mono); font-size: 0.75rem; margin-bottom: 20px;">&lt;div class="form-group"&gt;
+  &lt;label class="form-label"&gt;Label&lt;/label&gt;
+  &lt;input type="text" class="form-input"&gt;
+&lt;/div&gt;</pre>
+
+                    <h3 style="color: var(--ms-accent-primary); margin-bottom: 12px;">Badges</h3>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 6px; overflow-x: auto; color: var(--ms-text-primary); font-family: var(--ms-font-mono); font-size: 0.75rem;">&lt;span class="badge badge-success"&gt;Success&lt;/span&gt;
+&lt;span class="badge badge-warning"&gt;Warning&lt;/span&gt;
+&lt;span class="badge badge-danger"&gt;Danger&lt;/span&gt;
+&lt;span class="badge badge-info"&gt;Info&lt;/span&gt;</pre>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">Design Principles</div>
+                <div class="card-content">
+                    <ul style="margin-left: 20px; color: var(--ms-text-secondary); line-height: 1.8;">
+                        <li><strong style="color: var(--ms-text-primary);">Dark Theme:</strong> Always use #0f0f0f background</li>
+                        <li><strong style="color: var(--ms-text-primary);">Green Accents:</strong> Use #16a34a for primary actions and highlights</li>
+                        <li><strong style="color: var(--ms-text-primary);">Uppercase Labels:</strong> Navigation, buttons, and labels should be uppercase with increased letter-spacing</li>
+                        <li><strong style="color: var(--ms-text-primary);">JetBrains Mono:</strong> Use for data, code, and technical content</li>
+                        <li><strong style="color: var(--ms-text-primary);">Subtle Borders:</strong> Use rgba() values to maintain dark aesthetic</li>
+                        <li><strong style="color: var(--ms-text-primary);">Hover States:</strong> Always provide visual feedback (color/shadow/transform)</li>
+                        <li><strong style="color: var(--ms-text-primary);">4px/8px Grid:</strong> All spacing should be multiples of 4px</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Framework Integration</div>
+                <div class="card-content">
+                    <p class="mb-2" style="color: var(--ms-text-primary);"><strong>React/Next.js:</strong></p>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 6px; overflow-x: auto; color: var(--ms-accent-light); font-family: var(--ms-font-mono); font-size: 0.75rem; margin-bottom: 20px;">import './ms-design-system.css';
+
+export default function Button({ variant = 'primary' }) {
+  return &lt;button className={`btn btn-${variant}`}&gt;Click&lt;/button&gt;;
+}</pre>
+
+                    <p class="mb-2" style="color: var(--ms-text-primary);"><strong>Vue.js:</strong></p>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 6px; overflow-x: auto; color: var(--ms-accent-light); font-family: var(--ms-font-mono); font-size: 0.75rem;">&lt;template&gt;
+  &lt;button :class="`btn btn-${variant}`"&gt;
+    &lt;slot /&gt;
+  &lt;/button&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+@import './ms-design-system.css';
+&lt;/style&gt;</pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div class="footer">
+        M&S Design System v1.0
+    </div>
+
+    <!-- JavaScript for Navigation -->
+    <script>
+        // Navigation functionality
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.content-section');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const targetSection = this.getAttribute('data-section');
+                
+                // Update active nav
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show target section
+                sections.forEach(section => {
+                    section.style.display = section.id === targetSection ? 'block' : 'none';
+                });
+            });
+        });
+
+        // Button hover effects
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        console.log('✅ M&S Design System loaded successfully');
+        console.log('📦 All design tokens available as CSS variables (--ms-*)');
+        console.log('🎨 Background: #0f0f0f | Accent: #16a34a');
+    </script>
+
+    <!-- DESIGN SYSTEM DATA (JSON) - Can be extracted for programmatic use -->
+    <script type="application/json" id="design-system-json">
+    {
+      "version": "1.0.0",
+      "colors": {
+        "background": {
+          "primary": "#0f0f0f",
+          "secondary": "#1a1a1a",
+          "card": "rgba(15, 15, 15, 0.95)"
+        },
+        "accent": {
+          "green": "#16a34a",
+          "greenLight": "#22c55e",
+          "greenDark": "#14532d"
+        },
+        "text": {
+          "primary": "#ffffff",
+          "secondary": "#a0a0a0",
+          "tertiary": "#808080",
+          "muted": "#4a5568"
+        },
+        "status": {
+          "success": "#22c55e",
+          "warning": "#fbbf24",
+          "danger": "#ef4444",
+          "info": "#38bdf8"
+        }
+      },
+      "typography": {
+        "fonts": {
+          "primary": "Inter",
+          "mono": "JetBrains Mono"
+        },
+        "sizes": {
+          "xs": "0.6rem",
+          "sm": "0.7rem",
+          "base": "0.85rem",
+          "lg": "1.2rem",
+          "xl": "1.5rem",
+          "2xl": "2rem",
+          "3xl": "3rem"
+        }
+      },
+      "spacing": {
+        "xs": "4px",
+        "sm": "8px",
+        "md": "12px",
+        "base": "16px",
+        "lg": "20px",
+        "xl": "24px"
+      },
+      "borderRadius": {
+        "sm": "3px",
+        "base": "4px",
+        "lg": "8px",
+        "xl": "12px",
+        "full": "9999px"
+      }
+    }
+    </script>
+</body>
+</html>
+

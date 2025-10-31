@@ -1,0 +1,44 @@
+[
+  {
+    "id": "trade-001",
+    "status": "WIN",
+    "date": "2024-01-15",
+    "symbol": "AAPL",
+    "entry": 185.50,
+    "exit": 192.75,
+    "size": 100,
+    "side": "LONG",
+    "returnDollar": 725,
+    "returnPercent": 3.91,
+    "setups": ["EARNINGS WIN", "GAP UP"],
+    "efficiency": 85
+  },
+  {
+    "id": "trade-002",
+    "status": "LOSS",
+    "date": "2024-01-16",
+    "symbol": "TSLA",
+    "entry": 245.80,
+    "exit": 238.90,
+    "size": 50,
+    "side": "SHORT",
+    "returnDollar": -345,
+    "returnPercent": -2.81,
+    "setups": ["REVERSAL", "BREAKDOWN"],
+    "efficiency": 45
+  },
+  {
+    "id": "trade-003",
+    "status": "WIN",
+    "date": "2024-01-17",
+    "symbol": "NVDA",
+    "entry": 485.20,
+    "exit": 512.40,
+    "size": 75,
+    "side": "LONG",
+    "returnDollar": 2040,
+    "returnPercent": 5.61,
+    "setups": ["BREAKOUT", "MOMENTUM"],
+    "efficiency": 92
+  }
+] 
