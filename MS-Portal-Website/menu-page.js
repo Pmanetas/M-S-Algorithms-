@@ -7672,7 +7672,8 @@ document.addEventListener('DOMContentLoaded', function() {
             { id: 'cattle', text: 'CATTLE-ENGINE - PRAXIS 1.0 CATTLE CASH PRICE' },
             { id: 'natgas', text: 'NATGAS-ENGINE - PRAXIS 1.0 NATGAS SPOT' },
             { id: 'copper', text: 'COPPER-ENGINE - PRAXIS 1.0 COPPER SPOT' },
-            { id: 'audusd', text: 'AUDUSD-ENGINE - PRAXIS 1.0 AUD/USD' }
+            { id: 'audusd', text: 'AUDUSD-ENGINE - PRAXIS 1.0 AUD/USD' },
+            { id: 'coffee', text: 'COFFEE-ENGINE - PRAXIS 1.0 KC1 FUTURES' }
         ];
         
         // Create submenu items
