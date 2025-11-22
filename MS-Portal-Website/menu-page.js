@@ -6880,6 +6880,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show back button - for market indicators, pass navigation context
         showBackButton('markets', { level: 'indicator', marketId: marketId, marketText: marketText });
         
+        // Render the content for the selected indicator
+        setTimeout(() => {
+            if (indicatorId === 'risk-premiums') {
+                createRiskPremiumsContent(marketId);
+            }
+        }, 500);
 
     }
     
