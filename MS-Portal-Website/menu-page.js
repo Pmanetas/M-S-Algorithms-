@@ -16710,6 +16710,24 @@ function createRiskPremiumsContent(marketId) {
     aiSection.appendChild(aiContent);
     container.appendChild(aiSection);
     
+    // TODO: BUBBLE INDICATOR SECTION (Future Feature)
+    // This will be a comprehensive bubble detection system combining:
+    // - Equity risk premium (low = bubble forming)
+    // - VIX complacency levels (very low = too calm)
+    // - Credit spread compression (very tight = excess risk-taking)
+    // - Market momentum indicators (parabolic moves)
+    // - Valuation metrics (P/E ratios, P/S ratios)
+    // 
+    // Output: Single "Bubble Risk Score" 0-100 with visual gauge
+    // 0-30: Normal | 30-50: Elevated | 50-70: Bubble Forming | 70-85: Advanced Bubble | 85-100: EXTREME
+    // 
+    // Historical calibration targets:
+    // - 1999 Tech Bubble: 90+ score
+    // - 2007 Housing: 80+ score  
+    // - 2021 Meme Mania: 85+ score
+    //
+    // Will be implemented below the AI analysis section
+    
     // Metrics grid
     const metricsGrid = document.createElement('div');
     metricsGrid.id = 'metricsGrid';
