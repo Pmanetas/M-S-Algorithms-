@@ -16973,6 +16973,62 @@ function calculateRiskMetrics(data) {
 function renderMetricCards(container, metrics) {
     container.innerHTML = '';
     
+    // Add explanations for each metric
+    const explanations = {
+        treasury10Y: {
+            simple: "The 'risk-free' rate - what safe government bonds pay",
+            interpretation: "Higher = expensive borrowing everywhere"
+        },
+        treasury2Y: {
+            simple: "Short-term government bond rate",
+            interpretation: "If higher than 10Y = recession warning!"
+        },
+        fedFundsRate: {
+            simple: "Fed's main rate - controls the entire economy",
+            interpretation: "High = fighting inflation, Low = stimulating"
+        },
+        equityRiskPremium: {
+            simple: "🔥 KEY METRIC: Are stocks cheap or expensive?",
+            interpretation: "> 3% = Stocks attractive | < 1% = BUBBLE!"
+        },
+        termPremium: {
+            simple: "Yield curve slope (10Y - 2Y)",
+            interpretation: "Negative = Recession coming in 12-18 months"
+        },
+        creditRiskPremium: {
+            simple: "Extra yield for corporate vs government bonds",
+            interpretation: "High = Fear of corporate defaults"
+        },
+        highYieldSpread: {
+            simple: "Extra yield for junk bonds",
+            interpretation: "> 10% = Crisis | Spikes before recessions"
+        },
+        liquidityPremium: {
+            simple: "Do banks trust each other? (TED Spread)",
+            interpretation: "> 2% = Financial system stress"
+        },
+        realYield10Y: {
+            simple: "TRUE return after inflation (from TIPS market)",
+            interpretation: "Negative = Losing money even in 'safe' bonds!"
+        },
+        impliedInflation: {
+            simple: "What market expects for inflation",
+            interpretation: "~2% = Fed target | > 3% = Inflation worry"
+        },
+        discountRate: {
+            simple: "Rate to value companies (Warren Buffett uses this)",
+            interpretation: "Higher = Stocks should be worth less"
+        },
+        vix: {
+            simple: "Market 'fear gauge' - volatility index",
+            interpretation: "< 15 = Calm | 40+ = PANIC (buying opportunity?)"
+        },
+        corpBondYield: {
+            simple: "What big companies pay to borrow",
+            interpretation: "High = Bonds compete with stocks"
+        }
+    };
+    
     Object.entries(metrics).forEach(([key, metric]) => {
         const card = document.createElement('div');
         card.className = 'metric-card';
@@ -16982,7 +17038,12 @@ function renderMetricCards(container, metrics) {
             border-radius: 4px;
             padding: 15px;
             transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
         `;
+        
+        // Add click to expand explanation
+        let expanded = false;
         
         card.onmouseenter = () => {
             card.style.borderColor = 'rgba(160, 160, 160, 0.5)';
@@ -17040,12 +17101,82 @@ function renderMetricCards(container, metrics) {
             color: #606060;
             line-height: 1.4;
             font-family: 'Inter', sans-serif;
+            margin-bottom: 8px;
         `;
         description.textContent = metric.description;
         
+        // Add expandable explanation section
+        const explanation = document.createElement('div');
+        explanation.className = 'metric-explanation';
+        explanation.style.cssText = `
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(96, 96, 96, 0.3);
+            font-size: 0.5rem;
+            line-height: 1.5;
+            font-family: 'Inter', sans-serif;
+        `;
+        
+        if (explanations[key]) {
+            const simpleText = document.createElement('div');
+            simpleText.style.cssText = `
+                color: #0ea5e9;
+                font-weight: 500;
+                margin-bottom: 6px;
+            `;
+            simpleText.textContent = `💡 ${explanations[key].simple}`;
+            
+            const interpretText = document.createElement('div');
+            interpretText.style.cssText = `
+                color: #a0a0a0;
+            `;
+            interpretText.textContent = `📊 ${explanations[key].interpretation}`;
+            
+            explanation.appendChild(simpleText);
+            explanation.appendChild(interpretText);
+        }
+        
+        // Click to toggle explanation
+        card.onclick = () => {
+            expanded = !expanded;
+            if (expanded) {
+                explanation.style.display = 'block';
+                card.style.background = 'rgba(14, 165, 233, 0.1)';
+                card.style.borderColor = 'rgba(14, 165, 233, 0.4)';
+            } else {
+                explanation.style.display = 'none';
+                card.style.background = 'rgba(96, 96, 96, 0.1)';
+                card.style.borderColor = 'rgba(96, 96, 96, 0.3)';
+            }
+        };
+        
+        // Add info icon
+        const infoIcon = document.createElement('div');
+        infoIcon.style.cssText = `
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1px solid #606060;
+            color: #606060;
+            font-size: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+        `;
+        infoIcon.textContent = '?';
+        infoIcon.title = 'Click card for explanation';
+        
+        card.appendChild(infoIcon);
         card.appendChild(label);
         card.appendChild(value);
         card.appendChild(description);
+        card.appendChild(explanation);
         container.appendChild(card);
     });
 }
