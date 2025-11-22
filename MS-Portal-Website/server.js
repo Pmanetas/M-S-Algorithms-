@@ -48,6 +48,52 @@ app.post('/api/logout', (req, res) => {
     res.json({ success: true, message: 'Logged out successfully' });
 });
 
+// FRED API Proxy endpoint - keeps API key secure on server
+app.get('/api/fred/series', async (req, res) => {
+    const { series_id, observation_start, observation_end } = req.query;
+
+    // Validate API key is configured
+    if (!process.env.FRED_API_KEY) {
+        return res.status(500).json({ 
+            error: 'FRED API key not configured on server. Get one at https://fred.stlouisfed.org/docs/api/api_key.html' 
+        });
+    }
+
+    if (!series_id) {
+        return res.status(400).json({ 
+            error: 'series_id parameter is required' 
+        });
+    }
+
+    try {
+        const params = {
+            series_id: series_id,
+            api_key: process.env.FRED_API_KEY,
+            file_type: 'json'
+        };
+
+        if (observation_start) params.observation_start = observation_start;
+        if (observation_end) params.observation_end = observation_end;
+
+        const response = await axios.get(
+            'https://api.stlouisfed.org/fred/series/observations',
+            { params }
+        );
+
+        res.json({
+            success: true,
+            data: response.data
+        });
+
+    } catch (error) {
+        console.error('FRED API Error:', error.response?.data || error.message);
+        res.status(500).json({ 
+            error: 'Failed to fetch FRED data',
+            details: error.response?.data?.error_message || error.message
+        });
+    }
+});
+
 // OpenAI Proxy endpoint - keeps API key secure on server
 app.post('/api/chat', async (req, res) => {
     const { message, chatHistory, systemPrompt } = req.body;

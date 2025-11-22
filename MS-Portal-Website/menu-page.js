@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const fundType = urlParams.get('fund'); // NEW: Handle fund submenu parameter
     const subFundType = urlParams.get('subfund'); // NEW: Handle fund sub-submenu parameter
     const marketType = urlParams.get('market'); // NEW: Handle market submenu parameter
+    const indicatorType = urlParams.get('indicator'); // NEW: Handle market indicator parameter
     const assetType = urlParams.get('asset'); // NEW: Handle asset submenu parameter
     const debtType = urlParams.get('debt'); // NEW: Handle debt cycle submenu parameter
     const tradingType = urlParams.get('trading'); // NEW: Handle trading submenu parameter
@@ -461,8 +462,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add markets submenu if on markets page
     if (selectedPage === 'markets') {
-        // Check if there's a specific market selected (when navigating back)
-        if (marketType && !urlParams.get('indicator')) {
+        // Check if there's a specific indicator selected
+        if (marketType && indicatorType) {
+            // Show back button for indicator pages
+            setTimeout(() => {
+                showBackButton('markets', { level: 'indicator', marketId: marketType, marketText: marketType.toUpperCase().replace('-', ' ') });
+                
+                // Display specific indicator content based on type
+                if (indicatorType === 'risk-premiums') {
+                    createRiskPremiumsContent(marketType);
+                }
+            }, 300);
+        } else if (marketType && !indicatorType) {
             // Show market indicators submenu for the selected country
             const marketText = selectedText.replace('MARKETS > ', '');
             setTimeout(() => {
@@ -6743,7 +6754,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Economic indicators for the country
         const indicators = [
-            { id: 'risk-premiums', text: 'RISK PREMIUMS' },
+            { id: 'risk-premiums', text: 'RISK PREMIUMS / DISCOUNT RATE' },
             { id: 'balance-sheet', text: 'BALANCE SHEET' },
             { id: 'central-bank', text: 'CENTRAL BANK' },
             { id: 'central-bank-balance-sheet', text: 'CENTRAL BANK BALANCE SHEET' },
@@ -16545,4 +16556,552 @@ document.addEventListener('DOMContentLoaded', function() {
             emergencyInputFix();
         }
     }, 1000);
-}); 
+});
+
+// ========================================
+// RISK PREMIUMS / DISCOUNT RATE CONTENT
+// ========================================
+
+function createRiskPremiumsContent(marketId) {
+    console.log('Creating Risk Premiums content for:', marketId);
+    
+    // Create main container
+    const container = document.createElement('div');
+    container.className = 'risk-premiums-container';
+    container.style.cssText = `
+        position: fixed;
+        top: 120px;
+        left: 20px;
+        right: 300px;
+        bottom: 20px;
+        padding: 20px;
+        overflow-y: auto;
+        font-family: 'JetBrains Mono', monospace;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    `;
+    
+    // Header section
+    const header = document.createElement('div');
+    header.style.cssText = `
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    `;
+    
+    const title = document.createElement('div');
+    title.style.cssText = `
+        font-size: 0.9rem;
+        color: #a0a0a0;
+        letter-spacing: 0.1em;
+        font-weight: 500;
+    `;
+    title.textContent = 'RISK PREMIUMS & DISCOUNT RATES';
+    
+    const controls = document.createElement('div');
+    controls.style.cssText = `
+        display: flex;
+        gap: 10px;
+    `;
+    
+    const refreshBtn = document.createElement('button');
+    refreshBtn.id = 'refreshDataBtn';
+    refreshBtn.textContent = 'REFRESH DATA';
+    refreshBtn.style.cssText = `
+        background: transparent;
+        border: 1px solid #606060;
+        color: #a0a0a0;
+        padding: 6px 12px;
+        font-size: 0.6rem;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        border-radius: 2px;
+        font-family: 'JetBrains Mono', monospace;
+        transition: all 0.3s ease;
+    `;
+    refreshBtn.onmouseenter = () => {
+        refreshBtn.style.borderColor = '#a0a0a0';
+        refreshBtn.style.color = '#ffffff';
+    };
+    refreshBtn.onmouseleave = () => {
+        refreshBtn.style.borderColor = '#606060';
+        refreshBtn.style.color = '#a0a0a0';
+    };
+    
+    const aiBtn = document.createElement('button');
+    aiBtn.id = 'getAiAnalysisBtn';
+    aiBtn.textContent = 'GET AI ANALYSIS';
+    aiBtn.style.cssText = `
+        background: transparent;
+        border: 1px solid #0ea5e9;
+        color: #0ea5e9;
+        padding: 6px 12px;
+        font-size: 0.6rem;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        border-radius: 2px;
+        font-family: 'JetBrains Mono', monospace;
+        transition: all 0.3s ease;
+    `;
+    aiBtn.onmouseenter = () => {
+        aiBtn.style.background = 'rgba(14, 165, 233, 0.1)';
+    };
+    aiBtn.onmouseleave = () => {
+        aiBtn.style.background = 'transparent';
+    };
+    
+    const lastUpdate = document.createElement('div');
+    lastUpdate.id = 'lastUpdateTime';
+    lastUpdate.style.cssText = `
+        font-size: 0.5rem;
+        color: #606060;
+        letter-spacing: 0.05em;
+    `;
+    lastUpdate.textContent = 'Last updated: --';
+    
+    controls.appendChild(lastUpdate);
+    controls.appendChild(refreshBtn);
+    controls.appendChild(aiBtn);
+    header.appendChild(title);
+    header.appendChild(controls);
+    container.appendChild(header);
+    
+    // AI Analysis section (hidden initially)
+    const aiSection = document.createElement('div');
+    aiSection.id = 'aiAnalysisSection';
+    aiSection.style.cssText = `
+        display: none;
+        margin-bottom: 20px;
+        background: rgba(14, 165, 233, 0.05);
+        border: 1px solid rgba(14, 165, 233, 0.3);
+        border-radius: 4px;
+        padding: 15px;
+    `;
+    
+    const aiTitle = document.createElement('div');
+    aiTitle.style.cssText = `
+        font-size: 0.7rem;
+        color: #0ea5e9;
+        margin-bottom: 10px;
+        letter-spacing: 0.1em;
+        font-weight: 500;
+    `;
+    aiTitle.textContent = 'AI MARKET ANALYSIS & POSITIONING';
+    
+    const aiContent = document.createElement('div');
+    aiContent.id = 'aiAnalysisContent';
+    aiContent.style.cssText = `
+        font-size: 0.6rem;
+        color: #a0a0a0;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        font-family: 'Inter', sans-serif;
+    `;
+    
+    aiSection.appendChild(aiTitle);
+    aiSection.appendChild(aiContent);
+    container.appendChild(aiSection);
+    
+    // Metrics grid
+    const metricsGrid = document.createElement('div');
+    metricsGrid.id = 'metricsGrid';
+    metricsGrid.style.cssText = `
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+    `;
+    container.appendChild(metricsGrid);
+    
+    // Loading indicator
+    const loading = document.createElement('div');
+    loading.id = 'loadingIndicator';
+    loading.style.cssText = `
+        text-align: center;
+        padding: 40px;
+        color: #606060;
+        font-size: 0.6rem;
+    `;
+    loading.textContent = 'Loading market data...';
+    metricsGrid.appendChild(loading);
+    
+    // Add to DOM
+    document.querySelector('.black-screen').appendChild(container);
+    
+    // Animate in
+    setTimeout(() => {
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+    }, 100);
+    
+    // Initialize data loading
+    loadRiskPremiumsData();
+    
+    // Event listeners
+    refreshBtn.addEventListener('click', () => {
+        clearRiskPremiumsCache();
+        loadRiskPremiumsData();
+    });
+    
+    aiBtn.addEventListener('click', () => {
+        generateAIAnalysis();
+    });
+}
+
+// FRED API Data Service
+async function fetchFREDData(seriesId, daysBack = 30) {
+    const cacheKey = `fred_${seriesId}`;
+    const cached = localStorage.getItem(cacheKey);
+    
+    if (cached) {
+        const data = JSON.parse(cached);
+        const cacheAge = Date.now() - data.timestamp;
+        if (cacheAge < 30 * 60 * 1000) { // 30 minutes
+            console.log(`Using cached data for ${seriesId}`);
+            return data.value;
+        }
+    }
+    
+    try {
+        const endDate = new Date();
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - daysBack);
+        
+        const response = await fetch(`/api/fred/series?series_id=${seriesId}&observation_start=${startDate.toISOString().split('T')[0]}&observation_end=${endDate.toISOString().split('T')[0]}`);
+        const result = await response.json();
+        
+        if (result.success && result.data.observations) {
+            // Get the most recent non-null value
+            const observations = result.data.observations.reverse();
+            for (const obs of observations) {
+                if (obs.value !== '.' && obs.value !== null) {
+                    const value = parseFloat(obs.value);
+                    // Cache the result
+                    localStorage.setItem(cacheKey, JSON.stringify({
+                        value: value,
+                        timestamp: Date.now(),
+                        date: obs.date
+                    }));
+                    return value;
+                }
+            }
+        }
+        
+        throw new Error('No valid data found');
+    } catch (error) {
+        console.error(`Error fetching FRED data for ${seriesId}:`, error);
+        return null;
+    }
+}
+
+async function loadRiskPremiumsData() {
+    const metricsGrid = document.getElementById('metricsGrid');
+    const loading = document.getElementById('loadingIndicator');
+    
+    // Show loading
+    if (loading) {
+        loading.textContent = 'Fetching market data from FRED API...';
+    }
+    
+    try {
+        // Fetch all data in parallel
+        const [
+            treasury10Y,
+            treasury2Y,
+            sp500EarningsYield,
+            corpBondYield,
+            highYieldSpread,
+            vix,
+            fedFundsRate
+        ] = await Promise.all([
+            fetchFREDData('DGS10'),           // 10-year Treasury
+            fetchFREDData('DGS2'),            // 2-year Treasury
+            fetchFREDData('SP500'),           // S&P 500 (we'll use for calculations)
+            fetchFREDData('BAMLC0A0CM'),      // Corporate Bond Yield
+            fetchFREDData('BAMLH0A0HYM2'),    // High Yield Spread
+            fetchFREDData('VIXCLS'),          // VIX
+            fetchFREDData('FEDFUNDS')         // Fed Funds Rate
+        ]);
+        
+        // Calculate derived metrics
+        const metrics = calculateRiskMetrics({
+            treasury10Y,
+            treasury2Y,
+            sp500EarningsYield,
+            corpBondYield,
+            highYieldSpread,
+            vix,
+            fedFundsRate
+        });
+        
+        // Remove loading indicator
+        if (loading) {
+            loading.remove();
+        }
+        
+        // Render metric cards
+        renderMetricCards(metricsGrid, metrics);
+        
+        // Update timestamp
+        const lastUpdate = document.getElementById('lastUpdateTime');
+        if (lastUpdate) {
+            const now = new Date();
+            lastUpdate.textContent = `Last updated: ${now.toLocaleTimeString()}`;
+        }
+        
+    } catch (error) {
+        console.error('Error loading risk premiums data:', error);
+        if (loading) {
+            loading.textContent = 'Error loading data. Please check FRED API key configuration.';
+            loading.style.color = '#ff6b6b';
+        }
+    }
+}
+
+function calculateRiskMetrics(data) {
+    const {
+        treasury10Y,
+        treasury2Y,
+        sp500EarningsYield,
+        corpBondYield,
+        highYieldSpread,
+        vix,
+        fedFundsRate
+    } = data;
+    
+    // Estimate equity risk premium (simplified calculation)
+    // Typical S&P 500 earnings yield is inverse of P/E ratio
+    const estimatedEarningsYield = 5.2; // Approximate current earnings yield
+    const equityRiskPremium = treasury10Y ? estimatedEarningsYield - treasury10Y : null;
+    
+    // Term premium (spread between 10Y and 2Y)
+    const termPremium = (treasury10Y && treasury2Y) ? treasury10Y - treasury2Y : null;
+    
+    // Credit risk premium (corp bonds vs treasuries)
+    const creditRiskPremium = (corpBondYield && treasury10Y) ? corpBondYield - treasury10Y : null;
+    
+    // Liquidity premium estimate (using VIX as proxy)
+    const liquidityPremium = vix ? vix / 10 : null; // Scaled VIX
+    
+    // Real yield (approximation using 2% inflation target)
+    const realYield10Y = treasury10Y ? treasury10Y - 2.0 : null;
+    
+    // Discount rate estimate (10Y + equity premium)
+    const discountRate = (treasury10Y && equityRiskPremium) ? treasury10Y + equityRiskPremium : null;
+    
+    return {
+        // Core Rates
+        treasury10Y: { value: treasury10Y, label: '10-Year Treasury Yield', unit: '%', description: 'Risk-free rate benchmark' },
+        treasury2Y: { value: treasury2Y, label: '2-Year Treasury Yield', unit: '%', description: 'Short-term risk-free rate' },
+        fedFundsRate: { value: fedFundsRate, label: 'Fed Funds Rate', unit: '%', description: 'Federal Reserve policy rate' },
+        
+        // Risk Premiums
+        equityRiskPremium: { value: equityRiskPremium, label: 'Equity Risk Premium', unit: '%', description: 'Expected return above risk-free rate' },
+        termPremium: { value: termPremium, label: 'Term Premium', unit: '%', description: 'Compensation for duration risk' },
+        creditRiskPremium: { value: creditRiskPremium, label: 'Credit Risk Premium', unit: '%', description: 'Corporate vs Treasury spread' },
+        highYieldSpread: { value: highYieldSpread, label: 'High Yield Spread', unit: '%', description: 'Junk bond premium' },
+        liquidityPremium: { value: liquidityPremium, label: 'Liquidity Premium (VIX)', unit: 'pts', description: 'Market volatility indicator' },
+        
+        // Calculated Metrics
+        realYield10Y: { value: realYield10Y, label: 'Real Yield (10Y)', unit: '%', description: 'Inflation-adjusted yield' },
+        discountRate: { value: discountRate, label: 'Estimated Discount Rate', unit: '%', description: 'Cost of equity capital' },
+        
+        // Market Data
+        vix: { value: vix, label: 'VIX Index', unit: '', description: 'Market fear gauge' },
+        corpBondYield: { value: corpBondYield, label: 'Corporate Bond Yield', unit: '%', description: 'Investment grade corp bonds' }
+    };
+}
+
+function renderMetricCards(container, metrics) {
+    container.innerHTML = '';
+    
+    Object.entries(metrics).forEach(([key, metric]) => {
+        const card = document.createElement('div');
+        card.className = 'metric-card';
+        card.style.cssText = `
+            background: rgba(96, 96, 96, 0.1);
+            border: 1px solid rgba(96, 96, 96, 0.3);
+            border-radius: 4px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        `;
+        
+        card.onmouseenter = () => {
+            card.style.borderColor = 'rgba(160, 160, 160, 0.5)';
+            card.style.background = 'rgba(96, 96, 96, 0.15)';
+        };
+        card.onmouseleave = () => {
+            card.style.borderColor = 'rgba(96, 96, 96, 0.3)';
+            card.style.background = 'rgba(96, 96, 96, 0.1)';
+        };
+        
+        const label = document.createElement('div');
+        label.style.cssText = `
+            font-size: 0.55rem;
+            color: #808080;
+            margin-bottom: 8px;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        `;
+        label.textContent = metric.label;
+        
+        const value = document.createElement('div');
+        value.style.cssText = `
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 300;
+        `;
+        
+        if (metric.value !== null && metric.value !== undefined) {
+            const formattedValue = metric.value.toFixed(2);
+            value.textContent = `${formattedValue}${metric.unit}`;
+            
+            // Color coding
+            if (key === 'equityRiskPremium') {
+                if (metric.value > 3) {
+                    value.style.color = '#10b981'; // Green - attractive
+                } else if (metric.value < 1) {
+                    value.style.color = '#ef4444'; // Red - unattractive
+                }
+            } else if (key === 'vix' || key === 'liquidityPremium') {
+                if (metric.value > 25) {
+                    value.style.color = '#ef4444'; // Red - high volatility
+                } else if (metric.value < 15) {
+                    value.style.color = '#10b981'; // Green - low volatility
+                }
+            }
+        } else {
+            value.textContent = '--';
+            value.style.color = '#606060';
+        }
+        
+        const description = document.createElement('div');
+        description.style.cssText = `
+            font-size: 0.5rem;
+            color: #606060;
+            line-height: 1.4;
+            font-family: 'Inter', sans-serif;
+        `;
+        description.textContent = metric.description;
+        
+        card.appendChild(label);
+        card.appendChild(value);
+        card.appendChild(description);
+        container.appendChild(card);
+    });
+}
+
+async function generateAIAnalysis() {
+    const aiBtn = document.getElementById('getAiAnalysisBtn');
+    const aiSection = document.getElementById('aiAnalysisSection');
+    const aiContent = document.getElementById('aiAnalysisContent');
+    
+    if (!aiBtn || !aiSection || !aiContent) return;
+    
+    // Check cache first
+    const cacheKey = 'risk_premiums_ai_analysis';
+    const cached = localStorage.getItem(cacheKey);
+    
+    if (cached) {
+        const data = JSON.parse(cached);
+        const cacheAge = Date.now() - data.timestamp;
+        if (cacheAge < 60 * 60 * 1000) { // 1 hour
+            console.log('Using cached AI analysis');
+            aiSection.style.display = 'block';
+            aiContent.textContent = data.analysis;
+            return;
+        }
+    }
+    
+    // Show loading state
+    aiBtn.textContent = 'ANALYZING...';
+    aiBtn.disabled = true;
+    aiSection.style.display = 'block';
+    aiContent.textContent = 'Generating AI analysis...';
+    
+    try {
+        // Gather current metrics
+        const metricsData = gatherMetricsForAI();
+        
+        const systemPrompt = `You are a senior financial analyst at Manetas & Stevens Associates. 
+Analyze the current risk premiums and discount rates for US markets. 
+Provide a concise summary (max 300 words) covering:
+1. Current state of key risk premiums vs historical averages
+2. What this implies for market valuation
+3. Specific positioning recommendations (overweight/underweight asset classes)
+4. Key risks to monitor
+
+Be direct, quantitative where possible, and actionable.`;
+
+        const message = `Current Market Data:
+${metricsData}
+
+Please provide your analysis and positioning recommendations.`;
+
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: message,
+                systemPrompt: systemPrompt,
+                chatHistory: []
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            aiContent.textContent = result.reply;
+            
+            // Cache the analysis
+            localStorage.setItem(cacheKey, JSON.stringify({
+                analysis: result.reply,
+                timestamp: Date.now()
+            }));
+        } else {
+            aiContent.textContent = 'Error generating analysis: ' + (result.error || 'Unknown error');
+            aiContent.style.color = '#ef4444';
+        }
+        
+    } catch (error) {
+        console.error('Error generating AI analysis:', error);
+        aiContent.textContent = 'Error: ' + error.message;
+        aiContent.style.color = '#ef4444';
+    } finally {
+        aiBtn.textContent = 'GET AI ANALYSIS';
+        aiBtn.disabled = false;
+    }
+}
+
+function gatherMetricsForAI() {
+    // Extract current metrics from the DOM
+    const metricsGrid = document.getElementById('metricsGrid');
+    if (!metricsGrid) return 'No metrics available';
+    
+    const cards = metricsGrid.querySelectorAll('.metric-card');
+    let metricsText = '';
+    
+    cards.forEach(card => {
+        const label = card.querySelector('div:first-child')?.textContent || '';
+        const value = card.querySelector('div:nth-child(2)')?.textContent || '';
+        metricsText += `${label}: ${value}\n`;
+    });
+    
+    return metricsText;
+}
+
+function clearRiskPremiumsCache() {
+    // Clear all FRED data cache
+    const keys = Object.keys(localStorage);
+    keys.forEach(key => {
+        if (key.startsWith('fred_') || key === 'risk_premiums_ai_analysis') {
+            localStorage.removeItem(key);
+        }
+    });
+    console.log('Cache cleared');
+} 
