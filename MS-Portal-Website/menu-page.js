@@ -6743,6 +6743,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Economic indicators for the country
         const indicators = [
+            { id: 'risk-premiums', text: 'RISK PREMIUMS' },
             { id: 'balance-sheet', text: 'BALANCE SHEET' },
             { id: 'central-bank', text: 'CENTRAL BANK' },
             { id: 'central-bank-balance-sheet', text: 'CENTRAL BANK BALANCE SHEET' },
