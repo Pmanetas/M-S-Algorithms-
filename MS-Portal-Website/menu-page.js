@@ -7679,6 +7679,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Define engine options
         const engineOptions = [
             { id: 'sp500', text: 'VALSCOUT S&P 500' },
+            { id: 'us10y', text: 'US10Y-ENGINE - PRAXIS 1.0 US 10Y TREASURY NOTE' },
+            { id: 'us2y', text: 'US2Y-ENGINE - PRAXIS 1.0 US 2Y TREASURY NOTE' },
+            { id: 'au10y', text: 'AU10Y-ENGINE - PRAXIS 1.0 AU 10Y GOVT BOND' },
+            { id: 'asx200', text: 'ASX200-ENGINE - PRAXIS 1.0 ASX 200 INDEX' },
+            { id: 'soybean', text: 'SOYBEAN-ENGINE - PRAXIS 1.0 SOYBEAN FUTURES' },
+            { id: 'sugar', text: 'SUGAR-ENGINE - PRAXIS 1.0 SUGAR #11 FUTURES' },
+            { id: 'ausreit', text: 'AUSREIT-ENGINE - PRAXIS 1.0 AUS REIT INDEX' },
             { id: 'usdjpy', text: 'USDJPY-ENGINE - PRAXIS 1.0 USD/JPY' },
             { id: 'wheat', text: 'WHEAT-ENGINE - PRAXIS 1.0 WHEAT SPOT' },
             { id: 'xauusd', text: 'XAUUSD-ENGINE - PRAXIS 1.0 XAUUSD SPOT' },
