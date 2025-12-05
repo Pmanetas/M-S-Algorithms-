@@ -7667,9 +7667,10 @@ document.addEventListener('DOMContentLoaded', function() {
             position: fixed;
             left: 20px;
             top: 90px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 6px 15px;
+            max-height: calc(100vh - 120px);
             opacity: 0;
             transform: translateX(-50px);
             transition: opacity 0.4s ease, transform 0.4s ease;
