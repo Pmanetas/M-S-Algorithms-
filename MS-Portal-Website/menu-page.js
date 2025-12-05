@@ -7679,7 +7679,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Define engine options
         const engineOptions = [
-            { id: 'sp500', text: 'VALSCOUT S&P 500' },
+            { id: 'btcusd', text: 'BTCUSD-ENGINE - PRAXIS 1.0 BTCUSD SPOT' },
             { id: 'us10y', text: 'US10Y-ENGINE - PRAXIS 1.0 US 10Y TREASURY NOTE' },
             { id: 'us2y', text: 'US2Y-ENGINE - PRAXIS 1.0 US 2Y TREASURY NOTE' },
             { id: 'us30y', text: 'US30Y-ENGINE - PRAXIS 1.0 US 30Y TREASURY BOND' },
@@ -7718,7 +7718,7 @@ document.addEventListener('DOMContentLoaded', function() {
             { id: 'brent', text: 'BRENT-ENGINE - PRAXIS 1.0 BRENT OIL SPOT' },
             { id: 'natgas', text: 'NATGAS-ENGINE - PRAXIS 1.0 NATGAS SPOT' },
             { id: 'copper', text: 'COPPER-ENGINE - PRAXIS 1.0 COPPER SPOT' },
-            { id: 'btcusd', text: 'BTCUSD-ENGINE - PRAXIS 1.0 BTCUSD SPOT' },
+            { id: 'sp500', text: 'VALSCOUT S&P 500' },
             { id: 'ethusd', text: 'ETHUSD-ENGINE - PRAXIS 1.0 ETHUSD SPOT' }
         ];
         
