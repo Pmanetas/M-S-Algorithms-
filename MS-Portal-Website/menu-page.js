@@ -290,18 +290,6 @@ document.addEventListener('DOMContentLoaded', function() {
             marketSubmenu.style.opacity = '0';
         }
         
-        // Remove asset page content if present
-        const assetPageContainer = document.querySelector('.asset-page-container');
-        if (assetPageContainer) {
-            assetPageContainer.style.transition = 'opacity 0.4s ease-out';
-            assetPageContainer.style.opacity = '0';
-            setTimeout(() => {
-                if (assetPageContainer.parentNode) {
-                    assetPageContainer.parentNode.removeChild(assetPageContainer);
-                }
-            }, 400);
-        }
-        
         // Slide out any asset submenu items
         const assetSubmenu = document.querySelector('.assets-submenu');
         if (assetSubmenu) {
@@ -501,17 +489,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add assets submenu if on assets page
     if (selectedPage === 'assets') {
-        // Check if there's a specific asset selected
-        if (assetType && selectedText) {
-            // Display asset page directly
-            setTimeout(() => {
-                displayAssetPage(assetType, selectedText);
-                showBackButton('assets');
-            }, 300);
-        } else {
-            // Show assets list
-            addAssetsSubmenu();
-        }
+        addAssetsSubmenu();
     }
     
     // Add debt cycle submenus for debt cycle pages
@@ -6422,18 +6400,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 tradingSubmenu.style.opacity = '0';
             }
             
-            // Remove asset page content if present
-            const assetPageContainer = document.querySelector('.asset-page-container');
-            if (assetPageContainer) {
-                assetPageContainer.style.transition = 'opacity 0.4s ease-out';
-                assetPageContainer.style.opacity = '0';
-                setTimeout(() => {
-                    if (assetPageContainer.parentNode) {
-                        assetPageContainer.parentNode.removeChild(assetPageContainer);
-                    }
-                }, 400);
-            }
-            
             // Slide out any asset submenu items
             const assetSubmenu = document.querySelector('.assets-submenu');
             if (assetSubmenu) {
@@ -7077,143 +7043,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show back button
         showBackButton('assets');
         
-        // Display asset page with top and bottom lines
-        displayAssetPage(assetId, assetText);
 
-    }
-    
-    function displayAssetPage(assetId, assetText) {
-        // Remove any existing asset content
-        const existingContent = document.querySelector('.asset-page-container');
-        if (existingContent) {
-            existingContent.remove();
-        }
-        
-        // Create container for asset page
-        const container = document.createElement('div');
-        container.className = 'asset-page-container';
-        container.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 280px;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            background-color: #0f0f0f;
-            z-index: 1;
-        `;
-        
-        // Top line
-        const topLine = document.createElement('div');
-        topLine.className = 'asset-top-line';
-        topLine.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 280px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-            border-bottom: 1px solid rgba(74, 85, 104, 0.3);
-            background-color: #0f0f0f;
-            z-index: 10;
-        `;
-        
-        const topLeft = document.createElement('div');
-        topLeft.style.cssText = `
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #ffffff;
-            letter-spacing: 0.05em;
-        `;
-        topLeft.textContent = assetText;
-        
-        const topRight = document.createElement('div');
-        topRight.style.cssText = `
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: #808080;
-        `;
-        topRight.innerHTML = `
-            <span>4,567.89</span>
-            <span style="color: #808080;">+0.00</span>
-            <span style="color: #808080;">+0.00%</span>
-        `;
-        
-        topLine.appendChild(topLeft);
-        topLine.appendChild(topRight);
-        
-        // Bottom line
-        const bottomLine = document.createElement('div');
-        bottomLine.className = 'asset-bottom-line';
-        bottomLine.style.cssText = `
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 280px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-            border-top: 1px solid rgba(74, 85, 104, 0.3);
-            background-color: #0f0f0f;
-            z-index: 10;
-        `;
-        
-        const bottomLeft = document.createElement('div');
-        bottomLeft.style.cssText = `
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #ffffff;
-            letter-spacing: 0.05em;
-        `;
-        bottomLeft.textContent = assetText;
-        
-        const bottomRight = document.createElement('div');
-        bottomRight.style.cssText = `
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: #808080;
-        `;
-        bottomRight.innerHTML = `
-            <span>4,567.89</span>
-            <span style="color: #808080;">+0.00</span>
-            <span style="color: #808080;">+0.00%</span>
-        `;
-        
-        bottomLine.appendChild(bottomLeft);
-        bottomLine.appendChild(bottomRight);
-        
-        // Middle blank area
-        const middleArea = document.createElement('div');
-        middleArea.className = 'asset-middle-area';
-        middleArea.style.cssText = `
-            position: fixed;
-            top: 50px;
-            bottom: 50px;
-            left: 0;
-            right: 280px;
-            background-color: #0f0f0f;
-            z-index: 1;
-        `;
-        
-        container.appendChild(topLine);
-        container.appendChild(middleArea);
-        container.appendChild(bottomLine);
-        
-        document.body.appendChild(container);
     }
     
     function addDebtCycleSubmenu(cycleType) {
