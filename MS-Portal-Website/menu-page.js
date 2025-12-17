@@ -7104,20 +7104,21 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: 1;
         `;
         
-        // Top bar with price data
+        // Top bar with price data and buttons
         const topBar = document.createElement('div');
         topBar.className = 'asset-top-bar';
         topBar.style.cssText = `
             height: 80px;
             background-color: #0f0f0f;
+            border-bottom: 1px solid rgba(74, 85, 104, 0.3);
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: space-between;
             padding: 0 20px;
             flex-shrink: 0;
         `;
         
-        // Price data in little squares
+        // Left side: Price data
         const priceData = document.createElement('div');
         priceData.style.cssText = `
             font-family: 'JetBrains Mono', monospace;
@@ -7125,31 +7126,64 @@ document.addEventListener('DOMContentLoaded', function() {
             color: #ffffff;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 15px;
+        `;
+        priceData.innerHTML = `
+            <span>O<span style="color: #808080;">511.7</span></span>
+            <span>H<span style="color: #808080;">513.6</span></span>
+            <span>L<span style="color: #808080;">510.8</span></span>
+            <span>C<span style="color: #808080;">513.6</span></span>
+            <span style="color: #22c55e;">+2.4</span>
+            <span style="color: #22c55e;">(+0.47%)</span>
         `;
         
-        // Create price boxes
-        const createPriceBox = (label, value, color = '#808080') => {
-            const box = document.createElement('div');
-            box.style.cssText = `
-                border: 1px solid rgba(74, 85, 104, 0.3);
-                padding: 4px 8px;
-                display: flex;
-                align-items: center;
-                gap: 4px;
-            `;
-            box.innerHTML = `<span>${label}</span><span style="color: ${color};">${value}</span>`;
-            return box;
-        };
+        // Right side: SELL and BUY buttons
+        const actionButtons = document.createElement('div');
+        actionButtons.style.cssText = `
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        `;
         
-        priceData.appendChild(createPriceBox('O', '511.7'));
-        priceData.appendChild(createPriceBox('H', '513.6'));
-        priceData.appendChild(createPriceBox('L', '510.8'));
-        priceData.appendChild(createPriceBox('C', '513.6'));
-        priceData.appendChild(createPriceBox('', '+2.4', '#22c55e'));
-        priceData.appendChild(createPriceBox('', '(+0.47%)', '#22c55e'));
+        const sellButton = document.createElement('button');
+        sellButton.textContent = '513.6 SELL';
+        sellButton.style.cssText = `
+            background-color: #ef4444;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        `;
+        sellButton.addEventListener('mouseenter', () => sellButton.style.opacity = '0.8');
+        sellButton.addEventListener('mouseleave', () => sellButton.style.opacity = '1');
+        
+        const buyButton = document.createElement('button');
+        buyButton.textContent = '514.4 BUY';
+        buyButton.style.cssText = `
+            background-color: #3b82f6;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        `;
+        buyButton.addEventListener('mouseenter', () => buyButton.style.opacity = '0.8');
+        buyButton.addEventListener('mouseleave', () => buyButton.style.opacity = '1');
+        
+        actionButtons.appendChild(sellButton);
+        actionButtons.appendChild(buyButton);
         
         topBar.appendChild(priceData);
+        topBar.appendChild(actionButtons);
         
         // Main content area (blank chart area with right price axis)
         const mainArea = document.createElement('div');
@@ -7177,6 +7211,7 @@ document.addEventListener('DOMContentLoaded', function() {
         priceAxis.style.cssText = `
             width: 80px;
             background-color: #0f0f0f;
+            border-left: 1px solid rgba(74, 85, 104, 0.3);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -7238,37 +7273,20 @@ document.addEventListener('DOMContentLoaded', function() {
         bottomBar.style.cssText = `
             height: 100px;
             background-color: #0f0f0f;
+            border-top: 1px solid rgba(74, 85, 104, 0.3);
             display: flex;
             flex-direction: column;
             padding: 10px 20px;
             flex-shrink: 0;
         `;
         
-        // Top row: Logo and Time frame buttons
-        const topRow = document.createElement('div');
-        topRow.style.cssText = `
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        `;
-        
-        // Logo on the left
-        const logo = document.createElement('div');
-        logo.textContent = 'T%';
-        logo.style.cssText = `
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #ffffff;
-        `;
-        
-        // Time frame buttons
+        // Top row: Time frame buttons
         const timeFrameRow = document.createElement('div');
         timeFrameRow.style.cssText = `
             display: flex;
             gap: 10px;
             align-items: center;
+            margin-bottom: 10px;
         `;
         
         const timeFrames = ['1D', '5D', '1M', '3M', '6M', 'YTD', '1Y', '5Y', 'All'];
@@ -7277,25 +7295,25 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.textContent = tf;
             btn.style.cssText = `
                 background: transparent;
-                border: none;
+                border: 1px solid rgba(74, 85, 104, 0.3);
                 color: #808080;
                 padding: 4px 12px;
+                border-radius: 4px;
                 font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 font-size: 0.75rem;
                 cursor: pointer;
-                transition: color 0.2s;
+                transition: all 0.2s;
             `;
             btn.addEventListener('mouseenter', () => {
                 btn.style.color = '#a0a0a0';
+                btn.style.borderColor = 'rgba(74, 85, 104, 0.5)';
             });
             btn.addEventListener('mouseleave', () => {
                 btn.style.color = '#808080';
+                btn.style.borderColor = 'rgba(74, 85, 104, 0.3)';
             });
             timeFrameRow.appendChild(btn);
         });
-        
-        topRow.appendChild(logo);
-        topRow.appendChild(timeFrameRow);
         
         // Bottom row: Date axis and timestamp
         const bottomRow = document.createElement('div');
@@ -7333,7 +7351,7 @@ document.addEventListener('DOMContentLoaded', function() {
         bottomRow.appendChild(dateAxis);
         bottomRow.appendChild(timestamp);
         
-        bottomBar.appendChild(topRow);
+        bottomBar.appendChild(timeFrameRow);
         bottomBar.appendChild(bottomRow);
         
         container.appendChild(topBar);
