@@ -7677,28 +7677,49 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: 50;
         `;
         
-        // Define engine options - only completed engines
+        // Define engine options
         const engineOptions = [
-            { id: 'wheat', text: 'WHEAT' },
-            { id: 'xauusd', text: 'GOLD (XAUUSD)' },
-            { id: 'sp500', text: 'S&P 500' },
-            { id: 'brent', text: 'BRENT OIL' },
-            { id: 'btcusd', text: 'BITCOIN' },
-            { id: 'natgas', text: 'NATURAL GAS' },
-            { id: 'copper', text: 'COPPER' },
-            { id: 'audusd', text: 'AUD/USD' },
-            { id: 'usdjpy', text: 'USD/JPY' },
-            { id: 'soybean', text: 'SOYBEAN' },
-            { id: 'coffee', text: 'COFFEE' },
-            { id: 'sugar', text: 'SUGAR' },
-            { id: 'cattle', text: 'CATTLE' },
-            { id: 'us10y', text: 'US 10Y' },
-            { id: 'us2y', text: 'US 2Y' },
-            { id: 'au10y', text: 'AU 10Y' },
-            { id: 'asx200', text: 'ASX 200' },
-            { id: 'jpn225', text: 'NIKKEI 225' },
-            { id: 'ger30', text: 'DAX 30' },
-            { id: 'ausreit', text: 'AU REIT' }
+            { id: 'btcusd', text: 'BTCUSD-ENGINE - PRAXIS 1.0 BTCUSD SPOT' },
+            { id: 'us10y', text: 'US10Y-ENGINE - PRAXIS 1.0 US 10Y TREASURY NOTE' },
+            { id: 'us2y', text: 'US2Y-ENGINE - PRAXIS 1.0 US 2Y TREASURY NOTE' },
+            { id: 'us30y', text: 'US30Y-ENGINE - PRAXIS 1.0 US 30Y TREASURY BOND' },
+            { id: 'au10y', text: 'AU10Y-ENGINE - PRAXIS 1.0 AU 10Y GOVT BOND' },
+            { id: 'bund10', text: 'BUND10-ENGINE - PRAXIS 1.0 DE 10Y BUND FUTURES' },
+            { id: 'jgb10', text: 'JGB10-ENGINE - PRAXIS 1.0 JP 10Y GOVT BOND' },
+            { id: 'asx200', text: 'ASX200-ENGINE - PRAXIS 1.0 ASX 200 INDEX' },
+            { id: 'sp500-engine', text: 'SP500-ENGINE - PRAXIS 1.0 S&P 500 INDEX' },
+            { id: 'ndx100', text: 'NDX100-ENGINE - PRAXIS 1.0 NASDAQ 100 INDEX' },
+            { id: 'rus2000', text: 'RUS2000-ENGINE - PRAXIS 1.0 RUSSELL 2000 INDEX' },
+            { id: 'eurostoxx', text: 'EUROSTOXX-ENGINE - PRAXIS 1.0 EURO STOXX 50 INDEX' },
+            { id: 'nifty50', text: 'NIFTY50-ENGINE - PRAXIS 1.0 NIFTY 50 INDEX' },
+            { id: 'bovespa', text: 'BOVESPA-ENGINE - PRAXIS 1.0 BRAZIL BOVESPA INDEX' },
+            { id: 'uk100', text: 'UK100-ENGINE - PRAXIS 1.0 FTSE 100 INDEX' },
+            { id: 'hk50', text: 'HK50-ENGINE - PRAXIS 1.0 HANG SENG INDEX' },
+            { id: 'kospi', text: 'KOSPI-ENGINE - PRAXIS 1.0 KOSPI 200 INDEX' },
+            { id: 'jpn225', text: 'JPN225-ENGINE - PRAXIS 1.0 JPN225 INDEX' },
+            { id: 'ger30', text: 'GER30-ENGINE - PRAXIS 1.0 GER30 INDEX' },
+            { id: 'soybean', text: 'SOYBEAN-ENGINE - PRAXIS 1.0 SOYBEAN FUTURES' },
+            { id: 'sugar', text: 'SUGAR-ENGINE - PRAXIS 1.0 SUGAR #11 FUTURES' },
+            { id: 'corn', text: 'CORN-ENGINE - PRAXIS 1.0 CORN FUTURES' },
+            { id: 'wheat', text: 'WHEAT-ENGINE - PRAXIS 1.0 WHEAT SPOT' },
+            { id: 'cattle', text: 'CATTLE-ENGINE - PRAXIS 1.0 CATTLE CASH PRICE' },
+            { id: 'coffee', text: 'COFFEE-ENGINE - PRAXIS 1.0 KC1 FUTURES' },
+            { id: 'cocoa', text: 'COCOA-ENGINE - PRAXIS 1.0 COCOA FUTURES' },
+            { id: 'ausreit', text: 'AUSREIT-ENGINE - PRAXIS 1.0 AUS REIT INDEX' },
+            { id: 'usdjpy', text: 'USDJPY-ENGINE - PRAXIS 1.0 USD/JPY' },
+            { id: 'eurusd', text: 'EURUSD-ENGINE - PRAXIS 1.0 EUR/USD' },
+            { id: 'gbpusd', text: 'GBPUSD-ENGINE - PRAXIS 1.0 GBP/USD' },
+            { id: 'usdcad', text: 'USDCAD-ENGINE - PRAXIS 1.0 USD/CAD' },
+            { id: 'usdzar', text: 'USDZAR-ENGINE - PRAXIS 1.0 USD/ZAR' },
+            { id: 'usdmxn', text: 'USDMXN-ENGINE - PRAXIS 1.0 USD/MXN' },
+            { id: 'audusd', text: 'AUDUSD-ENGINE - PRAXIS 1.0 AUD/USD' },
+            { id: 'xauusd', text: 'XAUUSD-ENGINE - PRAXIS 1.0 XAUUSD SPOT' },
+            { id: 'silver', text: 'SILVER-ENGINE - PRAXIS 1.0 XAGUSD SILVER SPOT' },
+            { id: 'brent', text: 'BRENT-ENGINE - PRAXIS 1.0 BRENT OIL SPOT' },
+            { id: 'natgas', text: 'NATGAS-ENGINE - PRAXIS 1.0 NATGAS SPOT' },
+            { id: 'copper', text: 'COPPER-ENGINE - PRAXIS 1.0 COPPER SPOT' },
+            { id: 'sp500', text: 'VALSCOUT S&P 500' },
+            { id: 'ethusd', text: 'ETHUSD-ENGINE - PRAXIS 1.0 ETHUSD SPOT' }
         ];
         
         // Create submenu items
@@ -7761,6 +7782,63 @@ document.addEventListener('DOMContentLoaded', function() {
         showBackButton('praxis');
     }
     
+    function handleValscoutEngineClick(engineId, engineText, selectedElement) {
+        // Update the selected nav text
+        selectedNav.textContent = `PRAXIS 1.0 > VALSCOUT > ${engineText}`;
+        
+        // Update URL
+        const params = new URLSearchParams({
+            page: 'praxis',
+            praxis: 'valscout',
+            engine: engineId,
+            selected: engineText
+        });
+        window.history.replaceState({}, '', `menu-page.html?${params.toString()}`);
+        
+        // Show separator lines
+        showSeparatorLine('praxis');
+        
+        // Slide out the engine submenu
+        const submenu = document.querySelector('.valscout-engine-submenu');
+        if (submenu) {
+            submenu.style.transform = 'translateX(-200vw)';
+            submenu.style.opacity = '0';
+            
+            setTimeout(() => {
+                if (submenu.parentNode) {
+                    submenu.parentNode.removeChild(submenu);
+                }
+            }, 400);
+        }
+        
+        // Highlight selected item
+        selectedElement.style.cssText += `
+            color: #ffffff !important;
+            font-size: 0.5rem !important;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8) !important;
+            transform: scale(0.9) translateX(2px) !important;
+            background-color: rgba(255, 255, 255, 0.2) !important;
+        `;
+        
+        // Show back button
+        showBackButton('praxis', { level: 'engine', engineId: engineId });
+        
+        // Engines with completed URLs
+        const completedEngines = ['wheat', 'xauusd', 'sp500', 'brent', 'btcusd', 'natgas', 'copper', 'audusd', 'usdjpy', 'soybean', 'coffee', 'sugar', 'cattle', 'us10y', 'us2y', 'au10y', 'asx200', 'jpn225', 'ger30', 'ausreit'];
+        
+        if (completedEngines.includes(engineId)) {
+            // Show engine monitor iframe for completed engines
+            setTimeout(() => {
+                showEngineMonitorInterface(engineId, engineText);
+            }, 350);
+        } else {
+            // Show placeholder for incomplete engines
+            setTimeout(() => {
+                addValscoutInterface(engineId);
+            }, 350);
+        }
+    }
+    
     function showEngineMonitorInterface(engineId, engineName) {
         // Remove existing interface if any
         const existingInterface = document.querySelector('.engine-monitor-container');
@@ -7810,7 +7888,7 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         
         const title = document.createElement('h3');
-        title.textContent = `${engineName} - PRINCIPLES MONITOR`;
+        title.textContent = `${engineName}`;
         title.style.cssText = `
             color: #f5f5f5;
             font-size: 0.8rem;
@@ -7830,7 +7908,7 @@ document.addEventListener('DOMContentLoaded', function() {
             background: #000;
         `;
         
-        // Create iframe
+        // Create iframe - loads the engine home page
         const iframe = document.createElement('iframe');
         iframe.src = `https://praxis-engine-systems-server.onrender.com/${engineId}/`;
         iframe.style.cssText = `
@@ -7849,53 +7927,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             container.style.opacity = '1';
         }, 100);
-    }
-    
-    function handleValscoutEngineClick(engineId, engineText, selectedElement) {
-        // Update the selected nav text
-        selectedNav.textContent = `PRAXIS 1.0 > VALSCOUT > ${engineText}`;
-        
-        // Update URL
-        const params = new URLSearchParams({
-            page: 'praxis',
-            praxis: 'valscout',
-            engine: engineId,
-            selected: engineText
-        });
-        window.history.replaceState({}, '', `menu-page.html?${params.toString()}`);
-        
-        // Show separator lines
-        showSeparatorLine('praxis');
-        
-        // Slide out the engine submenu
-        const submenu = document.querySelector('.valscout-engine-submenu');
-        if (submenu) {
-            submenu.style.transform = 'translateX(-200vw)';
-            submenu.style.opacity = '0';
-            
-            setTimeout(() => {
-                if (submenu.parentNode) {
-                    submenu.parentNode.removeChild(submenu);
-                }
-            }, 400);
-        }
-        
-        // Highlight selected item
-        selectedElement.style.cssText += `
-            color: #ffffff !important;
-            font-size: 0.5rem !important;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8) !important;
-            transform: scale(0.9) translateX(2px) !important;
-            background-color: rgba(255, 255, 255, 0.2) !important;
-        `;
-        
-        // Show back button
-        showBackButton('praxis', { level: 'engine', engineId: engineId });
-        
-        // Show the engine monitor iframe from PRAXIS server
-        setTimeout(() => {
-            showEngineMonitorInterface(engineId, engineText);
-        }, 350);
     }
     
     function handlePraxisSubmenuClick(praxisId, praxisText, selectedElement) {
