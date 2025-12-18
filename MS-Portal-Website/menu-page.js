@@ -7860,9 +7860,9 @@ document.addEventListener('DOMContentLoaded', function() {
         container.style.cssText = `
             position: fixed;
             left: 20px;
-            top: 100px;
-            right: 300px;
-            bottom: 60px;
+            top: 95px;
+            right: 310px;
+            bottom: 70px;
             background: transparent;
             border-radius: 0;
             padding: 0;
