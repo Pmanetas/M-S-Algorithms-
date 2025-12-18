@@ -7862,7 +7862,7 @@ document.addEventListener('DOMContentLoaded', function() {
             left: 20px;
             top: 100px;
             right: 300px;
-            bottom: 20px;
+            bottom: 60px;
             background: transparent;
             border-radius: 0;
             padding: 0;
