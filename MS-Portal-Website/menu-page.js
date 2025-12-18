@@ -7782,6 +7782,96 @@ document.addEventListener('DOMContentLoaded', function() {
         showBackButton('praxis');
     }
     
+    function showEngineMonitorInterface(engineId, engineName) {
+        // Remove existing interface if any
+        const existingInterface = document.querySelector('.engine-monitor-container');
+        if (existingInterface) {
+            existingInterface.remove();
+        }
+        
+        // Remove other praxis interfaces
+        const valscoutInterface = document.querySelector('.valscout-container');
+        if (valscoutInterface) valscoutInterface.remove();
+        const axiombenchInterface = document.querySelector('.axiombench-container');
+        if (axiombenchInterface) axiombenchInterface.remove();
+        const tradingIdeaInterface = document.querySelector('.trading-idea-container');
+        if (tradingIdeaInterface) tradingIdeaInterface.remove();
+        
+        // Create container
+        const container = document.createElement('div');
+        container.className = 'engine-monitor-container';
+        container.style.cssText = `
+            position: fixed;
+            left: 200px;
+            top: 60px;
+            right: 300px;
+            bottom: 20px;
+            background: rgba(15, 15, 15, 0.95);
+            border-radius: 8px;
+            padding: 15px;
+            z-index: 100;
+            font-family: 'JetBrains Mono', monospace;
+            color: #ffffff;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        `;
+        
+        // Create title bar
+        const titleBar = document.createElement('div');
+        titleBar.style.cssText = `
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        `;
+        
+        const title = document.createElement('h3');
+        title.textContent = `${engineName} - PRINCIPLES MONITOR`;
+        title.style.cssText = `
+            color: #f5f5f5;
+            font-size: 0.8rem;
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        `;
+        titleBar.appendChild(title);
+        
+        // Create iframe container
+        const iframeContainer = document.createElement('div');
+        iframeContainer.style.cssText = `
+            flex: 1;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #000;
+        `;
+        
+        // Create iframe
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://praxis-engine-systems-server.onrender.com/${engineId}/${engineId}-principles-monitor.html`;
+        iframe.style.cssText = `
+            width: 100%;
+            height: 100%;
+            border: none;
+        `;
+        iframe.setAttribute('allowfullscreen', 'true');
+        
+        iframeContainer.appendChild(iframe);
+        container.appendChild(titleBar);
+        container.appendChild(iframeContainer);
+        
+        document.body.appendChild(container);
+        
+        setTimeout(() => {
+            container.style.opacity = '1';
+        }, 100);
+    }
+    
     function handleValscoutEngineClick(engineId, engineText, selectedElement) {
         // Update the selected nav text
         selectedNav.textContent = `PRAXIS 1.0 > VALSCOUT > ${engineText}`;
@@ -7823,9 +7913,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show back button
         showBackButton('praxis', { level: 'engine', engineId: engineId });
         
-        // Add valscout interface with engine context
+        // Show the engine monitor iframe from PRAXIS server
         setTimeout(() => {
-            addValscoutInterface(engineId);
+            showEngineMonitorInterface(engineId, engineText);
         }, 350);
     }
     
