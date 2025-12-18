@@ -7854,58 +7854,31 @@ document.addEventListener('DOMContentLoaded', function() {
         const tradingIdeaInterface = document.querySelector('.trading-idea-container');
         if (tradingIdeaInterface) tradingIdeaInterface.remove();
         
-        // Create container
+        // Create container - full width, no header
         const container = document.createElement('div');
         container.className = 'engine-monitor-container';
         container.style.cssText = `
             position: fixed;
-            left: 200px;
-            top: 60px;
+            left: 20px;
+            top: 100px;
             right: 300px;
             bottom: 20px;
-            background: rgba(15, 15, 15, 0.95);
-            border-radius: 8px;
-            padding: 15px;
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
             z-index: 100;
-            font-family: 'JetBrains Mono', monospace;
-            color: #ffffff;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
             opacity: 0;
             transition: opacity 0.3s ease;
             display: flex;
             flex-direction: column;
         `;
         
-        // Create title bar
-        const titleBar = document.createElement('div');
-        titleBar.style.cssText = `
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        `;
-        
-        const title = document.createElement('h3');
-        title.textContent = `${engineName}`;
-        title.style.cssText = `
-            color: #f5f5f5;
-            font-size: 0.8rem;
-            margin: 0;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        `;
-        titleBar.appendChild(title);
-        
-        // Create iframe container
+        // Create iframe container - no border radius
         const iframeContainer = document.createElement('div');
         iframeContainer.style.cssText = `
             flex: 1;
-            border-radius: 4px;
             overflow: hidden;
-            background: #000;
+            background: transparent;
         `;
         
         // Create iframe - loads the engine home page
@@ -7919,7 +7892,6 @@ document.addEventListener('DOMContentLoaded', function() {
         iframe.setAttribute('allowfullscreen', 'true');
         
         iframeContainer.appendChild(iframe);
-        container.appendChild(titleBar);
         container.appendChild(iframeContainer);
         
         document.body.appendChild(container);
