@@ -7861,8 +7861,8 @@ document.addEventListener('DOMContentLoaded', function() {
             position: fixed;
             left: 20px;
             top: 95px;
-            right: 310px;
-            bottom: 70px;
+            right: 290px;
+            bottom: 50px;
             background: transparent;
             border-radius: 0;
             padding: 0;
@@ -7873,25 +7873,12 @@ document.addEventListener('DOMContentLoaded', function() {
             flex-direction: column;
         `;
         
-        // Create iframe container - no border radius, hide scrollbar
+        // Create iframe container
         const iframeContainer = document.createElement('div');
         iframeContainer.style.cssText = `
             flex: 1;
             overflow: hidden;
             background: transparent;
-            position: relative;
-        `;
-        
-        // Add wrapper to push iframe right edge off-screen to hide scrollbar
-        const iframeWrapper = document.createElement('div');
-        iframeWrapper.style.cssText = `
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: -20px;
-            bottom: 0;
-            overflow-x: hidden;
-            overflow-y: auto;
         `;
         
         // Create iframe - loads the engine home page
@@ -7904,8 +7891,7 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         iframe.setAttribute('allowfullscreen', 'true');
         
-        iframeWrapper.appendChild(iframe);
-        iframeContainer.appendChild(iframeWrapper);
+        iframeContainer.appendChild(iframe);
         container.appendChild(iframeContainer);
         
         document.body.appendChild(container);
