@@ -150,6 +150,31 @@
             opacity: 1 !important;
             transform: none !important;
         }
+        
+        /* Custom floating scrollbar - slim and light */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(120, 120, 120, 0.4);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(150, 150, 150, 0.6);
+        }
+        
+        /* Firefox scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(120, 120, 120, 0.4) transparent;
+        }
     </style>
 </head>
 <body class="menu-page">
