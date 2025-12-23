@@ -6772,7 +6772,14 @@ document.addEventListener('DOMContentLoaded', function() {
             { id: 'credit-growth', text: 'CREDIT GROWTH' },
             { id: 'property-market', text: 'PROPERTY MARKET' },
             { id: 'population', text: 'POPULATION' },
-            { id: 'social-tension', text: 'SOCIAL TENSION / POPULISM' }
+            { id: 'social-tension', text: 'SOCIAL TENSION / POPULISM' },
+            // Neon blue indicators section
+            { id: 'bubble-indicator', text: 'BUBBLE INDICATOR', neonBlue: true },
+            { id: 'asset-class-curve', text: 'ASSET CLASS CURVE (DISCOUNTED)', neonBlue: true },
+            { id: 'central-bank-overview', text: 'CENTRAL BANK', neonBlue: true },
+            { id: 'debt-service-payments', text: 'DEBT SERVICE PAYMENTS (TOTAL % OF GDP)', neonBlue: true },
+            { id: 'inflation-indicator', text: 'INFLATION', neonBlue: true },
+            { id: 'interest-rates', text: 'INTEREST RATES', neonBlue: true }
         ];
         
         // Create submenu items
@@ -6782,12 +6789,18 @@ document.addEventListener('DOMContentLoaded', function() {
             indicatorItem.setAttribute('data-indicator', indicator.id);
             indicatorItem.textContent = indicator.text;
             
+            // Determine colors based on neonBlue flag
+            const isNeonBlue = indicator.neonBlue === true;
+            const baseColor = isNeonBlue ? '#00d4ff' : '#606060';
+            const hoverColor = isNeonBlue ? '#00ffff' : '#909090';
+            const glowColor = isNeonBlue ? 'rgba(0, 212, 255, 0.6)' : 'rgba(144, 144, 144, 0.5)';
+            
             // Style the indicator item
             indicatorItem.style.cssText = `
                 font-family: 'JetBrains Mono', monospace;
                 font-size: 0.55rem;
                 font-weight: 400;
-                color: #606060;
+                color: ${baseColor};
                 letter-spacing: 0.1em;
                 text-transform: uppercase;
                 cursor: pointer;
@@ -6798,18 +6811,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 user-select: none;
                 animation: submenuSlideIn 0.4s ease-out forwards;
                 animation-delay: ${0.2 + (index * 0.05)}s;
+                ${isNeonBlue ? 'text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);' : ''}
             `;
+            
+            // Store colors for hover effects
+            indicatorItem.dataset.baseColor = baseColor;
+            indicatorItem.dataset.hoverColor = hoverColor;
+            indicatorItem.dataset.glowColor = glowColor;
+            indicatorItem.dataset.isNeonBlue = isNeonBlue;
             
             // Add hover effects
             indicatorItem.addEventListener('mouseenter', function() {
-                this.style.color = '#909090';
-                this.style.textShadow = '0 0 5px rgba(144, 144, 144, 0.5)';
+                const isBlue = this.dataset.isNeonBlue === 'true';
+                this.style.color = this.dataset.hoverColor;
+                this.style.textShadow = isBlue 
+                    ? '0 0 12px rgba(0, 212, 255, 0.8), 0 0 20px rgba(0, 212, 255, 0.5)' 
+                    : '0 0 5px rgba(144, 144, 144, 0.5)';
                 this.style.transform = 'scale(1.05) translateX(2px)';
             });
             
             indicatorItem.addEventListener('mouseleave', function() {
-                this.style.color = '#606060';
-                this.style.textShadow = 'none';
+                const isBlue = this.dataset.isNeonBlue === 'true';
+                this.style.color = this.dataset.baseColor;
+                this.style.textShadow = isBlue ? '0 0 8px rgba(0, 212, 255, 0.4)' : 'none';
                 this.style.transform = 'scale(1) translateX(0)';
             });
             
