@@ -298,15 +298,25 @@ body {
     text-shadow: 0 0 8px rgba(168, 85, 247, 0.6) !important;
 }
 
-/* Special styling for PRAXIS 1.0 HEAT MAP navigation item - neon blue */
+/* Special styling for PRAXIS 1.0 HEAT MAP navigation item */
 .heatmap-nav {
-    color: #00d4ff !important; /* Neon blue color */
-    text-shadow: 0 0 8px rgba(0, 212, 255, 0.4) !important;
+    color: inherit !important;
 }
 
-.heatmap-nav:hover {
-    color: #00ffff !important; /* Bright cyan on hover - lights up */
-    text-shadow: 0 0 12px rgba(0, 212, 255, 0.8), 0 0 20px rgba(0, 212, 255, 0.5) !important;
+.heatmap-nav .heatmap-praxis {
+    color: #606060 !important; /* Same grey as other nav items */
+}
+
+.heatmap-nav .heatmap-text {
+    color: #00d4ff !important; /* Neon blue for HEAT MAP only */
+}
+
+.heatmap-nav:hover .heatmap-praxis {
+    color: #909090 !important; /* Same hover as other nav items */
+}
+
+.heatmap-nav:hover .heatmap-text {
+    color: #00d4ff !important; /* Keep neon blue on hover */
 }
 
 

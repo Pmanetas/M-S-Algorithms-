@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
             textColor = '#6b21a8';
         } else if (selectedTitle === 'PRAXIS 1.0 HEAT MAP') {
             selectedNav.classList.add('heatmap-selected');
-            textColor = '#00d4ff';
+            textColor = '#808080'; // Same grey as other items
     }
     
         // Set initial off-screen position
