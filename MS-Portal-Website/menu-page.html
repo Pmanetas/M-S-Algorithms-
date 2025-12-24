@@ -66,12 +66,22 @@
             color: #22d3ee !important;
         }
         
+        .menu-page .selected-nav.heatmap-selected {
+            color: #00d4ff !important;
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.4) !important;
+        }
+        
+        .menu-page .selected-nav.heatmap-selected:hover {
+            color: #00ffff !important;
+            text-shadow: 0 0 12px rgba(0, 212, 255, 0.8), 0 0 20px rgba(0, 212, 255, 0.5) !important;
+        }
+        
         /* Default grey for other selected items */
-        .menu-page .selected-nav:not(.praxis-selected):not(.accounting-selected) {
+        .menu-page .selected-nav:not(.praxis-selected):not(.accounting-selected):not(.heatmap-selected) {
             color: #808080 !important;
         }
         
-        .menu-page .selected-nav:not(.praxis-selected):not(.accounting-selected):hover {
+        .menu-page .selected-nav:not(.praxis-selected):not(.accounting-selected):not(.heatmap-selected):hover {
             color: #a0a0a0 !important;
         }
         

@@ -298,6 +298,17 @@ body {
     text-shadow: 0 0 8px rgba(168, 85, 247, 0.6) !important;
 }
 
+/* Special styling for PRAXIS 1.0 HEAT MAP navigation item - neon blue */
+.heatmap-nav {
+    color: #00d4ff !important; /* Neon blue color */
+    text-shadow: 0 0 8px rgba(0, 212, 255, 0.4) !important;
+}
+
+.heatmap-nav:hover {
+    color: #00ffff !important; /* Bright cyan on hover - lights up */
+    text-shadow: 0 0 12px rgba(0, 212, 255, 0.8), 0 0 20px rgba(0, 212, 255, 0.5) !important;
+}
+
 
 
 @keyframes slideInFromLeft {

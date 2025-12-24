@@ -86,7 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'settings': 'SETTINGS',
         'company-goals': 'COMPANY GOALS',
         'agent-tab': 'AGENT TAB',
-        'praxis': 'PRAXIS 1.0'
+        'praxis': 'PRAXIS 1.0',
+        'heatmap': 'PRAXIS 1.0 HEAT MAP'
     };
     
     // Set the selected item - use fund-specific, market-specific, asset-specific, debt-specific, trading-specific, or AI-specific text if available
@@ -121,10 +122,10 @@ document.addEventListener('DOMContentLoaded', function() {
     selectedNav.textContent = selectedTitle;
     }
     
-    // Apply special styling if PRAXIS, ACCOUNTING, TRADING TERMINAL, or EMAIL is selected
+    // Apply special styling if PRAXIS, ACCOUNTING, TRADING TERMINAL, EMAIL, or HEAT MAP is selected
     if (selectedNav) {
         // Clear any existing special classes
-        selectedNav.classList.remove('praxis-selected', 'accounting-selected', 'trading-selected', 'email-selected');
+        selectedNav.classList.remove('praxis-selected', 'accounting-selected', 'trading-selected', 'email-selected', 'heatmap-selected');
         
         // Determine the color based on the selected title
         let textColor = '#808080';
@@ -140,6 +141,9 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (selectedTitle === 'EMAIL') {
             selectedNav.classList.add('email-selected');
             textColor = '#6b21a8';
+        } else if (selectedTitle === 'PRAXIS 1.0 HEAT MAP') {
+            selectedNav.classList.add('heatmap-selected');
+            textColor = '#00d4ff';
     }
     
         // Set initial off-screen position
