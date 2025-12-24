@@ -304,19 +304,21 @@ body {
 }
 
 .heatmap-nav .heatmap-praxis {
-    color: #606060 !important; /* Same grey as other nav items */
+    color: #f5f5f5 !important; /* White like PRAXIS 1.0 above */
 }
 
 .heatmap-nav .heatmap-text {
-    color: #00d4ff !important; /* Neon blue for HEAT MAP only */
+    color: #0a5a6e !important; /* Dull/faint neon blue */
 }
 
 .heatmap-nav:hover .heatmap-praxis {
-    color: #909090 !important; /* Same hover as other nav items */
+    color: #ffffff !important; /* Bright white on hover */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.4) !important;
 }
 
 .heatmap-nav:hover .heatmap-text {
-    color: #00d4ff !important; /* Keep neon blue on hover */
+    color: #00d4ff !important; /* Bright neon blue on hover - lights up */
+    text-shadow: 0 0 8px rgba(0, 212, 255, 0.6) !important;
 }
 
 
