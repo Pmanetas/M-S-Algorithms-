@@ -7657,6 +7657,50 @@ document.addEventListener('DOMContentLoaded', function() {
             handlePraxisSubmenuClick('axiombench', 'AXIOMBENCH', this);
         });
         
+        // Create PRAXIS 1.0 HEAT MAP item with neon blue styling
+        const heatMapItem = document.createElement('div');
+        heatMapItem.className = 'praxis-submenu-item';
+        heatMapItem.setAttribute('data-praxis', 'heat-map');
+        heatMapItem.textContent = 'PRAXIS 1.0 HEAT MAP';
+        
+        // Style the heat map item with neon blue theme
+        heatMapItem.style.cssText = `
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            font-weight: 400;
+            color: #00d4ff;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 2px 4px;
+            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+            transform: translateX(30px);
+            opacity: 0;
+            user-select: none;
+            animation: submenuSlideIn 0.4s ease-out forwards;
+            animation-delay: 1.2s;
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+        `;
+        
+        // Add hover effects with neon blue glow
+        heatMapItem.addEventListener('mouseenter', function() {
+            this.style.color = '#00ffff';
+            this.style.textShadow = '0 0 12px rgba(0, 212, 255, 0.8), 0 0 20px rgba(0, 212, 255, 0.5)';
+            this.style.transform = 'scale(1.05) translateX(-2px)';
+        });
+        
+        heatMapItem.addEventListener('mouseleave', function() {
+            this.style.color = '#00d4ff';
+            this.style.textShadow = '0 0 8px rgba(0, 212, 255, 0.4)';
+            this.style.transform = 'scale(1) translateX(0)';
+        });
+        
+        heatMapItem.addEventListener('click', function(e) {
+            e.stopPropagation();
+            handlePraxisSubmenuClick('heat-map', 'PRAXIS 1.0 HEAT MAP', this);
+        });
+        
+        submenu.appendChild(heatMapItem);
         submenu.appendChild(axiombenchItem);
         submenu.appendChild(tradingIdeaItem);
         submenu.appendChild(principlesItem);
