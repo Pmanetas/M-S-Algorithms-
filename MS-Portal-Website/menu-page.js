@@ -6106,19 +6106,17 @@ document.addEventListener('DOMContentLoaded', function() {
         heatmapContainer.className = 'heatmap-content-container';
         heatmapContainer.style.cssText = `
             position: fixed;
-            left: 20px;
-            right: 295px;
-            top: 90px;
-            bottom: 40px;
+            left: 0;
+            right: 280px;
+            top: 80px;
+            bottom: 0;
             background: #0f0f0f;
             z-index: 40;
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.5s ease-out;
-            border: 1px solid #00d4ff;
-            border-radius: 4px;
+            border: none;
             overflow: hidden;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
         `;
 
         // Create iframe to embed the heatmap
@@ -6132,6 +6130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         iframe.setAttribute('frameborder', '0');
         iframe.setAttribute('allowfullscreen', 'true');
+        iframe.setAttribute('scrolling', 'no');
 
         heatmapContainer.appendChild(iframe);
         document.body.appendChild(heatmapContainer);
