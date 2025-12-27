@@ -559,6 +559,12 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             showSeparatorLine('default');
         }, 200);
+    } else if (selectedPage === 'heatmap') {
+        // Show PRAXIS 1.0 HEAT MAP page with embedded correlation heatmap
+        setTimeout(() => {
+            showSeparatorLine('blue');
+            showHeatmapContent();
+        }, 200);
     } else if (selectedPage === 'praxis') {
         // Check if navigating back to ValScout engine submenu
         if (selectedText === 'VALSCOUT' && !praxisType) {
@@ -6092,6 +6098,52 @@ document.addEventListener('DOMContentLoaded', function() {
         // Store references for cleanup
         window.currentNewsContainer = newsContainer;
         window.currentNewsScrollbarStyle = scrollbarStyle;
+    }
+
+    function showHeatmapContent() {
+        // Create heatmap content container with iframe
+        const heatmapContainer = document.createElement('div');
+        heatmapContainer.className = 'heatmap-content-container';
+        heatmapContainer.style.cssText = `
+            position: fixed;
+            left: 20px;
+            right: 295px;
+            top: 90px;
+            bottom: 40px;
+            background: #0f0f0f;
+            z-index: 40;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease-out;
+            border: 1px solid #00d4ff;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        `;
+
+        // Create iframe to embed the heatmap
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://praxis-engine-systems-server.onrender.com/correlation#heatmap';
+        iframe.style.cssText = `
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #0f0f0f;
+        `;
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allowfullscreen', 'true');
+
+        heatmapContainer.appendChild(iframe);
+        document.body.appendChild(heatmapContainer);
+
+        // Animate in
+        setTimeout(() => {
+            heatmapContainer.style.opacity = '1';
+            heatmapContainer.style.transform = 'translateY(0)';
+        }, 100);
+
+        // Store reference for cleanup
+        window.currentHeatmapContainer = heatmapContainer;
     }
 
     function createPortfolioPieChart(canvas, portfolioData) {
