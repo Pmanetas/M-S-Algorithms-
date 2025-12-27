@@ -6101,6 +6101,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showHeatmapContent() {
+        // Create solid background layer first to cover everything
+        const solidBg = document.createElement('div');
+        solidBg.className = 'heatmap-solid-bg';
+        solidBg.style.cssText = `
+            position: fixed;
+            left: 0;
+            right: 280px;
+            top: 0;
+            bottom: 0;
+            background: #0f0f0f;
+            z-index: 39;
+        `;
+        document.body.appendChild(solidBg);
+        
         // Create heatmap content container with iframe
         const heatmapContainer = document.createElement('div');
         heatmapContainer.className = 'heatmap-content-container';
@@ -6111,13 +6125,16 @@ document.addEventListener('DOMContentLoaded', function() {
             top: 80px;
             bottom: 0;
             background: #0f0f0f;
-            z-index: 40;
+            z-index: 45;
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.5s ease-out;
             border: none;
             overflow: hidden;
         `;
+        
+        // Store solid bg for cleanup
+        window.currentHeatmapSolidBg = solidBg;
 
         // Add CSS to hide scrollbar inside iframe
         const scrollbarStyle = document.createElement('style');
