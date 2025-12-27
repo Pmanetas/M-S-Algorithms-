@@ -6119,20 +6119,38 @@ document.addEventListener('DOMContentLoaded', function() {
             overflow: hidden;
         `;
 
+        // Add CSS to hide scrollbar inside iframe
+        const scrollbarStyle = document.createElement('style');
+        scrollbarStyle.textContent = `
+            .heatmap-content-container iframe::-webkit-scrollbar {
+                display: none;
+            }
+            .heatmap-content-container iframe {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+        `;
+        document.head.appendChild(scrollbarStyle);
+
         // Create iframe to embed the heatmap
         const iframe = document.createElement('iframe');
         iframe.src = 'https://praxis-engine-systems-server.onrender.com/correlation#heatmap';
         iframe.style.cssText = `
-            width: 100%;
-            height: 100%;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
             border: none;
             background: #0f0f0f;
+            margin-right: -20px;
+            margin-bottom: -20px;
         `;
         iframe.setAttribute('frameborder', '0');
         iframe.setAttribute('allowfullscreen', 'true');
 
         heatmapContainer.appendChild(iframe);
         document.body.appendChild(heatmapContainer);
+        
+        // Store scrollbar style for cleanup
+        window.currentHeatmapScrollbarStyle = scrollbarStyle;
 
         // Animate in
         setTimeout(() => {
