@@ -6130,7 +6130,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         iframe.setAttribute('frameborder', '0');
         iframe.setAttribute('allowfullscreen', 'true');
-        iframe.setAttribute('scrolling', 'no');
 
         heatmapContainer.appendChild(iframe);
         document.body.appendChild(heatmapContainer);
