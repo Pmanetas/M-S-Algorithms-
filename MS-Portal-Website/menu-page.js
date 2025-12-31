@@ -624,18 +624,18 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: 50;
         `;
         
-        // Fund options
+        // Fund options with Greek letter suffixes (alpha = orange, beta = green)
         const fundOptions = [
-            { id: 'volatility', text: 'M&S VOLATILITY HEDGED PORTFOLIO' },
-            { id: 'quadrant', text: 'M&S QUADRANT PORTFOLIO' },
-            { id: 'tactical', text: 'M&S TACTICAL SPECULATION PORTFOLIO' },
-            { id: 'perennial', text: 'M&S PERENNIAL ALL-WEATHER FUND' }
+            { id: 'volatility', text: 'M&S PRAXIS FUND', suffix: 'αlpha', suffixColor: '#f97316' },
+            { id: 'perennial', text: 'M&S PERENNIAL ALL-WEATHER FUND', suffix: 'βeta', suffixColor: '#22c55e' },
+            { id: 'quadrant', text: 'M&S GLOBAL FUND', suffix: 'αlpha', suffixColor: '#f97316' },
+            { id: 'tactical', text: 'M&S DELPHI FUND', suffix: 'αlpha', suffixColor: '#f97316' }
         ];
         
         // Create fund submenu items
         fundOptions.forEach((fund, index) => {
             const fundItem = document.createElement('div');
-            fundItem.textContent = fund.text;
+            fundItem.innerHTML = `${fund.text} <span style="font-size: 0.45rem; color: ${fund.suffixColor};">${fund.suffix}</span>`;
             fundItem.className = 'fund-submenu-item';
             
             fundItem.style.cssText = `
@@ -725,12 +725,12 @@ document.addEventListener('DOMContentLoaded', function() {
             letter-spacing: 0.2em;
         `;
 
-        // Fund options from your screenshot
+        // Fund options with Greek letter suffixes
         const fundOptions = [
-            { id: 'volatility', text: 'M&S VOLATILITY HEDGED PORTFOLIO' },
-            { id: 'quadrant', text: 'M&S QUADRANT PORTFOLIO' },
-            { id: 'tactical', text: 'M&S TACTICAL SPECULATION PORTFOLIO' },
-            { id: 'perennial', text: 'M&S PERENNIAL ALL-WEATHER FUND' }
+            { id: 'volatility', text: 'M&S PRAXIS FUND', suffix: 'αlpha', suffixColor: '#f97316' },
+            { id: 'perennial', text: 'M&S PERENNIAL ALL-WEATHER FUND', suffix: 'βeta', suffixColor: '#22c55e' },
+            { id: 'quadrant', text: 'M&S GLOBAL FUND', suffix: 'αlpha', suffixColor: '#f97316' },
+            { id: 'tactical', text: 'M&S DELPHI FUND', suffix: 'αlpha', suffixColor: '#f97316' }
         ];
 
         // Create fund options container
@@ -746,7 +746,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fundOptions.forEach((fund, index) => {
             const option = document.createElement('div');
             option.className = 'fund-option';
-            option.textContent = fund.text;
+            option.innerHTML = `${fund.text} <span style="font-size: 0.55rem; color: ${fund.suffixColor};">${fund.suffix}</span>`;
             option.style.cssText = `
                 font-family: 'JetBrains Mono', monospace;
                 font-size: 0.7rem;
@@ -7313,12 +7313,12 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: 50;
         `;
         
-        // Trading Journal Portfolio options
+        // Trading Journal Portfolio options with Greek letter suffixes
         const fundOptions = [
-            { id: 'volatility-journal', text: 'M&S VOLATILITY HEDGED PORTFOLIO' },
-            { id: 'quadrant-journal', text: 'M&S QUADRANT PORTFOLIO' },
-            { id: 'tactical-journal', text: 'M&S TACTICAL SPECULATION PORTFOLIO' },
-            { id: 'perennial-journal', text: 'M&S PERENNIAL ALL-WEATHER FUND' }
+            { id: 'volatility-journal', text: 'M&S PRAXIS FUND', suffix: 'αlpha', suffixColor: '#f97316' },
+            { id: 'perennial-journal', text: 'M&S PERENNIAL ALL-WEATHER FUND', suffix: 'βeta', suffixColor: '#22c55e' },
+            { id: 'quadrant-journal', text: 'M&S GLOBAL FUND', suffix: 'αlpha', suffixColor: '#f97316' },
+            { id: 'tactical-journal', text: 'M&S DELPHI FUND', suffix: 'αlpha', suffixColor: '#f97316' }
         ];
         
         // Create submenu items
@@ -7326,7 +7326,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const fundItem = document.createElement('div');
             fundItem.className = 'fund-submenu-item';
             fundItem.setAttribute('data-fund', fund.id);
-            fundItem.textContent = fund.text;
+            fundItem.innerHTML = `${fund.text} <span style="font-size: 0.45rem; color: ${fund.suffixColor};">${fund.suffix}</span>`;
             
             // Style the fund item
             fundItem.style.cssText = `
