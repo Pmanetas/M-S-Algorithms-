@@ -14252,8 +14252,8 @@ function createTradingJournalContent(journalType = 'default-journal') {
     // Store current journal type globally for save operations
     window.currentJournalType = journalType;
     
-    // Clear any existing data for fresh start (DISABLED - keeping data now)
-    // localStorage.removeItem(`tradingJournalData_${journalType}`);
+    // Clear any existing data for fresh start
+    localStorage.removeItem(`tradingJournalData_${journalType}`);
     
     // Remove any existing content containers
     const existingContainers = document.querySelectorAll('.trading-journal-container, .portfolio-content-container, .news-content-container');
