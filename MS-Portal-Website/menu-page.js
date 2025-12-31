@@ -7817,12 +7817,12 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: 50;
         `;
         
-        // Define engine options
+        // Define engine options with status (outOfService engines have red dot, others green)
         const engineOptions = [
             { id: 'btcusd', text: 'BTCUSD-ENGINE - PRAXIS 1.0 BTCUSD SPOT' },
             { id: 'us10y', text: 'US10Y-ENGINE - PRAXIS 1.0 US 10Y TREASURY NOTE' },
             { id: 'us2y', text: 'US2Y-ENGINE - PRAXIS 1.0 US 2Y TREASURY NOTE' },
-            { id: 'us30y', text: 'US30Y-ENGINE - PRAXIS 1.0 US 30Y TREASURY BOND' },
+            { id: 'us30y', text: 'US30Y-ENGINE - PRAXIS 1.0 US 30Y TREASURY BOND', outOfService: true, reason: '(Has Tier 1 but no valid signals in date range)' },
             { id: 'au10y', text: 'AU10Y-ENGINE - PRAXIS 1.0 AU 10Y GOVT BOND' },
             { id: 'bund10', text: 'BUND10-ENGINE - PRAXIS 1.0 DE 10Y BUND FUTURES' },
             { id: 'jgb10', text: 'JGB10-ENGINE - PRAXIS 1.0 JP 10Y GOVT BOND' },
@@ -7832,13 +7832,13 @@ document.addEventListener('DOMContentLoaded', function() {
             { id: 'rus2000', text: 'RUS2000-ENGINE - PRAXIS 1.0 RUSSELL 2000 INDEX' },
             { id: 'eurostoxx', text: 'EUROSTOXX-ENGINE - PRAXIS 1.0 EURO STOXX 50 INDEX' },
             { id: 'nifty50', text: 'NIFTY50-ENGINE - PRAXIS 1.0 NIFTY 50 INDEX' },
-            { id: 'bovespa', text: 'BOVESPA-ENGINE - PRAXIS 1.0 BRAZIL BOVESPA INDEX' },
+            { id: 'bovespa', text: 'BOVESPA-ENGINE - PRAXIS 1.0 BRAZIL BOVESPA INDEX', outOfService: true, reason: '(Excluded - no IBKR access for AU)' },
             { id: 'uk100', text: 'UK100-ENGINE - PRAXIS 1.0 FTSE 100 INDEX' },
             { id: 'hk50', text: 'HK50-ENGINE - PRAXIS 1.0 HANG SENG INDEX' },
             { id: 'kospi', text: 'KOSPI-ENGINE - PRAXIS 1.0 KOSPI 200 INDEX' },
             { id: 'jpn225', text: 'JPN225-ENGINE - PRAXIS 1.0 JPN225 INDEX' },
             { id: 'ger30', text: 'GER30-ENGINE - PRAXIS 1.0 GER30 INDEX' },
-            { id: 'soybean', text: 'SOYBEAN-ENGINE - PRAXIS 1.0 SOYBEAN FUTURES' },
+            { id: 'soybean', text: 'SOYBEAN-ENGINE - PRAXIS 1.0 SOYBEAN FUTURES', outOfService: true, reason: '(Using "soybeans" variant instead)' },
             { id: 'sugar', text: 'SUGAR-ENGINE - PRAXIS 1.0 SUGAR #11 FUTURES' },
             { id: 'corn', text: 'CORN-ENGINE - PRAXIS 1.0 CORN FUTURES' },
             { id: 'wheat', text: 'WHEAT-ENGINE - PRAXIS 1.0 WHEAT SPOT' },
@@ -7848,8 +7848,8 @@ document.addEventListener('DOMContentLoaded', function() {
             { id: 'ausreit', text: 'AUSREIT-ENGINE - PRAXIS 1.0 AUS REIT INDEX' },
             { id: 'usdjpy', text: 'USDJPY-ENGINE - PRAXIS 1.0 USD/JPY' },
             { id: 'eurusd', text: 'EURUSD-ENGINE - PRAXIS 1.0 EUR/USD' },
-            { id: 'gbpusd', text: 'GBPUSD-ENGINE - PRAXIS 1.0 GBP/USD' },
-            { id: 'usdcad', text: 'USDCAD-ENGINE - PRAXIS 1.0 USD/CAD' },
+            { id: 'gbpusd', text: 'GBPUSD-ENGINE - PRAXIS 1.0 GBP/USD', outOfService: true, reason: '(No Tier 1 or Tier 2 principles)' },
+            { id: 'usdcad', text: 'USDCAD-ENGINE - PRAXIS 1.0 USD/CAD', outOfService: true, reason: '(Has Tier 1 but no valid signals in date range)' },
             { id: 'usdzar', text: 'USDZAR-ENGINE - PRAXIS 1.0 USD/ZAR' },
             { id: 'usdmxn', text: 'USDMXN-ENGINE - PRAXIS 1.0 USD/MXN' },
             { id: 'audusd', text: 'AUDUSD-ENGINE - PRAXIS 1.0 AUD/USD' },
@@ -7867,7 +7867,25 @@ document.addEventListener('DOMContentLoaded', function() {
             const engineItem = document.createElement('div');
             engineItem.className = 'fund-submenu-item';
             engineItem.setAttribute('data-engine', engine.id);
-            engineItem.textContent = engine.text;
+            
+            // Create dot indicator
+            const dot = document.createElement('span');
+            dot.style.cssText = `
+                display: inline-block;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                margin-right: 6px;
+                background-color: ${engine.outOfService ? '#ef4444' : '#22c55e'};
+                box-shadow: 0 0 4px ${engine.outOfService ? 'rgba(239, 68, 68, 0.6)' : 'rgba(34, 197, 94, 0.6)'};
+            `;
+            
+            // Create text span
+            const textSpan = document.createElement('span');
+            textSpan.textContent = engine.text + (engine.reason ? ' ' + engine.reason : '');
+            
+            engineItem.appendChild(dot);
+            engineItem.appendChild(textSpan);
             
             // Style the engine item with white theme
             engineItem.style.cssText = `
@@ -7885,6 +7903,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 user-select: none;
                 animation: submenuSlideIn 0.4s ease-out forwards;
                 animation-delay: ${0.8 + (index * 0.1)}s;
+                display: flex;
+                align-items: center;
             `;
             
             // Add hover effects
