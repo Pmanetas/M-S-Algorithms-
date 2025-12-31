@@ -14252,12 +14252,38 @@ function createTradingJournalContent(journalType = 'default-journal') {
     // Store current journal type globally for save operations
     window.currentJournalType = journalType;
     
-    // Clear any existing data for fresh start
-    localStorage.removeItem(`tradingJournalData_${journalType}`);
-    
     // Remove any existing content containers
     const existingContainers = document.querySelectorAll('.trading-journal-container, .portfolio-content-container, .news-content-container');
     existingContainers.forEach(container => container.remove());
+
+    // Create empty trading journal container (placeholder for new design)
+    const journalContainer = document.createElement('div');
+    journalContainer.className = 'trading-journal-container';
+    journalContainer.style.cssText = `
+        position: fixed;
+        left: 0;
+        right: 280px;
+        top: 80px;
+        bottom: 0;
+        background: #0f0f0f;
+        z-index: 40;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.5s ease-out;
+    `;
+
+    document.body.appendChild(journalContainer);
+
+    // Animate in
+    setTimeout(() => {
+        journalContainer.style.opacity = '1';
+        journalContainer.style.transform = 'translateY(0)';
+    }, 100);
+}
+
+function OLD_createTradingJournalContent_DISABLED(journalType = 'default-journal') {
+    // OLD FUNCTION - DISABLED
+    return;
 
     // Add custom CSS to hide number input spinners
     const existingStyle = document.getElementById('trading-journal-styles');
