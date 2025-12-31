@@ -7687,93 +7687,6 @@ document.addEventListener('DOMContentLoaded', function() {
             handlePraxisSubmenuClick('trading-idea', 'TRADING IDEA', this);
         });
         
-        // Create AXIOMBENCH + item 
-        const axiombenchItem = document.createElement('div');
-        axiombenchItem.className = 'praxis-submenu-item';
-        axiombenchItem.setAttribute('data-praxis', 'axiombench');
-        axiombenchItem.textContent = 'AXIOMBENCH +';
-        
-        // Style the axiombench item with white theme - positioned below valscout
-        axiombenchItem.style.cssText = `
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.55rem;
-            font-weight: 400;
-            color: #f5f5f5;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            cursor: pointer;
-            padding: 2px 4px;
-            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
-            transform: translateX(30px);
-            opacity: 0;
-            user-select: none;
-            animation: submenuSlideIn 0.4s ease-out forwards;
-            animation-delay: 1.0s;
-        `;
-        
-        // Add hover effects with white theme
-        axiombenchItem.addEventListener('mouseenter', function() {
-            this.style.color = '#ffffff';
-            this.style.textShadow = '0 0 5px rgba(255, 255, 255, 0.5)';
-            this.style.transform = 'scale(1.05) translateX(-2px)';
-        });
-        
-        axiombenchItem.addEventListener('mouseleave', function() {
-            this.style.color = '#f5f5f5';
-            this.style.textShadow = 'none';
-            this.style.transform = 'scale(1) translateX(0)';
-        });
-        
-        axiombenchItem.addEventListener('click', function(e) {
-            e.stopPropagation();
-            handlePraxisSubmenuClick('axiombench', 'AXIOMBENCH', this);
-        });
-        
-        // Create PRAXIS 1.0 HEAT MAP item with neon blue styling
-        const heatMapItem = document.createElement('div');
-        heatMapItem.className = 'praxis-submenu-item';
-        heatMapItem.setAttribute('data-praxis', 'heat-map');
-        heatMapItem.textContent = 'PRAXIS 1.0 HEAT MAP';
-        
-        // Style the heat map item with neon blue theme
-        heatMapItem.style.cssText = `
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.55rem;
-            font-weight: 400;
-            color: #00d4ff;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            cursor: pointer;
-            padding: 2px 4px;
-            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
-            transform: translateX(30px);
-            opacity: 0;
-            user-select: none;
-            animation: submenuSlideIn 0.4s ease-out forwards;
-            animation-delay: 1.2s;
-            text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
-        `;
-        
-        // Add hover effects with neon blue glow
-        heatMapItem.addEventListener('mouseenter', function() {
-            this.style.color = '#00ffff';
-            this.style.textShadow = '0 0 12px rgba(0, 212, 255, 0.8), 0 0 20px rgba(0, 212, 255, 0.5)';
-            this.style.transform = 'scale(1.05) translateX(-2px)';
-        });
-        
-        heatMapItem.addEventListener('mouseleave', function() {
-            this.style.color = '#00d4ff';
-            this.style.textShadow = '0 0 8px rgba(0, 212, 255, 0.4)';
-            this.style.transform = 'scale(1) translateX(0)';
-        });
-        
-        heatMapItem.addEventListener('click', function(e) {
-            e.stopPropagation();
-            handlePraxisSubmenuClick('heat-map', 'PRAXIS 1.0 HEAT MAP', this);
-        });
-        
-        submenu.appendChild(heatMapItem);
-        submenu.appendChild(axiombenchItem);
         submenu.appendChild(tradingIdeaItem);
         submenu.appendChild(principlesItem);
         
@@ -7818,13 +7731,20 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         
         // Define engine options with status (outOfService engines have red dot, others green)
+        // Out-of-service engines first (left column), then operational engines
         const engineOptions = [
+            // Out of service engines (left column positions)
+            { id: 'bovespa', text: 'BOVESPA-ENGINE - PRAXIS 1.0 BRAZIL BOVESPA INDEX', outOfService: true, reason: '(Excluded - no IBKR access for AU)' },
             { id: 'btcusd', text: 'BTCUSD-ENGINE - PRAXIS 1.0 BTCUSD SPOT' },
+            { id: 'gbpusd', text: 'GBPUSD-ENGINE - PRAXIS 1.0 GBP/USD', outOfService: true, reason: '(No Tier 1 or Tier 2 principles)' },
             { id: 'us10y', text: 'US10Y-ENGINE - PRAXIS 1.0 US 10Y TREASURY NOTE' },
+            { id: 'usdcad', text: 'USDCAD-ENGINE - PRAXIS 1.0 USD/CAD', outOfService: true, reason: '(Has Tier 1 but no valid signals in date range)' },
             { id: 'us2y', text: 'US2Y-ENGINE - PRAXIS 1.0 US 2Y TREASURY NOTE' },
             { id: 'us30y', text: 'US30Y-ENGINE - PRAXIS 1.0 US 30Y TREASURY BOND', outOfService: true, reason: '(Has Tier 1 but no valid signals in date range)' },
             { id: 'au10y', text: 'AU10Y-ENGINE - PRAXIS 1.0 AU 10Y GOVT BOND' },
+            { id: 'soybean', text: 'SOYBEAN-ENGINE - PRAXIS 1.0 SOYBEAN FUTURES', outOfService: true, reason: '(Using "soybeans" variant instead)' },
             { id: 'bund10', text: 'BUND10-ENGINE - PRAXIS 1.0 DE 10Y BUND FUTURES' },
+            // Operational engines
             { id: 'jgb10', text: 'JGB10-ENGINE - PRAXIS 1.0 JP 10Y GOVT BOND' },
             { id: 'asx200', text: 'ASX200-ENGINE - PRAXIS 1.0 ASX 200 INDEX' },
             { id: 'sp500-engine', text: 'SP500-ENGINE - PRAXIS 1.0 S&P 500 INDEX' },
@@ -7832,13 +7752,11 @@ document.addEventListener('DOMContentLoaded', function() {
             { id: 'rus2000', text: 'RUS2000-ENGINE - PRAXIS 1.0 RUSSELL 2000 INDEX' },
             { id: 'eurostoxx', text: 'EUROSTOXX-ENGINE - PRAXIS 1.0 EURO STOXX 50 INDEX' },
             { id: 'nifty50', text: 'NIFTY50-ENGINE - PRAXIS 1.0 NIFTY 50 INDEX' },
-            { id: 'bovespa', text: 'BOVESPA-ENGINE - PRAXIS 1.0 BRAZIL BOVESPA INDEX', outOfService: true, reason: '(Excluded - no IBKR access for AU)' },
             { id: 'uk100', text: 'UK100-ENGINE - PRAXIS 1.0 FTSE 100 INDEX' },
             { id: 'hk50', text: 'HK50-ENGINE - PRAXIS 1.0 HANG SENG INDEX' },
             { id: 'kospi', text: 'KOSPI-ENGINE - PRAXIS 1.0 KOSPI 200 INDEX' },
             { id: 'jpn225', text: 'JPN225-ENGINE - PRAXIS 1.0 JPN225 INDEX' },
             { id: 'ger30', text: 'GER30-ENGINE - PRAXIS 1.0 GER30 INDEX' },
-            { id: 'soybean', text: 'SOYBEAN-ENGINE - PRAXIS 1.0 SOYBEAN FUTURES', outOfService: true, reason: '(Using "soybeans" variant instead)' },
             { id: 'sugar', text: 'SUGAR-ENGINE - PRAXIS 1.0 SUGAR #11 FUTURES' },
             { id: 'corn', text: 'CORN-ENGINE - PRAXIS 1.0 CORN FUTURES' },
             { id: 'wheat', text: 'WHEAT-ENGINE - PRAXIS 1.0 WHEAT SPOT' },
@@ -7848,8 +7766,6 @@ document.addEventListener('DOMContentLoaded', function() {
             { id: 'ausreit', text: 'AUSREIT-ENGINE - PRAXIS 1.0 AUS REIT INDEX' },
             { id: 'usdjpy', text: 'USDJPY-ENGINE - PRAXIS 1.0 USD/JPY' },
             { id: 'eurusd', text: 'EURUSD-ENGINE - PRAXIS 1.0 EUR/USD' },
-            { id: 'gbpusd', text: 'GBPUSD-ENGINE - PRAXIS 1.0 GBP/USD', outOfService: true, reason: '(No Tier 1 or Tier 2 principles)' },
-            { id: 'usdcad', text: 'USDCAD-ENGINE - PRAXIS 1.0 USD/CAD', outOfService: true, reason: '(Has Tier 1 but no valid signals in date range)' },
             { id: 'usdzar', text: 'USDZAR-ENGINE - PRAXIS 1.0 USD/ZAR' },
             { id: 'usdmxn', text: 'USDMXN-ENGINE - PRAXIS 1.0 USD/MXN' },
             { id: 'audusd', text: 'AUDUSD-ENGINE - PRAXIS 1.0 AUD/USD' },
