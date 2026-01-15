@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const debtType = urlParams.get('debt'); // NEW: Handle debt cycle submenu parameter
     const tradingType = urlParams.get('trading'); // NEW: Handle trading submenu parameter
     const aiType = urlParams.get('ai'); // NEW: Handle AI submenu parameter
+    const agentType = urlParams.get('agent'); // NEW: Handle agent tab submenu parameter
     const praxisType = urlParams.get('praxis'); // NEW: Handle praxis submenu parameter
     
     // Ensure dark grey background for all menu pages
@@ -110,6 +111,9 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (aiType && selectedText) {
         selectedTitle = selectedText; // Use the full AI option name from submenu
         console.log('AI submenu selected:', aiType, selectedText);
+    } else if (agentType && selectedText) {
+        selectedTitle = selectedText; // Use the full agent option name from submenu
+        console.log('Agent tab submenu selected:', agentType, selectedText);
     } else if (praxisType && selectedText) {
         selectedTitle = selectedText; // Use the full praxis option name from submenu
         console.log('Praxis submenu selected:', praxisType, selectedText);
@@ -556,9 +560,14 @@ document.addEventListener('DOMContentLoaded', function() {
             showNewsPortfolioVisualization();
         }, 200);
     } else if (selectedPage === 'agent-tab') {
-        setTimeout(() => {
-            showSeparatorLine('default');
-        }, 200);
+        if (agentType && selectedText) {
+            setTimeout(() => {
+                showSeparatorLine('blue');
+                showBackButton('agent-tab');
+            }, 200);
+        } else {
+            addAgentSubmenu();
+        }
     } else if (selectedPage === 'heatmap') {
         // Show PRAXIS 1.0 HEAT MAP page with embedded correlation heatmap
         setTimeout(() => {
@@ -7445,6 +7454,136 @@ document.addEventListener('DOMContentLoaded', function() {
                 createTradingJournalContent(tradingId);
             }, 350); // Wait for exit animation (300ms) plus small buffer
         }
+
+    }
+    
+    function addAgentSubmenu() {
+        
+        // Create submenu container below the selected nav item
+        const submenu = document.createElement('div');
+        submenu.className = 'funds-submenu';
+        submenu.style.cssText = `
+            position: fixed;
+            left: 20px;
+            top: 90px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            z-index: 50;
+        `;
+        
+        // Agent tab options
+        const agentOptions = [
+            { id: 'projected-returns', text: 'PROJECTED RETURNS' },
+            { id: 'time-series-assets', text: 'TIME SERIES / ASSETS' }
+        ];
+        
+        // Create submenu items
+        agentOptions.forEach((agent, index) => {
+            const agentItem = document.createElement('div');
+            agentItem.className = 'fund-submenu-item';
+            agentItem.setAttribute('data-agent', agent.id);
+            agentItem.textContent = agent.text;
+            
+            // Style the agent item
+            agentItem.style.cssText = `
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.55rem;
+                font-weight: 400;
+                color: #606060;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                cursor: pointer;
+                padding: 2px 4px;
+                transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+                transform: translateX(-30px);
+                opacity: 0;
+                user-select: none;
+                animation: submenuSlideIn 0.4s ease-out forwards;
+                animation-delay: ${0.8 + (index * 0.1)}s;
+            `;
+            
+            // Add hover effects
+            agentItem.addEventListener('mouseenter', function() {
+                this.style.color = '#909090';
+                this.style.textShadow = '0 0 5px rgba(144, 144, 144, 0.5)';
+                this.style.transform = 'scale(1.05) translateX(2px)';
+            });
+            
+            agentItem.addEventListener('mouseleave', function() {
+                this.style.color = '#606060';
+                this.style.textShadow = 'none';
+                this.style.transform = 'scale(1) translateX(0)';
+            });
+            
+            // Add click handler
+            agentItem.addEventListener('click', function(e) {
+                e.stopPropagation();
+                handleAgentSubmenuClick(agent.id, agent.text, this);
+            });
+            
+            submenu.appendChild(agentItem);
+        });
+        
+        // Add submenu to page
+        document.body.appendChild(submenu);
+        
+        // Trigger submenu visibility after main nav header finishes sliding in
+        // Main nav starts at 200ms and takes 500ms, so start submenu at 800ms
+        setTimeout(() => {
+            submenu.style.opacity = '1';
+            submenu.style.transform = 'translateX(0)';
+        }, 800);
+        
+
+    }
+    
+    function handleAgentSubmenuClick(agentId, agentText, selectedElement) {
+        
+        // Update the selected nav text to show breadcrumb style
+        selectedNav.textContent = `AGENT TAB > ${agentText}`;
+        
+        // Update URL to include agent selection
+        const params = new URLSearchParams({
+            page: 'agent-tab',
+            agent: agentId,
+            selected: agentText
+        });
+        
+        // Update URL without reloading
+        window.history.replaceState({}, '', `menu-page.html?${params.toString()}`);
+        
+        // Show blue separator lines for final level
+        showSeparatorLine('blue');
+        
+        // Slide out the submenu
+        const submenu = document.querySelector('.funds-submenu');
+        if (submenu) {
+            submenu.style.transform = 'translateX(-200vw)';
+            submenu.style.opacity = '0';
+            
+            // Remove submenu after animation
+            setTimeout(() => {
+                if (submenu.parentNode) {
+                    submenu.parentNode.removeChild(submenu);
+                }
+            }, 400);
+        }
+        
+        // Highlight the selected item and make it smaller
+        selectedElement.style.cssText += `
+            color: #ffffff !important;
+            font-size: 0.5rem !important;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8) !important;
+            transform: scale(0.9) translateX(2px) !important;
+        `;
+        
+        // Show back button
+        showBackButton('agent-tab');
+        
 
     }
     
