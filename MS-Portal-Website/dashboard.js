@@ -292,6 +292,8 @@ document.addEventListener('DOMContentLoaded', function() {
             'settings': 'SETTINGS',
             'company-goals': 'COMPANY GOALS',
             'agent-tab': 'AGENT TAB',
+            'projected-returns': 'PROJECTED RETURNS',
+            'time-series-assets': 'TIME SERIES / ASSETS',
             'email': 'EMAIL',
             'praxis': 'PRAXIS 1.0'
         };
