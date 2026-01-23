@@ -6832,11 +6832,10 @@ document.addEventListener('DOMContentLoaded', function() {
             { id: 'balance-sheet', text: 'BALANCE SHEET' },
             { id: 'central-bank', text: 'CENTRAL BANK' },
             { id: 'central-bank-balance-sheet', text: 'CENTRAL BANK BALANCE SHEET' },
+            { id: 'government-spending', text: 'GOVERNMENT SPENDING' },
             { id: 'monetary-policy', text: 'MONETARY POLICY' },
             { id: 'fiscal-policy', text: 'FISCAL POLICY' },
             { id: 'treasury', text: 'TREASURY' },
-            { id: 'inflation', text: 'INFLATION' },
-            { id: 'interest-rate', text: 'INTEREST RATE' },
             { id: 'cabinet', text: 'CABINET' },
             { id: 'health-of-country', text: 'HEALTH OF COUNTRY' },
             { id: 'debt-profile', text: 'DEBT PROFILE' },
@@ -6850,10 +6849,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Neon blue indicators section
             { id: 'bubble-indicator', text: 'BUBBLE INDICATOR', neonBlue: true },
             { id: 'asset-class-curve', text: 'ASSET CLASS CURVE (DISCOUNTED)', neonBlue: true },
-            { id: 'central-bank-overview', text: 'CENTRAL BANK', neonBlue: true },
             { id: 'debt-service-payments', text: 'DEBT SERVICE PAYMENTS (TOTAL % OF GDP)', neonBlue: true },
-            { id: 'inflation-indicator', text: 'INFLATION', neonBlue: true },
-            { id: 'interest-rates', text: 'INTEREST RATES', neonBlue: true }
         ];
         
         // Create submenu items
