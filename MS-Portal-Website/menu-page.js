@@ -392,27 +392,6 @@ document.addEventListener('DOMContentLoaded', function() {
             valscoutEngineSubmenu.style.opacity = '0';
         }
         
-            // Slide out any general content container
-            const contentContainer = document.querySelector('.content-container');
-            if (contentContainer) {
-                contentContainer.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease-out';
-                contentContainer.style.transform = 'translateY(50px) scale(0.95)';
-                contentContainer.style.opacity = '0';
-            }
-
-            // Slide out any market embed container
-            const marketEmbedContainer = document.querySelector('.market-embed-container');
-            if (marketEmbedContainer) {
-                marketEmbedContainer.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease-out';
-                marketEmbedContainer.style.transform = 'translateY(50px) scale(0.95)';
-                marketEmbedContainer.style.opacity = '0';
-                setTimeout(() => {
-                    if (marketEmbedContainer.parentNode) {
-                        marketEmbedContainer.parentNode.removeChild(marketEmbedContainer);
-                    }
-                }, 400);
-            }
-
         // Slide out any market embed container
         const marketEmbedContainer = document.querySelector('.market-embed-container');
         if (marketEmbedContainer) {
