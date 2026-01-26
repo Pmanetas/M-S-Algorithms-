@@ -392,12 +392,38 @@ document.addEventListener('DOMContentLoaded', function() {
             valscoutEngineSubmenu.style.opacity = '0';
         }
         
-        // Slide out any general content container
-        const contentContainer = document.querySelector('.content-container');
-        if (contentContainer) {
-            contentContainer.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease-out';
-            contentContainer.style.transform = 'translateY(50px) scale(0.95)';
-            contentContainer.style.opacity = '0';
+            // Slide out any general content container
+            const contentContainer = document.querySelector('.content-container');
+            if (contentContainer) {
+                contentContainer.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease-out';
+                contentContainer.style.transform = 'translateY(50px) scale(0.95)';
+                contentContainer.style.opacity = '0';
+            }
+
+            // Slide out any market embed container
+            const marketEmbedContainer = document.querySelector('.market-embed-container');
+            if (marketEmbedContainer) {
+                marketEmbedContainer.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease-out';
+                marketEmbedContainer.style.transform = 'translateY(50px) scale(0.95)';
+                marketEmbedContainer.style.opacity = '0';
+                setTimeout(() => {
+                    if (marketEmbedContainer.parentNode) {
+                        marketEmbedContainer.parentNode.removeChild(marketEmbedContainer);
+                    }
+                }, 400);
+            }
+
+        // Slide out any market embed container
+        const marketEmbedContainer = document.querySelector('.market-embed-container');
+        if (marketEmbedContainer) {
+            marketEmbedContainer.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease-out';
+            marketEmbedContainer.style.transform = 'translateY(50px) scale(0.95)';
+            marketEmbedContainer.style.opacity = '0';
+            setTimeout(() => {
+                if (marketEmbedContainer.parentNode) {
+                    marketEmbedContainer.parentNode.removeChild(marketEmbedContainer);
+                }
+            }, 400);
         }
         
         // Navigate to dashboard after slide animations complete
@@ -6164,6 +6190,60 @@ document.addEventListener('DOMContentLoaded', function() {
         window.currentHeatmapContainer = heatmapContainer;
     }
 
+    function removeMarketEmbedContainer() {
+        const existingEmbed = document.querySelector('.market-embed-container');
+        if (existingEmbed) {
+            existingEmbed.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+            existingEmbed.style.opacity = '0';
+            existingEmbed.style.transform = 'translateY(30px)';
+            setTimeout(() => {
+                if (existingEmbed.parentNode) {
+                    existingEmbed.parentNode.removeChild(existingEmbed);
+                }
+            }, 300);
+        }
+    }
+
+    function showMarketEmbed(url) {
+        removeMarketEmbedContainer();
+
+        const embedContainer = document.createElement('div');
+        embedContainer.className = 'market-embed-container';
+        embedContainer.style.cssText = `
+            position: fixed;
+            left: 0;
+            right: 280px;
+            top: 90px;
+            bottom: 80px;
+            background: #0f0f0f;
+            z-index: 35;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease-out;
+            border: none;
+            overflow: hidden;
+        `;
+
+        const iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.style.cssText = `
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #0f0f0f;
+        `;
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allowfullscreen', 'true');
+
+        embedContainer.appendChild(iframe);
+        document.body.appendChild(embedContainer);
+
+        setTimeout(() => {
+            embedContainer.style.opacity = '1';
+            embedContainer.style.transform = 'translateY(0)';
+        }, 100);
+    }
+
     function createPortfolioPieChart(canvas, portfolioData) {
         const ctx = canvas.getContext('2d');
         
@@ -6948,6 +7028,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show blue separator lines for final level
         showSeparatorLine('blue');
+
+        // Clear any existing embedded market content
+        removeMarketEmbedContainer();
         
         // Slide out the submenu
         const submenu = document.querySelector('.market-indicators-submenu');
@@ -6978,6 +7061,9 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             if (indicatorId === 'risk-premiums') {
                 createRiskPremiumsContent(marketId);
+            }
+            if (indicatorId === 'government-spending' && marketId === 'australia') {
+                showMarketEmbed('https://praxis-engine-systems-server.onrender.com/marketsAusgovspending');
             }
         }, 500);
 
